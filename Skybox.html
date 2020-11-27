@@ -14,8 +14,9 @@
     
     <script type="module"> 
         import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
-
         import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
+        import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
+        import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
         let scene, camera, renderer;
         
@@ -53,7 +54,7 @@
         let texture_up = new THREE.TextureLoader().load( 'img/wall3.jpg');
         let texture_dn = new THREE.TextureLoader().load( 'img/parquet.jpg');
         let texture_rt = new THREE.TextureLoader().load( 'img/wall2.jpg');
-        let texture_lf = new THREE.TextureLoader().load( 'img/sunset.jpg');
+        let texture_lf = new THREE.TextureLoader().load( 'img/wall2.jpg');
 
         texture_dn.wrapS = texture_dn.wrapT = THREE.RepeatWrapping;
         texture_dn.repeat.y = 5;
@@ -81,13 +82,14 @@
 
         let skyboxGeo = new THREE.BoxGeometry( 1000, 1000, 10000);
         let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+        skybox.position.set(0, 0, -4500)
         scene.add( skybox );  
 
         let geom = new THREE.BoxGeometry( 50, 50, 50);
         let mat = new THREE.MeshBasicMaterial();
         mat.color.setRGB( 1, 0, 0 );
         let cube = new THREE.Mesh( geom, mat );
-        cube.position.set(0, 0, -100)
+        cube.position.set(0, -100, -400)
         scene.add( cube );  
 
 
@@ -98,8 +100,34 @@
           mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
           mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
         }
+        
 
         window.addEventListener( 'mousemove', onMouseMove, false );
+
+        const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
+				hemiLight.position.set( 0, 0, 0 );
+				scene.add( hemiLight );
+
+        const dirLight = new THREE.DirectionalLight( 0xffffff );
+				dirLight.position.set( 0, 0, 100 );
+				dirLight.castShadow = true;
+				dirLight.shadow.camera.top = 180;
+				dirLight.shadow.camera.bottom = - 100;
+				dirLight.shadow.camera.left = - 120;
+				dirLight.shadow.camera.right = 120;
+				scene.add( dirLight );
+
+        const loader = new FBXLoader();
+        loader.load('models/idle.fbx', (object) => {
+          object.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+          });
+          object.position.set(0, -100, -400)
+          scene.add(object);
+        });
+        
+        
 
         animate();
 
