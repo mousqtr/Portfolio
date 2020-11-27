@@ -26,6 +26,16 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize( window.innerWidth, window.innerHeight );
+            console.log(window.innerWidth)
+
+            if (objects.length > 0){
+              let distance = 0.375 * window.innerWidth - 1150
+              distance = Math.min(-600, distance)
+              distance = Math.max(-1000, distance)
+              objects[0].position.set(0, -500, distance)
+            }
+                  
+
         }
 
         
@@ -120,6 +130,8 @@
         let mixer;
         const clock = new THREE.Clock();
 
+        var objects = []
+
         const loader = new FBXLoader();
         loader.load('models/brief.fbx', (object) => {
 
@@ -134,6 +146,9 @@
           object.scale.setScalar(3);
           object.position.set(0, -500, -400)
           object.rotation.set(0, Math.PI, 0)
+
+          objects.push(object)
+
           scene.add(object);
         });
 
@@ -158,10 +173,10 @@
             const intersects = raycaster.intersectObjects( scene.children );
 
             for ( let i = 0; i < intersects.length; i ++ ) {
-              if (intersects[0].object == cube)
+              if (intersects[0].object == cube){
                 cube.rotation.y += 0.5
+              }
             }
-
 
             const delta = clock.getDelta();
 
