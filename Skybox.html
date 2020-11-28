@@ -149,7 +149,7 @@
         var anims = []
 
         const loader = new FBXLoader();
-        loader.load('models/zombie/mremireh_o_desbiens.fbx', (object) => {
+        loader.load('models/paladin/paladin.fbx', (object) => {
 
           object.scale.setScalar(3);
           object.position.set(0, -500, -600)
@@ -161,7 +161,7 @@
           objects.push(object)
 
           const anim1 = new FBXLoader();
-          anim1.load('models/zombie/walk.fbx', (anim1) => {
+          anim1.load('models/paladin/walk.fbx', (anim1) => {
             const mixer = new THREE.AnimationMixer( object );
             mixers.push(mixer)
             const action = mixer.clipAction( anim1.animations[0] );
@@ -172,11 +172,11 @@
           
 
           const anim2 = new FBXLoader();
-          anim2.load('models/zombie/idle.fbx', (anim2) => {
+          anim2.load('models/paladin/stand_brief.fbx', (anim2) => {
             const mixer = new THREE.AnimationMixer( object );
             mixers.push(mixer)
             const action = mixer.clipAction( anim2.animations[0] );
-            // action.play();
+            action.play();
             actions.push(action);
             anims.push(anim2.animations[0]);
           });
