@@ -31,11 +31,14 @@
               let distance;
               for (let i = 0; i < objects.length; i++) {
                 switch(objects[i].position.x){
-                  case 0: // Character
-                    distance = 0.375 * window.innerWidth - 1150;
-                    distance = Math.min(-600, distance);
-                    distance = Math.max(-1000, distance);
-                    objects[i].position.set(0, -500, distance);
+                  case 0: 
+                    if (objects[i].position.y == -500){ // Character
+                      distance = 0.375 * window.innerWidth - 1150;
+                      distance = Math.min(-600, distance);
+                      distance = Math.max(-1000, distance);
+                      objects[i].position.set(0, -500, distance);
+                      break;
+                    }
                     break;
                   case 500: // Door
                     distance = 0.67 * window.innerWidth - 2333;
@@ -114,13 +117,14 @@
             child.castShadow = true;
             child.receiveShadow = true;
             child.material = new THREE.MeshPhongMaterial( { 
-            color: 0xffff00
+              color: 0xffff00
             } );
           });       
           arrow.scale.setScalar(200);
           arrow.position.set(0, 200, -600);
           arrow.rotation.set(-Math.PI/2, Math.PI, Math.PI/2);
-          objects.push(arrow)
+          arrow.name = "arrow";
+          objects.push(arrow);
           scene.add(arrow);
         });
 
@@ -131,14 +135,6 @@
         skybox.position.set(0, 0, -4500)
         scene.add( skybox );  
 
-        let geom = new THREE.BoxGeometry( 50, 50, 50);
-        let mat = new THREE.MeshBasicMaterial();
-        mat.color.setRGB( 224/255, 123/255, 57/255 );
-        let cube = new THREE.Mesh( geom, mat );
-        cube.position.set(0, 200, -500)
-        scene.add( cube );  
-
-
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
@@ -146,9 +142,9 @@
           mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
           mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
         }
-        
 
         window.addEventListener( 'mousemove', onMouseMove, false );
+        // window.addEventListener( 'click', onMouseClick, false );
 
         const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
 				hemiLight.position.set( 0, 0, 0 );
@@ -244,7 +240,6 @@
         animate();
 
 
-        
 
         function animate() {
             
@@ -255,11 +250,22 @@
             raycaster.setFromCamera( mouse, camera );
 
             // calculate objects intersecting the picking ray
-            const intersects = raycaster.intersectObjects( scene.children );
+            const intersects = raycaster.intersectObjects( scene.children, true );
 
             for ( let i = 0; i < intersects.length; i ++ ) {
-              if (intersects[0].object == cube){
-                cube.rotation.y += 0.5;
+              console.log(intersects[0].object.name)
+
+              // Case of the upper arrow
+              if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
+                
+                // Change the color of the arrow into red
+                if (objects.length > 1){
+                  objects[1].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                      color: 0xff0000
+                    }); 
+                  });
+                }
                 
                 if (mixers.length > 0){
                   if(actions[1].isRunning()){
@@ -274,8 +280,18 @@
                     actions[0].stop();
                     actions[1].play();
                   }
-
                 }
+
+                // Change the color of the arrow into yellow
+                if (objects.length > 1){
+                  objects[1].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                      color: 0xffff00
+                    }); 
+                  });
+                }
+
+
                   
               }
             }
