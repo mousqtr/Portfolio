@@ -31,19 +31,19 @@
               let distance;
               for (let i = 0; i < objects.length; i++) {
                 switch(objects[i].position.x){
-                  case 500:
-                    distance = 0.67 * window.innerWidth - 2333;
-                    objects[i].position.set(500, -500, distance);
-                    break;
-                  case 400:
-                    distance = 0.67 * window.innerWidth - 2500;
-                    objects[i].position.set(400, 270, distance);
-                    break;
-                  case 0:
+                  case 0: // Character
                     distance = 0.375 * window.innerWidth - 1150;
                     distance = Math.min(-600, distance);
                     distance = Math.max(-1000, distance);
                     objects[i].position.set(0, -500, distance);
+                    break;
+                  case 500: // Door
+                    distance = 0.67 * window.innerWidth - 2333;
+                    objects[i].position.set(500, -500, distance);
+                    break;
+                  case 400: // Text above door
+                    distance = 0.67 * window.innerWidth - 2500;
+                    objects[i].position.set(400, 270, distance);
                     break;
                   default:
                     break;
@@ -109,22 +109,18 @@
 
 
         const arrowLoader = new FBXLoader();
-
         arrowLoader.load('models/arrow.fbx', (arrow) => {
-
           arrow.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
-            
-            
-          });
-          
+            child.material = new THREE.MeshPhongMaterial( { 
+            color: 0xffff00
+            } );
+          });       
           arrow.scale.setScalar(200);
           arrow.position.set(0, 200, -600);
           arrow.rotation.set(-Math.PI/2, Math.PI, Math.PI/2);
-
           objects.push(arrow)
-
           scene.add(arrow);
         });
 
@@ -137,7 +133,7 @@
 
         let geom = new THREE.BoxGeometry( 50, 50, 50);
         let mat = new THREE.MeshBasicMaterial();
-        mat.color.setRGB( 224/255, 123/255, 57/255 );;
+        mat.color.setRGB( 224/255, 123/255, 57/255 );
         let cube = new THREE.Mesh( geom, mat );
         cube.position.set(0, 200, -500)
         scene.add( cube );  
@@ -263,7 +259,7 @@
 
             for ( let i = 0; i < intersects.length; i ++ ) {
               if (intersects[0].object == cube){
-                cube.rotation.y += 0.5
+                cube.rotation.y += 0.5;
                 
                 if (mixers.length > 0){
                   if(actions[1].isRunning()){
