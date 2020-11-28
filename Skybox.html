@@ -141,33 +141,55 @@
 				dirLight.shadow.camera.right = 120;
 				scene.add( dirLight );
 
-        let mixer;
+        let mixers = [];
         const clock = new THREE.Clock();
 
         var objects = []
+        var actions = []
+        var anims = []
 
         const loader = new FBXLoader();
-        loader.load('models/brief.fbx', (object) => {
+        loader.load('models/zombie/mremireh_o_desbiens.fbx', (object) => {
 
-          mixer = new THREE.AnimationMixer( object );
-          const action = mixer.clipAction( object.animations[1] );
-          action.play();
-
+          object.scale.setScalar(3);
+          object.position.set(0, -500, -600)
+          object.rotation.set(0, Math.PI, 0)
           object.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
           });
-          object.scale.setScalar(3);
-          object.position.set(0, -500, -600)
-          object.rotation.set(0, Math.PI, 0)
-
           objects.push(object)
+
+          const anim1 = new FBXLoader();
+          anim1.load('models/zombie/walk.fbx', (anim1) => {
+            const mixer = new THREE.AnimationMixer( object );
+            mixers.push(mixer)
+            const action = mixer.clipAction( anim1.animations[0] );
+            // action.play();
+            actions.push(action);
+            anims.push(anim1.animations[0]);
+          });
+          
+
+          const anim2 = new FBXLoader();
+          anim2.load('models/zombie/idle.fbx', (anim2) => {
+            const mixer = new THREE.AnimationMixer( object );
+            mixers.push(mixer)
+            const action = mixer.clipAction( anim2.animations[0] );
+            // action.play();
+            actions.push(action);
+            anims.push(anim2.animations[0]);
+          });
+          anims.push(anim2);
+
+          
 
           scene.add(object);
         });
 
+        
 
-        let mixer2;
+        
         const loader2 = new FBXLoader();
         loader2.load('models/door.fbx', (door) => {
 
@@ -208,12 +230,33 @@
             for ( let i = 0; i < intersects.length; i ++ ) {
               if (intersects[0].object == cube){
                 cube.rotation.y += 0.5
+                
+                if (mixers.length > 0){
+                  actions[0].play();
+                  if(actions[1].isRunning()){
+                    actions[1].stop();
+                    actions[0].play();
+                  }
+                }
+    
+              }else{
+                if (mixers.length > 0){
+                  if(actions[0].isRunning()){
+                    actions[0].stop();
+                    actions[1].play();
+                  }
+
+                }
+                  
               }
             }
 
             const delta = clock.getDelta();
 
-            if ( mixer ) mixer.update( delta );
+            for ( let i = 0; i < mixers.length; i ++ ) {
+              if ( mixers[i] ) mixers[i].update( delta );
+            }
+
             
             requestAnimationFrame(animate);
 
