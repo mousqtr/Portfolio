@@ -143,8 +143,24 @@
           mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
         }
 
+        let movement = 0;
+        function onClick(event) {
+          raycaster.setFromCamera( mouse, camera );
+          const intersects = raycaster.intersectObjects( scene.children, true );
+
+          for ( let i = 0; i < intersects.length; i ++ ) {
+            if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
+              
+              if (objects.length > 1){
+                // objects[2].position.z -= 50;
+                movement = 1;
+              }
+            }
+          }
+        }
+
         window.addEventListener( 'mousemove', onMouseMove, false );
-        // window.addEventListener( 'click', onMouseClick, false );
+        window.addEventListener( 'click', onClick, false );
 
         const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
 				hemiLight.position.set( 0, 0, 0 );
@@ -267,20 +283,20 @@
                   });
                 }
                 
-                if (mixers.length > 0){
-                  if(actions[1].isRunning()){
-                    actions[1].stop();
-                    actions[0].play();
-                  }
-                }
+                // if (mixers.length > 0){
+                //   if(actions[1].isRunning()){
+                //     actions[1].stop();
+                //     actions[0].play();
+                //   }
+                // }
     
               }else{
-                if (mixers.length > 0){
-                  if(actions[0].isRunning()){
-                    actions[0].stop();
-                    actions[1].play();
-                  }
-                }
+                // if (mixers.length > 0){
+                //   if(actions[0].isRunning()){
+                //     actions[0].stop();
+                //     actions[1].play();
+                //   }
+                // }
 
                 // Change the color of the arrow into yellow
                 if (objects.length > 1){
@@ -293,6 +309,17 @@
 
 
                   
+              }
+            }
+
+            if (movement == 1){
+              objects[2].position.z -= 5;
+
+              if (mixers.length > 0){
+                if(actions[1].isRunning()){
+                  actions[1].stop();
+                  actions[0].play();
+                }
               }
             }
 
