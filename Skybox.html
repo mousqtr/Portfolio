@@ -19,6 +19,7 @@
         import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
         let scene, camera, renderer;
+        var objects = {}
         
         window.addEventListener( 'resize', onWindowResize, false );
 
@@ -27,30 +28,31 @@
             camera.updateProjectionMatrix();
             renderer.setSize( window.innerWidth, window.innerHeight );
 
-            if (objects.length > 0){
+            if (Object.keys(objects).length > 0){
               let distance;
-              for (let i = 0; i < objects.length; i++) {
-                switch(objects[i].position.x){
-                  case 0: 
-                    if (objects[i].position.y == -500){ // Character
-                      distance = 0.375 * window.innerWidth - 1150;
-                      distance = Math.min(-600, distance);
-                      distance = Math.max(-1000, distance);
-                      objects[i].position.set(0, -500, distance);
-                      break;
-                    }
-                    break;
-                  case 500: // Door
-                    distance = 0.67 * window.innerWidth - 2333;
-                    objects[i].position.set(500, -500, distance);
-                    break;
-                  case 400: // Text above door
-                    distance = 0.67 * window.innerWidth - 2500;
-                    objects[i].position.set(400, 270, distance);
-                    break;
-                  default:
-                    break;
-                }
+              for (let i = 0; i < Object.keys(objects).length; i++) {
+                // switch(objects[i].position.x){
+                //   case 0: 
+                //     if (objects[i].position.y == -500){ // Character
+                //       distance = 0.375 * window.innerWidth - 1150;
+                //       distance = Math.min(-600, distance);
+                //       distance = Math.max(-1000, distance);
+                //       objects[i].position.set(0, -500, distance);
+                //       break;
+                //     }
+                //     break;
+                //   case 500: // Door
+                //     distance = 0.67 * window.innerWidth - 2333;
+                //     objects[i].position.set(500, -500, distance);
+                //     break;
+                //   case 400: // Text above door
+                //     distance = 0.67 * window.innerWidth - 2500;
+                //     objects[i].position.set(400, 270, distance);
+                //     break;
+                //   default:
+                //     break;
+                // }
+                console.log("ok")
               }
             }
                   
@@ -124,7 +126,7 @@
           arrow.position.set(0, 200, -600);
           arrow.rotation.set(-Math.PI/2, Math.PI, Math.PI/2);
           arrow.name = "arrow";
-          objects.push(arrow);
+          objects["arrow"] = arrow;
           scene.add(arrow);
         });
 
@@ -151,8 +153,7 @@
           for ( let i = 0; i < intersects.length; i ++ ) {
             if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
               
-              if (objects.length > 1){
-                // objects[2].position.z -= 50;
+              if (Object.keys(objects).length > 1){
                 movement = 1;
               }
             }
@@ -178,7 +179,6 @@
         let mixers = [];
         const clock = new THREE.Clock();
 
-        var objects = []
         var actions = []
         var anims = []
 
@@ -192,14 +192,13 @@
             child.castShadow = true;
             child.receiveShadow = true;
           });
-          objects.push(object)
+          objects["paladin"] = object;
 
           const anim1 = new FBXLoader();
           anim1.load('models/paladin/walk.fbx', (anim1) => {
             const mixer = new THREE.AnimationMixer( object );
             mixers.push(mixer)
             const action = mixer.clipAction( anim1.animations[0] );
-            // action.play();
             actions.push(action);
             anims.push(anim1.animations[0]);
           });
@@ -215,8 +214,6 @@
             anims.push(anim2.animations[0]);
           });
           anims.push(anim2);
-
-          
 
           scene.add(object);
         });
@@ -235,7 +232,7 @@
           door.position.set(500, -500, distance_door);
           door.rotation.set(0, Math.PI/2, 0);
 
-          objects.push(door)
+          objects["door"] = door;
 
           scene.add(door);
         });
@@ -246,7 +243,7 @@
         let cubeText = new THREE.Mesh( geoText, matText );
         let distance_cube = 0.67 * window.innerWidth - 2500;
         cubeText.position.set(400, 270, distance_cube)
-        objects.push(cubeText)
+        objects["cubeText"] = cubeText;
         scene.add( cubeText );  
         
 
@@ -259,80 +256,73 @@
 
         function animate() {
             
-            // scene.rotation.y += 0.01; 
-            // scene.position.z += 1; 
 
-            // update the picking ray with the camera and mouse position
+          if (movement == 0){
             raycaster.setFromCamera( mouse, camera );
-
-            // calculate objects intersecting the picking ray
             const intersects = raycaster.intersectObjects( scene.children, true );
-
             for ( let i = 0; i < intersects.length; i ++ ) {
-              console.log(intersects[0].object.name)
 
-              // Case of the upper arrow
-              if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
+              
+              if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){// Case of the upper arrow
                 
                 // Change the color of the arrow into red
-                if (objects.length > 1){
-                  objects[1].traverse(function(child){
+                if (Object.keys(objects).length > 1){
+                  objects["arrow"].traverse(function(child){
                     child.material = new THREE.MeshPhongMaterial( { 
                       color: 0xff0000
                     }); 
                   });
                 }
-                
-                // if (mixers.length > 0){
-                //   if(actions[1].isRunning()){
-                //     actions[1].stop();
-                //     actions[0].play();
-                //   }
-                // }
-    
-              }else{
-                // if (mixers.length > 0){
-                //   if(actions[0].isRunning()){
-                //     actions[0].stop();
-                //     actions[1].play();
-                //   }
-                // }
 
+              }else{
+                
                 // Change the color of the arrow into yellow
-                if (objects.length > 1){
-                  objects[1].traverse(function(child){
+                if (Object.keys(objects).length > 1){
+                  objects["arrow"].traverse(function(child){
                     child.material = new THREE.MeshPhongMaterial( { 
                       color: 0xffff00
                     }); 
                   });
-                }
+                } 
+              }
+            }
+          }
 
 
-                  
+          if (movement == 1){
+            objects["paladin"].position.z -= 5;
+
+            if (mixers.length > 0){
+              if(actions[1].isRunning()){
+                actions[1].stop();
+                actions[0].play();
               }
             }
 
-            if (movement == 1){
-              objects[2].position.z -= 5;
+            camera.position.z -= 5;
+          }
 
-              if (mixers.length > 0){
-                if(actions[1].isRunning()){
-                  actions[1].stop();
-                  actions[0].play();
-                }
-              }
-            }
+          // if ((movement == 1) && (position.z == -2500){
+          //   objects[2].position.z -= 5;
 
-            const delta = clock.getDelta();
+          //   if (mixers.length > 0){
+          //     if(actions[1].isRunning()){
+          //       actions[1].stop();
+          //       actions[0].play();
+          //     }
+          //   }
+          // } 
 
-            for ( let i = 0; i < mixers.length; i ++ ) {
-              if ( mixers[i] ) mixers[i].update( delta );
-            }
+          const delta = clock.getDelta();
 
-            
-            requestAnimationFrame(animate);
+          for ( let i = 0; i < mixers.length; i ++ ) {
+            if ( mixers[i] ) mixers[i].update( delta );
+          }
 
-            renderer.render(scene,camera);
+          
+          requestAnimationFrame(animate);
+
+          renderer.render(scene,camera);
             
         }
 
