@@ -34,14 +34,16 @@
                   case 500:
                     distance = 0.67 * window.innerWidth - 2333;
                     objects[i].position.set(500, -500, distance);
-                    console.log("char")
+                    break;
+                  case 400:
+                    distance = 0.67 * window.innerWidth - 2500;
+                    objects[i].position.set(400, 270, distance);
                     break;
                   case 0:
                     distance = 0.375 * window.innerWidth - 1150;
                     distance = Math.min(-600, distance);
                     distance = Math.max(-1000, distance);
                     objects[i].position.set(0, -500, distance);
-                    console.log("door")
                     break;
                   default:
                     break;
@@ -104,6 +106,30 @@
         }
             
 
+
+
+        const arrowLoader = new FBXLoader();
+
+        arrowLoader.load('models/arrow.fbx', (arrow) => {
+
+          arrow.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            
+            
+          });
+          
+          arrow.scale.setScalar(200);
+          arrow.position.set(0, 200, -600);
+          arrow.rotation.set(-Math.PI/2, Math.PI, Math.PI/2);
+
+          objects.push(arrow)
+
+          scene.add(arrow);
+        });
+
+        
+
         let skyboxGeo = new THREE.BoxGeometry( 1000, 1000, 10000);
         let skybox = new THREE.Mesh( skyboxGeo, materialArray );
         skybox.position.set(0, 0, -4500)
@@ -111,7 +137,7 @@
 
         let geom = new THREE.BoxGeometry( 50, 50, 50);
         let mat = new THREE.MeshBasicMaterial();
-        mat.color.setRGB( 1, 0, 0 );
+        mat.color.setRGB( 224/255, 123/255, 57/255 );;
         let cube = new THREE.Mesh( geom, mat );
         cube.position.set(0, 200, -500)
         scene.add( cube );  
@@ -189,7 +215,6 @@
 
         
 
-        
         const loader2 = new FBXLoader();
         loader2.load('models/door.fbx', (door) => {
 
@@ -206,6 +231,15 @@
 
           scene.add(door);
         });
+
+        let geoText = new THREE.BoxGeometry( 300, 200, 50);
+        let matText = new THREE.MeshBasicMaterial();
+        matText.color.setRGB( 4/255, 47/255, 102/255 );
+        let cubeText = new THREE.Mesh( geoText, matText );
+        let distance_cube = 0.67 * window.innerWidth - 2500;
+        cubeText.position.set(400, 270, distance_cube)
+        objects.push(cubeText)
+        scene.add( cubeText );  
         
 
         
@@ -232,7 +266,6 @@
                 cube.rotation.y += 0.5
                 
                 if (mixers.length > 0){
-                  actions[0].play();
                   if(actions[1].isRunning()){
                     actions[1].stop();
                     actions[0].play();
