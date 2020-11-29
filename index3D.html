@@ -24,6 +24,8 @@
 
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
+
+        let positionState = 0;
         
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'mousemove', onMouseMove, false );
@@ -291,11 +293,13 @@
             }
           }
 
-          // Walking
-          if (movement == 1){
+          // Walking from the first position
+          if ((movement == 1) && (positionState == 0)){
 
-            objects["paladin"].position.z -= 5;
+            // Gradually move the character
+            objects["paladin"].position.z -= 10;
 
+            // Run the walk animation
             if (Object.keys(actions).length > 1){
               if(actions["stand"].isRunning()){
                 actions["stand"].stop();
@@ -303,12 +307,14 @@
               }
             }
 
-            camera.position.z -= 5;
+            // Gradually move the camera
+            camera.position.z -= 10;
           }
 
-          // Stop walking
-          if ((movement == 1) && (objects["paladin"].position.z < -2500)){
+          // Stop walking at the second position
+          if ((movement == 1) && (objects["paladin"].position.z < -2500) && (positionState == 0)){
 
+            // Stop the walk animation
             if (Object.keys(actions).length > 1){
               if(actions["walk"].isRunning()){
                 actions["walk"].stop();
@@ -316,9 +322,63 @@
               }
             }
 
+            // Change the walk flag
             movement = 0;
 
+            // Change the position flag
+            positionState = 1
+
+            // Move and turn the arrow
+            objects["arrow"].position.set(objects["arrow"].position.x, objects["arrow"].position.y, -2600)
+            objects["arrow"].rotation.set(Math.PI/2, Math.PI, Math.PI/2)
+
           } 
+
+
+          // Walking from the second position
+          if ((movement == 1) && (positionState == 1)){
+
+            // Gradually move the character
+            objects["paladin"].position.z += 10;
+
+            // Run the walk animation
+            if (Object.keys(actions).length > 1){
+              if(actions["stand"].isRunning()){
+                actions["stand"].stop();
+                actions["walk"].play();
+              }
+            }
+
+            // Gradually move the camera
+            camera.position.z += 10;
+          }
+
+
+          // Stop walking at first position
+          if ((movement == 1) && (objects["paladin"].position.z > -600) && (positionState == 1)){
+
+            // Stop the walk animation
+            if (Object.keys(actions).length > 1){
+              if(actions["walk"].isRunning()){
+                actions["walk"].stop();
+                actions["stand"].play();
+              }
+            }
+
+            // Change the walk flag
+            movement = 0;
+
+            // Change the position flag
+            positionState = 0
+
+            // Move and turn the arrow
+            objects["arrow"].position.set(objects["arrow"].position.x, objects["arrow"].position.y, -600)
+            objects["arrow"].rotation.set(-Math.PI/2, Math.PI, Math.PI/2)
+
+          } 
+
+
+
 
           const delta = clock.getDelta();
 
