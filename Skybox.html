@@ -55,7 +55,6 @@
                   
         }
 
-        
         const canvas = document.querySelector('#c');
 
         scene = new THREE.Scene();
@@ -263,7 +262,9 @@
             }
           }
 
+          // Walking
           if (movement == 1){
+
             objects["paladin"].position.z -= 5;
 
             if (Object.keys(actions).length > 1){
@@ -276,16 +277,19 @@
             camera.position.z -= 5;
           }
 
-          // if ((movement == 1) && (position.z == -2500){
-          //   objects[2].position.z -= 5;
+          // Stop walking
+          if ((movement == 1) && (objects["paladin"].position.z < -2500)){
 
-          //   if (mixers.length > 0){
-          //     if(actions[1].isRunning()){
-          //       actions[1].stop();
-          //       actions[0].play();
-          //     }
-          //   }
-          // } 
+            if (Object.keys(actions).length > 1){
+              if(actions["walk"].isRunning()){
+                actions["walk"].stop();
+                actions["stand"].play();
+              }
+            }
+
+            movement = 0;
+
+          } 
 
           const delta = clock.getDelta();
 
