@@ -35,22 +35,28 @@
           renderer.setSize( window.innerWidth, window.innerHeight );
 
           if (Object.keys(objects).length > 0){
-            let distance;
+            let posZ;
             
             // Paladin
-            distance = 0.375 * window.innerWidth - 1150;
-            distance = Math.min(-600, distance);
-            distance = Math.max(-1000, distance);
-            objects["paladin"].position.set(0, -500, distance);
+            posZ = 0.375 * window.innerWidth - 1150;
+            posZ = Math.min(-600, posZ);
+            posZ = Math.max(-1000, posZ);
+            objects["paladin"].position.set(objects["paladin"].position.x, objects["paladin"].position.y, posZ);
           
             // Door
-            distance = 0.67 * window.innerWidth - 2333;
-            objects["door"].position.set(500, -500, distance);
+            posZ = 0.67 * window.innerWidth - 2333;
+            objects["door"].position.set(objects["door"].position.x, objects["door"].position.y, posZ);
 
             // Text above door
-            distance = 0.67 * window.innerWidth - 2500;
-            objects["textDoor"].position.set(400, 270, distance);
-
+            for (let i = 0; i < objects["textsDoor"].length; i++) {
+              if (i < 2){
+                posZ = 0.67 * window.innerWidth - 2500;
+              }else{
+                posZ = 0.67 * window.innerWidth - 4500;
+              }
+              objects["textsDoor"][i].position.set(objects["textsDoor"][i].position.x, objects["textsDoor"][i].position.y, posZ);
+            }
+            
           }
                   
         }
@@ -218,14 +224,37 @@
         });
 
         // Cube above door
-        let geoText = new THREE.BoxGeometry( 300, 200, 50);
-        let matText = new THREE.MeshBasicMaterial();
-        matText.color.setRGB( 4/255, 47/255, 102/255 );
-        let cubeText = new THREE.Mesh( geoText, matText );
-        let distance_cube = 0.67 * window.innerWidth - 2500;
-        cubeText.position.set(400, 270, distance_cube)
-        objects["textDoor"] = cubeText;
-        scene.add( cubeText );  
+        let cubeTextArray = [];
+        let geoText, matText, cubeText, distance_cube;
+        let textPosX, textPosZ;
+        for ( let i = 0; i < 4; i ++ ) {
+          geoText = new THREE.BoxGeometry( 300, 200, 50);
+          matText = new THREE.MeshBasicMaterial();
+          matText.color.setRGB( 4/255, 47/255, 102/255 );
+          cubeText = new THREE.Mesh( geoText, matText );
+
+          if (i % 2 == 0){
+            textPosX = -400;
+          }else{
+            textPosX = 400;
+          }
+
+          if (i < 2){
+            textPosZ = 0.67 * window.innerWidth - 2500;
+          }else{
+            textPosZ = 0.67 * window.innerWidth - 4500;
+          }
+
+          cubeText.position.set(textPosX, 270, textPosZ)
+
+          cubeTextArray.push(cubeText)
+
+          scene.add(cubeText);  
+        }
+
+        
+        objects["textsDoor"] = cubeTextArray;
+        
         
         animate();
 
