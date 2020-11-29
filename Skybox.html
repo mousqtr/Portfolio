@@ -7,10 +7,6 @@
   </head>
   <body>
     <canvas id="c"></canvas>
-
-
-    <!-- <script src="three.js"></script> -->
-    <!-- <script src="OrbitControls.js"></script> -->
     
     <script type="module"> 
         import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
@@ -19,44 +15,44 @@
         import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
         let scene, camera, renderer;
-        var objects = {}
+        
+        const clock = new THREE.Clock();
+        let objects = {};
+        let actions = {};
+        let mixers = {};
+        let movement = 0;
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
         
         window.addEventListener( 'resize', onWindowResize, false );
+        window.addEventListener( 'mousemove', onMouseMove, false );
+        window.addEventListener( 'click', onClick, false );
 
         function onWindowResize(){
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize( window.innerWidth, window.innerHeight );
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize( window.innerWidth, window.innerHeight );
 
-            if (Object.keys(objects).length > 0){
-              let distance;
-              for (let i = 0; i < Object.keys(objects).length; i++) {
-                // switch(objects[i].position.x){
-                //   case 0: 
-                //     if (objects[i].position.y == -500){ // Character
-                //       distance = 0.375 * window.innerWidth - 1150;
-                //       distance = Math.min(-600, distance);
-                //       distance = Math.max(-1000, distance);
-                //       objects[i].position.set(0, -500, distance);
-                //       break;
-                //     }
-                //     break;
-                //   case 500: // Door
-                //     distance = 0.67 * window.innerWidth - 2333;
-                //     objects[i].position.set(500, -500, distance);
-                //     break;
-                //   case 400: // Text above door
-                //     distance = 0.67 * window.innerWidth - 2500;
-                //     objects[i].position.set(400, 270, distance);
-                //     break;
-                //   default:
-                //     break;
-                // }
-                console.log("ok")
-              }
-            }
+          if (Object.keys(objects).length > 0){
+            let distance;
+            
+            // Paladin
+            distance = 0.375 * window.innerWidth - 1150;
+            distance = Math.min(-600, distance);
+            distance = Math.max(-1000, distance);
+            objects["paladin"].position.set(0, -500, distance);
+          
+            // Door
+            distance = 0.67 * window.innerWidth - 2333;
+            objects["door"].position.set(500, -500, distance);
+
+            // Text above door
+            distance = 0.67 * window.innerWidth - 2500;
+            objects["textDoor"].position.set(400, 270, distance);
+
+          }
                   
-
         }
 
         
@@ -74,12 +70,13 @@
         renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        let controls = new OrbitControls(camera, renderer.domElement );
-        controls.addEventListener('change', renderer);
-        controls.minDistance = 500;
-        controls.maxDistance = 1500;
+        // let controls = new OrbitControls(camera, renderer.domElement );
+        // controls.addEventListener('change', renderer);
+        // controls.minDistance = 500;
+        // controls.maxDistance = 1500;
         
-        let materialArray = [];
+        // Load the corridor
+        let corridorMaterialArray = [];
         let texture_ft = new THREE.TextureLoader().load( 'img/wall2.jpg');
         let texture_bk = new THREE.TextureLoader().load( 'img/wall2.jpg');
         let texture_up = new THREE.TextureLoader().load( 'img/wall3.jpg');
@@ -88,31 +85,32 @@
         let texture_lf = new THREE.TextureLoader().load( 'img/wall2.jpg');
 
         texture_dn.wrapS = texture_dn.wrapT = THREE.RepeatWrapping;
-        texture_dn.repeat.y = 5;
-
         texture_up.wrapS = texture_up.wrapT = THREE.RepeatWrapping;
-        texture_up.repeat.y = 5;
-
         texture_ft.wrapS = texture_ft.wrapT = THREE.RepeatWrapping;
-        texture_ft.repeat.x = 5;
-
         texture_bk.wrapS = texture_bk.wrapT = THREE.RepeatWrapping;
+
+        texture_dn.repeat.y = 5;
+        texture_up.repeat.y = 5;
+        texture_ft.repeat.x = 5;
         texture_bk.repeat.x = 5;
 
-        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
-        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
-        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
-        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
-        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
-        materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
+        corridorMaterialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+        corridorMaterialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+        corridorMaterialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+        corridorMaterialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+        corridorMaterialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+        corridorMaterialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 
         for (let i = 0; i < 6; i++) {
-            materialArray[i].side = THREE.BackSide;
+          corridorMaterialArray[i].side = THREE.BackSide;
         }
             
+        let corridorGeo = new THREE.BoxGeometry( 1000, 1000, 10000);
+        let corridor = new THREE.Mesh( corridorGeo, corridorMaterialArray );
+        corridor.position.set(0, 0, -4500)
+        scene.add( corridor );  
 
-
-
+        // Load the top arrow 
         const arrowLoader = new FBXLoader();
         arrowLoader.load('models/arrow.fbx', (arrow) => {
           arrow.traverse(child => {
@@ -130,22 +128,13 @@
           scene.add(arrow);
         });
 
-        
-
-        let skyboxGeo = new THREE.BoxGeometry( 1000, 1000, 10000);
-        let skybox = new THREE.Mesh( skyboxGeo, materialArray );
-        skybox.position.set(0, 0, -4500)
-        scene.add( skybox );  
-
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-
+        // Get the mouse position
         function onMouseMove( event ) {
           mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
           mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
         }
 
-        let movement = 0;
+        // When user click somewhere
         function onClick(event) {
           raycaster.setFromCamera( mouse, camera );
           const intersects = raycaster.intersectObjects( scene.children, true );
@@ -160,13 +149,12 @@
           }
         }
 
-        window.addEventListener( 'mousemove', onMouseMove, false );
-        window.addEventListener( 'click', onClick, false );
-
+        // Hemisphere Light
         const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
 				hemiLight.position.set( 0, 0, 0 );
 				scene.add( hemiLight );
 
+        // Directional Light
         const dirLight = new THREE.DirectionalLight( 0xffffff );
 				dirLight.position.set( 0, 0, 100 );
 				dirLight.castShadow = true;
@@ -176,52 +164,45 @@
 				dirLight.shadow.camera.right = 120;
 				scene.add( dirLight );
 
-        let mixers = [];
-        const clock = new THREE.Clock();
+        // Load the paladin model
+        const loaderPaladin = new FBXLoader();
+        loaderPaladin.load('models/paladin/paladin.fbx', (paladin) => {
 
-        var actions = []
-        var anims = []
-
-        const loader = new FBXLoader();
-        loader.load('models/paladin/paladin.fbx', (object) => {
-
-          object.scale.setScalar(3);
-          object.position.set(0, -500, -600)
-          object.rotation.set(0, Math.PI, 0)
-          object.traverse(child => {
+          // Load the model
+          paladin.scale.setScalar(3);
+          paladin.position.set(0, -500, -600)
+          paladin.rotation.set(0, Math.PI, 0)
+          paladin.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
           });
-          objects["paladin"] = object;
+          objects["paladin"] = paladin;
 
-          const anim1 = new FBXLoader();
-          anim1.load('models/paladin/walk.fbx', (anim1) => {
-            const mixer = new THREE.AnimationMixer( object );
-            mixers.push(mixer)
-            const action = mixer.clipAction( anim1.animations[0] );
-            actions.push(action);
-            anims.push(anim1.animations[0]);
+          // Load the walk animation
+          const animWalk = new FBXLoader();
+          animWalk.load('models/paladin/walk.fbx', (animWalk) => {
+            const mixer = new THREE.AnimationMixer(paladin);     
+            const action = mixer.clipAction( animWalk.animations[0] );
+            mixers["mixerWalk"] = mixer
+            actions["walk"] = action;
           });
           
-
-          const anim2 = new FBXLoader();
-          anim2.load('models/paladin/stand_brief.fbx', (anim2) => {
-            const mixer = new THREE.AnimationMixer( object );
-            mixers.push(mixer)
-            const action = mixer.clipAction( anim2.animations[0] );
+          // Load the stand animation
+          const animStand = new FBXLoader();
+          animStand.load('models/paladin/stand_brief.fbx', (animStand) => {
+            const mixer = new THREE.AnimationMixer(paladin);
+            const action = mixer.clipAction(animStand.animations[0]);
+            mixers["mixerStand"] = mixer
+            actions["stand"] = action;
             action.play();
-            actions.push(action);
-            anims.push(anim2.animations[0]);
           });
-          anims.push(anim2);
 
-          scene.add(object);
+          scene.add(paladin);
         });
 
-        
-
-        const loader2 = new FBXLoader();
-        loader2.load('models/door.fbx', (door) => {
+        // Load the door model
+        const loaderDoor = new FBXLoader();
+        loaderDoor.load('models/door.fbx', (door) => {
 
           door.traverse(child => {
             child.castShadow = true;
@@ -237,33 +218,27 @@
           scene.add(door);
         });
 
+        // Cube above door
         let geoText = new THREE.BoxGeometry( 300, 200, 50);
         let matText = new THREE.MeshBasicMaterial();
         matText.color.setRGB( 4/255, 47/255, 102/255 );
         let cubeText = new THREE.Mesh( geoText, matText );
         let distance_cube = 0.67 * window.innerWidth - 2500;
         cubeText.position.set(400, 270, distance_cube)
-        objects["cubeText"] = cubeText;
+        objects["textDoor"] = cubeText;
         scene.add( cubeText );  
         
-
-        
-        
-
         animate();
-
-
 
         function animate() {
             
-
           if (movement == 0){
             raycaster.setFromCamera( mouse, camera );
             const intersects = raycaster.intersectObjects( scene.children, true );
             for ( let i = 0; i < intersects.length; i ++ ) {
 
-              
-              if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){// Case of the upper arrow
+              // Case of the upper arrow
+              if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
                 
                 // Change the color of the arrow into red
                 if (Object.keys(objects).length > 1){
@@ -288,14 +263,13 @@
             }
           }
 
-
           if (movement == 1){
             objects["paladin"].position.z -= 5;
 
-            if (mixers.length > 0){
-              if(actions[1].isRunning()){
-                actions[1].stop();
-                actions[0].play();
+            if (Object.keys(actions).length > 1){
+              if(actions["stand"].isRunning()){
+                actions["stand"].stop();
+                actions["walk"].play();
               }
             }
 
@@ -315,18 +289,14 @@
 
           const delta = clock.getDelta();
 
-          for ( let i = 0; i < mixers.length; i ++ ) {
-            if ( mixers[i] ) mixers[i].update( delta );
-          }
-
-          
+          if ( mixers["mixerWalk"] ) mixers["mixerWalk"].update( delta );
+          if ( mixers["mixerStand"] ) mixers["mixerStand"].update( delta );
+    
           requestAnimationFrame(animate);
 
           renderer.render(scene,camera);
             
         }
-
-
 
 
     </script>
