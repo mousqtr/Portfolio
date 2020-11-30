@@ -1,10 +1,10 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
-import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
+// import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
 // import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
 import { walkTo, stopWalk } from "./characterMovements.js";
-import { detectArrow } from "./detectObjects.js";
+import { detectObjects } from "./detectObjects.js";
 
 let scene, camera, renderer;
 
@@ -31,27 +31,27 @@ function onWindowResize(){
     renderer.setSize( window.innerWidth, window.innerHeight );
 
     if (Object.keys(objects).length > 0){
-    let posZ;
-    
-    // Paladin
-    posZ = 0.375 * window.innerWidth - 1150;
-    posZ = Math.min(-600, posZ);
-    posZ = Math.max(-1000, posZ);
-    objects["paladin"].position.set(objects["paladin"].position.x, objects["paladin"].position.y, posZ);
-    
-    // Door
-    posZ = 0.67 * window.innerWidth - 2333;
-    objects["door"].position.set(objects["door"].position.x, objects["door"].position.y, posZ);
+        let posZ;
+        
+        // Paladin
+        posZ = 0.375 * window.innerWidth - 1150;
+        posZ = Math.min(-600, posZ);
+        posZ = Math.max(-1000, posZ);
+        objects["paladin"].position.set(objects["paladin"].position.x, objects["paladin"].position.y, posZ);
+        
+        // Door
+        posZ = 0.67 * window.innerWidth - 2333;
+        objects["door"].position.set(objects["door"].position.x, objects["door"].position.y, posZ);
 
-    // Text above door
-    for (let i = 0; i < objects["textsDoor"].length; i++) {
-        if (i < 2){
-        posZ = 0.67 * window.innerWidth - 2500;
-        }else{
-        posZ = 0.67 * window.innerWidth - 4500;
+        // Text above door
+        for (let i = 0; i < objects["textsDoor"].length; i++) {
+            if (i < 2){
+                posZ = 0.67 * window.innerWidth - 2500;
+            }else{
+                posZ = 0.67 * window.innerWidth - 4500;
+            }
+            objects["textsDoor"][i].position.set(objects["textsDoor"][i].position.x, objects["textsDoor"][i].position.y, posZ);
         }
-        objects["textsDoor"][i].position.set(objects["textsDoor"][i].position.x, objects["textsDoor"][i].position.y, posZ);
-    }
     
     }
             
@@ -141,12 +141,12 @@ function onClick(event) {
     const intersects = raycaster.intersectObjects( scene.children, true );
 
     for ( let i = 0; i < intersects.length; i ++ ) {
-    if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
-        
-        if (Object.keys(objects).length > 1){
-        arrowClicked = true;
+        if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
+            
+            if (Object.keys(objects).length > 1){
+            arrowClicked = true;
+            }
         }
-    }
     }
 }
 
@@ -182,33 +182,33 @@ loaderPaladin.load('models/paladin/paladin.fbx', (paladin) => {
     // Load the walk animation
     const animWalk = new FBXLoader();
     animWalk.load('models/paladin/walk.fbx', (animWalk) => {
-    const mixer = new THREE.AnimationMixer(paladin);     
-    const action = mixer.clipAction( animWalk.animations[0] );
-    mixers["mixerWalk"] = mixer
-    actions["walk"] = action;
+        const mixer = new THREE.AnimationMixer(paladin);     
+        const action = mixer.clipAction( animWalk.animations[0] );
+        mixers["mixerWalk"] = mixer
+        actions["walk"] = action;
     });
     
     // Load the stand animation
     const animStand = new FBXLoader();
     animStand.load('models/paladin/stand_brief.fbx', (animStand) => {
-    const mixer = new THREE.AnimationMixer(paladin);
-    const action = mixer.clipAction(animStand.animations[0]);
-    mixers["mixerStand"] = mixer
-    actions["stand"] = action;
-    action.play();
+        const mixer = new THREE.AnimationMixer(paladin);
+        const action = mixer.clipAction(animStand.animations[0]);
+        mixers["mixerStand"] = mixer
+        actions["stand"] = action;
+        action.play();
     });
 
     // Load the stand animation
     const animRightTurn = new FBXLoader();
     animRightTurn.load('models/paladin/right_turn.fbx', (animRightTurn) => {
-    const mixer = new THREE.AnimationMixer(paladin);
-    const action = mixer.clipAction(animRightTurn.animations[0]);
-    action.loop = THREE.LoopOnce;
-    action.clampWhenFinished = true;
-    mixers["mixerRightTurn"] = mixer
-    mixer.timeScale = 0.4;
-            mixer.addEventListener( 'finished', finishRightTurn );
-    actions["rightTurn"] = action;
+        const mixer = new THREE.AnimationMixer(paladin);
+        const action = mixer.clipAction(animRightTurn.animations[0]);
+        action.loop = THREE.LoopOnce;
+        action.clampWhenFinished = true;
+        mixers["mixerRightTurn"] = mixer
+        mixer.timeScale = 0.4;
+                mixer.addEventListener( 'finished', finishRightTurn );
+        actions["rightTurn"] = action;
     });
 
     scene.add(paladin);
@@ -223,12 +223,13 @@ function finishRightTurn(){
 
 
 // Load the door model
+var mat;
 const loaderDoor = new FBXLoader();
 loaderDoor.load('models/door.fbx', (door) => {
-
     door.traverse(child => {
-    child.castShadow = true;
-    child.receiveShadow = true;
+        child.castShadow = true;
+        child.receiveShadow = true;
+        mat = child.material;
     });
     door.scale.setScalar(0.3);
     let distance_door = 0.67 * window.innerWidth - 2333;
@@ -242,7 +243,7 @@ loaderDoor.load('models/door.fbx', (door) => {
 
 // Cube above door
 let cubeTextArray = [];
-let geoText, matText, cubeText, distance_cube;
+let geoText, matText, cubeText;
 let textPosX, textPosZ;
 for ( let i = 0; i < 4; i ++ ) {
     geoText = new THREE.BoxGeometry( 300, 200, 50);
@@ -273,8 +274,9 @@ animate();
 
 function animate() {
 
+    // Hover objects
     if (arrowClicked == false){
-        detectArrow(scene, raycaster, mouse, camera, objects);
+        detectObjects(scene, raycaster, mouse, camera, objects, mat);
     }
 
     // Walk
@@ -296,8 +298,8 @@ function animate() {
         positionState = 0;
     } 
 
+    // Update mixers
     const delta = clock.getDelta();
-
     if ( mixers["mixerWalk"] ) mixers["mixerWalk"].update( delta );
     if ( mixers["mixerStand"] ) mixers["mixerStand"].update( delta );
     if ( mixers["mixerRightTurn"] ) mixers["mixerRightTurn"].update( delta );

@@ -1,6 +1,6 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 
-export function detectArrow(scene, raycaster, mouse, camera, objects){
+export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
     raycaster.setFromCamera( mouse, camera );
         const intersects = raycaster.intersectObjects( scene.children, true );
         for ( let i = 0; i < intersects.length; i ++ ) {
@@ -9,7 +9,7 @@ export function detectArrow(scene, raycaster, mouse, camera, objects){
             if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
             
                 // Change the color of the arrow into red
-                if (Object.keys(objects).length > 1){
+                if (Object.keys(objects).length > 2){
                     objects["arrow"].traverse(function(child){
                         child.material = new THREE.MeshPhongMaterial( { 
                             color: 0xff0000
@@ -20,11 +20,33 @@ export function detectArrow(scene, raycaster, mouse, camera, objects){
                 }else{
                 
                 // Change the color of the arrow into yellow
-                if (Object.keys(objects).length > 1){
+                if (Object.keys(objects).length > 2){
                     objects["arrow"].traverse(function(child){
                         child.material = new THREE.MeshPhongMaterial( { 
                             color: 0xffff00
                         }); 
+                    });
+                } 
+            }
+
+            // Case of the door
+            if ((intersects[0].object.name == 'door') || (intersects[0].object.name == 'frame')){
+            
+                // Change the color of the arrow into red
+                if (Object.keys(objects).length > 2){
+                    objects["door"].traverse(function(child){
+                        child.material = new THREE.MeshPhongMaterial( { 
+                            color: 0xff0000
+                        }); 
+                    });
+                }
+
+                }else{
+                
+                // Change the color of the arrow into yellow
+                if (Object.keys(objects).length > 3){
+                    objects["door"].traverse(function(child){
+                        child.material = mat;
                     });
                 } 
             }
