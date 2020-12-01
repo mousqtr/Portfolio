@@ -1,7 +1,8 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
-// import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
+import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
 // import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import {TGALoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/TGALoader.js';
 
 import { walkTo, stopWalk } from "./characterMovements.js";
 import { detectObjects } from "./detectObjects.js";
@@ -49,10 +50,8 @@ function onWindowResize(){
             objects["doors"][i].position.set(objects["doors"][i].position.x, objects["doors"][i].position.y, posZ);
         }
 
-        // posZ = 0.67 * window.innerWidth - 1833;
-        // objects["textsDoor"].position.set(objects["textsDoor"].position.x, objects["textsDoor"].position.y, posZ)
 
-        // Door
+        // Door texts
         for (let i = 0; i < objects["doorTexts"].length; i++) {
             if (i < 2){
                 posZ = 0.67 * window.innerWidth - 1933;
@@ -79,10 +78,10 @@ renderer = new THREE.WebGLRenderer({antialias:true, canvas});
 renderer.setSize(window.innerWidth,window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// let controls = new OrbitControls(camera, renderer.domElement );
-// controls.addEventListener('change', renderer);
-// controls.minDistance = 500;
-// controls.maxDistance = 1500;
+let controls = new OrbitControls(camera, renderer.domElement );
+controls.addEventListener('change', renderer);
+controls.minDistance = 500;
+controls.maxDistance = 1500;
 
 // Load the corridor
 let corridorMaterialArray = [];
@@ -307,6 +306,73 @@ for ( let i = 0; i < 4; i ++ ) {
 }
 
 objects["doorTexts"] = doorTexts;
+
+
+// Load the corridor
+let room1MaterialArray = [];
+let room1Texture_ft = new THREE.TextureLoader().load( 'img/wall2.jpg');
+let room1Texture_bk = new THREE.TextureLoader().load( 'img/wall2.jpg');
+let room1Texture_up = new THREE.TextureLoader().load( 'img/wall3.jpg');
+let room1Texture_dn = new THREE.TextureLoader().load( 'img/parquet.jpg');
+let room1Texture_rt = new THREE.TextureLoader().load( 'img/wall2.jpg');
+let room1Texture_lf = new THREE.TextureLoader().load( 'img/wall2.jpg');
+
+
+room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_ft }));
+room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_bk }));
+room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_up }));
+room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_dn }));
+room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_rt }));
+room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_lf }));
+
+for (let i = 0; i < 6; i++) {
+    room1MaterialArray[i].side = THREE.BackSide;
+}
+    
+let room1Geo = new THREE.BoxGeometry( 1000, 1000, 2000);
+let room1 = new THREE.Mesh( room1Geo, room1MaterialArray );
+room1.position.set(1400, 0, -600)
+scene.add( room1 );  
+
+
+
+let boxGeo = new THREE.BoxGeometry( 100, 100, 100);
+let boxMat = new THREE.MeshPhongMaterial( { 
+    color: 0xffff00
+} );
+let box = new THREE.Mesh( boxGeo, boxMat );
+box.position.set(1400, 0, -800)
+scene.add( box );  
+
+camera.position.set(1400, 0, 0);
+camera.lookAt( box.position );
+
+const loader = new TGALoader();
+
+// load a resource
+const texture = loader.load('models/desk/texture.tga', (texture) => {
+    console.log("texture loaded");
+});
+
+const matDesk = new THREE.MeshPhongMaterial( {
+	color: 0xffffff,
+	map: texture
+} );
+
+const loaderDesk = new FBXLoader();
+loaderDesk.load('models/desk/desk.FBX', (desk) => {
+
+    desk.traverse(child => {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        child.material = matDesk;
+    });
+    desk.scale.setScalar(2.5);
+    desk.position.set(1400, -300, -800);
+    desk.rotation.set(0, 0, 0);
+    scene.add(desk);
+});
+
 
 
 
