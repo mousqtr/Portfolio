@@ -49,18 +49,18 @@ function onWindowResize(){
             objects["doors"][i].position.set(objects["doors"][i].position.x, objects["doors"][i].position.y, posZ);
         }
 
-        // Text above door
-        for (let i = 0; i < objects["textsCubeDoor"].length; i++) {
-            if (i < 2){
-                posZ = 0.67 * window.innerWidth - 2500;
-            }else{
-                posZ = 0.67 * window.innerWidth - 4500;
-            }
-            objects["textsCubeDoor"][i].position.set(objects["textsCubeDoor"][i].position.x, objects["textsCubeDoor"][i].position.y, posZ);
-        }
+        // posZ = 0.67 * window.innerWidth - 1833;
+        // objects["textsDoor"].position.set(objects["textsDoor"].position.x, objects["textsDoor"].position.y, posZ)
 
-        posZ = 0.67 * window.innerWidth - 2433;
-        objects["textsDoor"].position.set(objects["textsDoor"].position.x, objects["textsDoor"].position.y, posZ)
+        // Door
+        for (let i = 0; i < objects["doorTexts"].length; i++) {
+            if (i < 2){
+                posZ = 0.67 * window.innerWidth - 1933;
+            }else{
+                posZ = 0.67 * window.innerWidth - 3933;
+            }
+            objects["doorTexts"][i].position.set(objects["doorTexts"][i].position.x, objects["doorTexts"][i].position.y, posZ);
+        }
     
     }          
 }
@@ -267,58 +267,46 @@ for ( let i = 0; i < 4; i ++ ) {
 }
 objects["doors"] = doors;
 
-// Cube above door
-let cubeTextArray = [];
-let geoText, matText, cubeText;
-let textPosX, textPosZ;
-for ( let i = 0; i < 4; i ++ ) {
-    geoText = new THREE.BoxGeometry( 300, 200, 30);
-    matText = new THREE.MeshBasicMaterial();
-    matText.color.setRGB( 4/255, 47/255, 102/255 );
-    cubeText = new THREE.Mesh( geoText, matText );
-
-    if (i % 2 == 0){
-        textPosX = -400;
-    }else{
-        textPosX = 400;
-    }
-
-    if (i < 2){
-        textPosZ = 0.67 * window.innerWidth - 2500;
-    }else{
-        textPosZ = 0.67 * window.innerWidth - 4500;
-    }
-
-    cubeText.position.set(textPosX, 150, textPosZ)
-    cubeTextArray.push(cubeText)
-    scene.add(cubeText);  
-}
-objects["textsCubeDoor"] = cubeTextArray;
-
 
 // Load text
-const loaderText = new THREE.FontLoader();
-loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+let doorTexts = [];
+let doorTextPosX, doorTextPosZ;
+let texts = ['Profil', 'Formation', 'Experiences', 'Projets']
+for ( let i = 0; i < 4; i ++ ) {
+    const loaderText = new THREE.FontLoader();
+    loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
 
-	const textGeometry = new THREE.TextGeometry( 'Formation', {
-		font: font, size: 60, height: 2,
-    });
-    
-    var textMaterial = new THREE.MeshPhongMaterial( { 
-        color: 0xffffff, 
-    });
-    
-    var mesh = new THREE.Mesh( textGeometry, textMaterial );
-    textPosX = 480;
-    textPosZ = 0.67 * window.innerWidth - 2433;
-    mesh.rotation.set(0, -Math.PI/2, 0)
-    mesh.position.set(textPosX, 180, textPosZ)
-    scene.add( mesh );
+        const textGeometry = new THREE.TextGeometry( texts[i], {
+            font: font, size: 60, height: 2,
+        });
+        
+        var textMaterial = new THREE.MeshPhongMaterial( { 
+            color: 0x00ff00, 
+        });
+        
+        var mesh = new THREE.Mesh( textGeometry, textMaterial );
 
-    objects["textsDoor"] = mesh;
-} );
+        if (i % 2 == 0){
+            doorTextPosX = -480;
+        }else{
+            doorTextPosX = 210;
+        }
 
+        if (i < 2){
+            doorTextPosZ = 0.67 * window.innerWidth - 1933;
+        }else{
+            doorTextPosZ = 0.67 * window.innerWidth - 3933;
+        }
 
+        mesh.position.set(doorTextPosX, 150, doorTextPosZ)
+        scene.add( mesh );
+
+        
+        doorTexts.push(mesh);
+    } );
+}
+
+objects["doorTexts"] = doorTexts;
 
 
 
