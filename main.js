@@ -151,8 +151,18 @@ function onClick(event) {
         if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
             
             if (Object.keys(objects).length > 1){
-            arrowClicked = true;
+                arrowClicked = true;
             }
+        }
+
+        if (intersects[0].object.name.substring(0, 4) == 'door'){
+            let num = parseInt(intersects[0].object.name.charAt(4), 10); 
+            
+            if (objects["doors"][num] != undefined){
+                camera.position.set(1400, 100, 0);
+                camera.lookAt( box.position );
+            }
+
         }
     }
 }
@@ -336,27 +346,25 @@ scene.add( room1 );
 
 
 
-let boxGeo = new THREE.BoxGeometry( 100, 100, 100);
+let boxGeo = new THREE.BoxGeometry( 150, 150, 150);
 let boxMat = new THREE.MeshPhongMaterial( { 
     color: 0xffff00
 } );
 let box = new THREE.Mesh( boxGeo, boxMat );
-box.position.set(1400, 0, -800)
+box.position.set(1400, -110, -1400)
 scene.add( box );  
 
-camera.position.set(1400, 0, 0);
-camera.lookAt( box.position );
 
 const loader = new TGALoader();
 
 // load a resource
-const texture = loader.load('models/desk/texture.tga', (texture) => {
+const textureDesk = loader.load('models/desk/texture.tga', (texture) => {
     console.log("texture loaded");
 });
 
 const matDesk = new THREE.MeshPhongMaterial( {
 	color: 0xffffff,
-	map: texture
+	map: textureDesk
 } );
 
 const loaderDesk = new FBXLoader();
@@ -367,11 +375,12 @@ loaderDesk.load('models/desk/desk.FBX', (desk) => {
         child.receiveShadow = true;
         child.material = matDesk;
     });
-    desk.scale.setScalar(2.5);
-    desk.position.set(1400, -300, -800);
+    desk.scale.setScalar(4);
+    desk.position.set(1400, -500, -1400);
     desk.rotation.set(0, 0, 0);
     scene.add(desk);
 });
+
 
 
 
