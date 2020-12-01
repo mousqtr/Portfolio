@@ -50,17 +50,19 @@ function onWindowResize(){
         }
 
         // Text above door
-        for (let i = 0; i < objects["textsDoor"].length; i++) {
+        for (let i = 0; i < objects["textsCubeDoor"].length; i++) {
             if (i < 2){
                 posZ = 0.67 * window.innerWidth - 2500;
             }else{
                 posZ = 0.67 * window.innerWidth - 4500;
             }
-            objects["textsDoor"][i].position.set(objects["textsDoor"][i].position.x, objects["textsDoor"][i].position.y, posZ);
+            objects["textsCubeDoor"][i].position.set(objects["textsCubeDoor"][i].position.x, objects["textsCubeDoor"][i].position.y, posZ);
         }
+
+        posZ = 0.67 * window.innerWidth - 2433;
+        objects["textsDoor"].position.set(objects["textsDoor"].position.x, objects["textsDoor"].position.y, posZ)
     
-    }
-            
+    }          
 }
 
 const canvas = document.querySelector('#c');
@@ -270,7 +272,7 @@ let cubeTextArray = [];
 let geoText, matText, cubeText;
 let textPosX, textPosZ;
 for ( let i = 0; i < 4; i ++ ) {
-    geoText = new THREE.BoxGeometry( 300, 200, 50);
+    geoText = new THREE.BoxGeometry( 300, 200, 30);
     matText = new THREE.MeshBasicMaterial();
     matText.color.setRGB( 4/255, 47/255, 102/255 );
     cubeText = new THREE.Mesh( geoText, matText );
@@ -287,11 +289,38 @@ for ( let i = 0; i < 4; i ++ ) {
         textPosZ = 0.67 * window.innerWidth - 4500;
     }
 
-    cubeText.position.set(textPosX, 270, textPosZ)
+    cubeText.position.set(textPosX, 150, textPosZ)
     cubeTextArray.push(cubeText)
     scene.add(cubeText);  
 }
-objects["textsDoor"] = cubeTextArray;
+objects["textsCubeDoor"] = cubeTextArray;
+
+
+// Load text
+const loaderText = new THREE.FontLoader();
+loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+
+	const textGeometry = new THREE.TextGeometry( 'Formation', {
+		font: font, size: 60, height: 2,
+    });
+    
+    var textMaterial = new THREE.MeshPhongMaterial( { 
+        color: 0xffffff, 
+    });
+    
+    var mesh = new THREE.Mesh( textGeometry, textMaterial );
+    textPosX = 480;
+    textPosZ = 0.67 * window.innerWidth - 2433;
+    mesh.rotation.set(0, -Math.PI/2, 0)
+    mesh.position.set(textPosX, 180, textPosZ)
+    scene.add( mesh );
+
+    objects["textsDoor"] = mesh;
+} );
+
+
+
+
 
 
 animate();
