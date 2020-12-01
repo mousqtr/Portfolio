@@ -40,8 +40,14 @@ function onWindowResize(){
         objects["paladin"].position.set(objects["paladin"].position.x, objects["paladin"].position.y, posZ);
         
         // Door
-        posZ = 0.67 * window.innerWidth - 2333;
-        objects["door"].position.set(objects["door"].position.x, objects["door"].position.y, posZ);
+        for (let i = 0; i < objects["doors"].length; i++) {
+            if (i < 2){
+                posZ = 0.67 * window.innerWidth - 2333;
+            }else{
+                posZ = 0.67 * window.innerWidth - 4333;
+            }
+            objects["doors"][i].position.set(objects["doors"][i].position.x, objects["doors"][i].position.y, posZ);
+        }
 
         // Text above door
         for (let i = 0; i < objects["textsDoor"].length; i++) {
@@ -223,23 +229,41 @@ function finishRightTurn(){
 
 
 // Load the door model
+let doors = [];
 var mat;
-const loaderDoor = new FBXLoader();
-loaderDoor.load('models/door.fbx', (door) => {
-    door.traverse(child => {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        mat = child.material;
+let doorPosX, doorPosZ;
+for ( let i = 0; i < 4; i ++ ) {
+    const loaderDoor = new FBXLoader();
+    loaderDoor.load('models/door.fbx', (door) => {
+        
+        door.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            mat = child.material;
+            child.name = "door" + i.toString();
+        });
+        door.scale.setScalar(0.3);
+
+        if (i % 2 == 0){
+            doorPosX = -500;
+            door.rotation.set(0, Math.PI/2, 0);
+        }else{
+            doorPosX = 500;
+            door.rotation.set(0, -Math.PI/2, 0);
+        }
+    
+        if (i < 2){
+            doorPosZ = 0.67 * window.innerWidth - 2333;
+        }else{
+            doorPosZ = 0.67 * window.innerWidth - 4333;
+        }
+
+        door.position.set(doorPosX, -500, doorPosZ);
+        scene.add(door);
+        doors.push(door);
     });
-    door.scale.setScalar(0.3);
-    let distance_door = 0.67 * window.innerWidth - 2333;
-    door.position.set(500, -500, distance_door);
-    door.rotation.set(0, Math.PI/2, 0);
-
-    objects["door"] = door;
-
-    scene.add(door);
-});
+}
+objects["doors"] = doors;
 
 // Cube above door
 let cubeTextArray = [];
