@@ -181,12 +181,12 @@ export function initCorridor(scene){
 
     let doorTexts = [];
     let doorTextPosX, doorTextPosZ;
-    let texts = ['Profil', 'Formation', 'Experiences', 'Projets']
+    let titles = ['Profil', 'Formation', 'Experiences', 'Projets']
     for ( let i = 0; i < 4; i ++ ) {
-        const loaderText = new THREE.FontLoader();
-        loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+        const loaderTitles = new THREE.FontLoader();
+        loaderTitles.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
 
-            const textGeometry = new THREE.TextGeometry( texts[i], {
+            const textGeometry = new THREE.TextGeometry( titles[i], {
                 font: font, size: 60, height: 2,
             });
             
@@ -197,15 +197,15 @@ export function initCorridor(scene){
             var mesh = new THREE.Mesh( textGeometry, textMaterial );
 
             if (i % 2 == 0){
-                doorTextPosX = -480;
+                doorTextPosX = -475;
             }else{
-                doorTextPosX = 210;
+                doorTextPosX = 190;
             }
 
             if (i < 2){
-                doorTextPosZ = 0.67 * window.innerWidth - 1933;
+                doorTextPosZ = 0.67 * window.innerWidth - 2033;
             }else{
-                doorTextPosZ = 0.67 * window.innerWidth - 3933;
+                doorTextPosZ = 0.67 * window.innerWidth - 4033;
             }
 
             mesh.position.set(doorTextPosX, 150, doorTextPosZ)
@@ -229,7 +229,7 @@ export function initCorridor(scene){
         child.castShadow = true;
         child.receiveShadow = true;
         child.material = new THREE.MeshPhongMaterial( { 
-            color: 0xff0000
+            color: 0x00003f
         } );
         child.name = 'arrow';
         });       
@@ -240,6 +240,47 @@ export function initCorridor(scene){
         objects["arrow"] = arrow;
         scene.add(arrow);
     });
+
+    /*************************************************************/
+    /*                         TEXT                              */
+    /*************************************************************/
+
+    let texts = ['Suivant', 'Precedent']
+    for ( let i = 0; i < 2; i ++ ) {
+        const loaderText = new THREE.FontLoader();
+        loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+
+            const textGeometry = new THREE.TextGeometry( texts[i], {
+                font: font, size: 17, height: 2,
+            });
+            
+            var textMaterial = new THREE.MeshPhongMaterial( { 
+                color: 0xffffff, 
+            });
+            
+            var mesh = new THREE.Mesh( textGeometry, textMaterial );
+
+            mesh.traverse(child => {
+                child.name = 'textArrow'
+            } );
+
+            switch(i){
+                case 0:
+                    mesh.position.set(-29, 150, -500);
+                    objects["textNext"] = mesh;
+                    break;
+                case 1:
+                    mesh.position.set(-38, -5000, -2500);
+                    objects["textPrevious"] = mesh;
+                    break;
+            }
+            
+            scene.add( mesh );
+            
+        } );
+    }
+
+    
 
 
     return [objects, materials, mixers, actions, lights];

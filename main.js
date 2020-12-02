@@ -88,9 +88,9 @@ function onWindowResize(){
         // Door texts
         for (let i = 0; i < corridorObjects["doorTexts"].length; i++) {
             if (i < 2){
-                posZ = 0.67 * window.innerWidth - 1933;
+                posZ = 0.67 * window.innerWidth - 2033;
             }else{
-                posZ = 0.67 * window.innerWidth - 3933;
+                posZ = 0.67 * window.innerWidth - 4033;
             }
             corridorObjects["doorTexts"][i].position.set(corridorObjects["doorTexts"][i].position.x, corridorObjects["doorTexts"][i].position.y, posZ);
         }
@@ -110,7 +110,7 @@ function onClick(event) {
     const intersects = raycaster.intersectObjects( scene.children, true );
 
     for ( let i = 0; i < intersects.length; i ++ ) {
-        if (intersects[0].object.name == 'arrow'){  
+        if ((intersects[0].object.name == 'arrow') || (intersects[0].object.name == 'textArrow')){  
             arrowClicked = true;
         }
 

@@ -7,11 +7,11 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
     raycaster.setFromCamera( mouse, camera );
     const intersects = raycaster.intersectObjects( scene.children, true );
     for ( let i = 0; i < intersects.length; i ++ ) {
-
+        
         /*************************************************************/
         /*                    ARROW (Corridor)                       */
         /*************************************************************/
-        if (intersects[0].object.name == 'arrow'){
+        if ((intersects[0].object.name == 'arrow') || (intersects[0].object.name == 'textArrow')){
 
             // Change the color of the arrow into red
             if (corridorObjects["arrow"] != undefined){
@@ -21,16 +21,54 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
                     }); 
                 });
             }
+
+            // Change the color of the previousText in the arrow
+            if (corridorObjects["textPrevious"] != undefined){
+                corridorObjects["textPrevious"].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                        color: 0x000000
+                    }); 
+                });
+            }
+
+            // Change the color of the text in the arrow
+            if (corridorObjects["textNext"] != undefined){
+                corridorObjects["textNext"].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                        color: 0x000000
+                    }); 
+                });
+            }
+
         }else{
             
             // Change the color of the arrow into yellow
             if (corridorObjects["arrow"] != undefined){
                 corridorObjects["arrow"].traverse(function(child){
                     child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xff0000
+                        color: 0x00003f
                     }); 
                 });
             } 
+
+            // Change the color of the previousText in the arrow
+            if (corridorObjects["textPrevious"] != undefined){
+                corridorObjects["textPrevious"].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                        color: 0xffffff
+                    }); 
+                });
+            }
+
+            // Change the color of the text in the arrow
+            if (corridorObjects["textNext"] != undefined){
+                corridorObjects["textNext"].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                        color: 0xffffff
+                    }); 
+                });
+            }
+
         }
 
         /*************************************************************/
