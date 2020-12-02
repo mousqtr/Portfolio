@@ -113,7 +113,7 @@ export function initRoom1(scene){
         child.castShadow = true;
         child.receiveShadow = true;
         child.material = new THREE.MeshPhongMaterial( { 
-            color: 0xff0000
+            color: 0x00008b
         } );
         child.name = 'arrowRoom';
         });       
@@ -123,6 +123,34 @@ export function initRoom1(scene){
         arrow.name = "arrow";
         objects["arrow"] = arrow;
         scene.add(arrow);
+    });
+
+    /*************************************************************/
+    /*                         TEXT                              */
+    /*************************************************************/
+
+    const loaderText = new THREE.FontLoader();
+    loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+
+        const textGeometry = new THREE.TextGeometry( 'Sortir', {
+            font: font, size: 14, height: 2,
+        });
+        
+        var textMaterial = new THREE.MeshPhongMaterial( { 
+            color: 0xffffff, 
+        });
+        
+        var mesh = new THREE.Mesh( textGeometry, textMaterial );
+
+        mesh.traverse(child => {
+            child.name = 'textArrowRoom'
+        } );
+
+        mesh.position.set(1282, 190, -580);
+        objects["textArrowRoom"] = mesh;
+        
+        scene.add( mesh );
+            
     });
 
     return objects;

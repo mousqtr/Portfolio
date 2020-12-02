@@ -7,7 +7,7 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
     raycaster.setFromCamera( mouse, camera );
     const intersects = raycaster.intersectObjects( scene.children, true );
     for ( let i = 0; i < intersects.length; i ++ ) {
-        
+
         /*************************************************************/
         /*                    ARROW (Corridor)                       */
         /*************************************************************/
@@ -104,7 +104,7 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
         /*                       ARROW (room1)                       */
         /*************************************************************/
 
-        if (intersects[0].object.name == 'arrowRoom'){
+        if ((intersects[0].object.name == 'arrowRoom') || (intersects[0].object.name == 'textArrowRoom')){
             
             // Change the color of the arrow into red
             if (room1Objects["arrow"] != undefined){
@@ -114,16 +114,36 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
                     }); 
                 });
             }
+
+            // Change the color of the textArrowRoom in the arrow
+            if (room1Objects["textArrowRoom"] != undefined){
+                room1Objects["textArrowRoom"].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                        color: 0x000000
+                    }); 
+                });
+            }
+
         }else{
             
             // Change the color of the arrow into yellow
             if (room1Objects["arrow"] != undefined){
                 room1Objects["arrow"].traverse(function(child){
                     child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xff0000
+                        color: 0x00008b
                     }); 
                 });
             } 
+
+            // Change the color of the textArrowRoom in the arrow
+            if (room1Objects["textArrowRoom"] != undefined){
+                room1Objects["textArrowRoom"].traverse(function(child){
+                    child.material = new THREE.MeshPhongMaterial( { 
+                        color: 0xffffff
+                    }); 
+                });
+            }
+
         }
 
 

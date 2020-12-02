@@ -114,7 +114,7 @@ function onClick(event) {
             arrowClicked = true;
         }
 
-        if (intersects[0].object.name == 'arrowRoom'){  
+        if ((intersects[0].object.name == 'arrowRoom') || (intersects[0].object.name == 'textArrowRoom')){  
             camera.position.set(0, 0, 0);
             corridorLights["hemiLight"].position.set(0, 0, 0);
             corridorLights["dirLight"].position.set(0, 0, 300);
