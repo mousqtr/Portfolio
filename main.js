@@ -160,7 +160,8 @@ function onClick(event) {
             
             if (objects["doors"][num] != undefined){
                 camera.position.set(1400, 100, 0);
-                camera.lookAt( box.position );
+                camera.lookAt( box2.position );
+                dirLight.position.set(1400, 0, 300);
             }
 
         }
@@ -327,7 +328,6 @@ let room1Texture_dn = new THREE.TextureLoader().load( 'img/parquet.jpg');
 let room1Texture_rt = new THREE.TextureLoader().load( 'img/wall2.jpg');
 let room1Texture_lf = new THREE.TextureLoader().load( 'img/wall2.jpg');
 
-
 room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_ft }));
 room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_bk }));
 room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_up }));
@@ -347,12 +347,25 @@ scene.add( room1 );
 
 
 let boxGeo = new THREE.BoxGeometry( 150, 150, 150);
-let boxMat = new THREE.MeshPhongMaterial( { 
-    color: 0xffff00
-} );
+let texture = new THREE.TextureLoader().load( 'img/cpe2.jpg');
+let boxMat = new THREE.MeshPhongMaterial( { map: texture } );
 let box = new THREE.Mesh( boxGeo, boxMat );
-box.position.set(1400, -110, -1400)
+box.position.set(1200, -110, -1400)
 scene.add( box );  
+
+let boxGeo2 = new THREE.BoxGeometry( 150, 150, 150);
+let texture2 = new THREE.TextureLoader().load( 'img/charlemagne.jpg');
+let boxMat2 = new THREE.MeshPhongMaterial( { map: texture2 } );
+let box2 = new THREE.Mesh( boxGeo2, boxMat2 );
+box2.position.set(1400, -110, -1400)
+scene.add( box2 );  
+
+let boxGeo3 = new THREE.BoxGeometry( 150, 150, 150);
+let texture3 = new THREE.TextureLoader().load( 'img/henri.jpg');
+let boxMat3 = new THREE.MeshPhongMaterial( { map: texture3 } );
+let box3 = new THREE.Mesh( boxGeo3, boxMat3 );
+box3.position.set(1600, -110, -1400)
+scene.add( box3 );  
 
 
 const loader = new TGALoader();
@@ -380,9 +393,6 @@ loaderDesk.load('models/desk/desk.FBX', (desk) => {
     desk.rotation.set(0, 0, 0);
     scene.add(desk);
 });
-
-
-
 
 
 
