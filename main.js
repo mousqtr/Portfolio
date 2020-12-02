@@ -1,32 +1,66 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
-// import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import {OBJLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/OBJLoader.js';
-import {TGALoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/TGALoader.js';
 
 import { walkTo, stopWalk } from "./characterMovements.js";
 import { detectObjects } from "./detectObjects.js";
-import { loadRoom1 } from "./room1.js";
-import { loadCorridor } from './corridor.js';
+import { initRoom1 } from "./room1.js";
+import { initCorridor } from './corridor.js';
 
-let scene, camera, renderer;
+// Canvas
+const canvas = document.querySelector('#c');
 
+// Clock
 const clock = new THREE.Clock();
 
+// Scene
+let scene = new THREE.Scene();
 
-let arrowClicked = false;
+// Camera
+const fov = 55; // field of view
+const aspect = window.innerWidth/window.innerHeight; 
+const near = 45;
+const far = 30000;
+let camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+camera.position.set(0, 0, 0);
 
+// Renderer
+let renderer = new THREE.WebGLRenderer({antialias:true, canvas});
+renderer.setSize(window.innerWidth,window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-const raycaster = new THREE.Raycaster();
+// Mouse position
 const mouse = new THREE.Vector2();
 
-let positionState = 0;
+// Raycaster (used for mouse picking)
+const raycaster = new THREE.Raycaster();
 
+// Events 
 window.addEventListener( 'resize', onWindowResize, false );
 window.addEventListener( 'mousemove', onMouseMove, false );
 window.addEventListener( 'click', onClick, false );
 
+// Models initialization
+let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene);
+let room1Objects = initRoom1(scene);
+
+// List of objects
+let objects = {}
+objects["corridorObjects"] = corridorObjects
+objects["room1Objects"] = room1Objects
+
+// Global variables
+let positionState = 0;
+let arrowClicked = false;
+
+// Control the camera manually
+let controls = new OrbitControls(camera, renderer.domElement );
+controls.addEventListener('change', renderer);
+controls.minDistance = 500;
+controls.maxDistance = 1500;
+
+animate();
+
+// When the window is resized
 function onWindowResize(){
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -39,7 +73,7 @@ function onWindowResize(){
         posZ = 0.375 * window.innerWidth - 1150;
         posZ = Math.min(-600, posZ);
         posZ = Math.max(-1000, posZ);
-        corridorObjects["paladin"].position.set(corridorObjects["paladin"].position.x, objcorridorObjectsects["paladin"].position.y, posZ);
+        corridorObjects["paladin"].position.set(corridorObjects["paladin"].position.x, corridorObjects["paladin"].position.y, posZ);
         
         // Door
         for (let i = 0; i < corridorObjects["doors"].length; i++) {
@@ -50,7 +84,6 @@ function onWindowResize(){
             }
             corridorObjects["doors"][i].position.set(corridorObjects["doors"][i].position.x, corridorObjects["doors"][i].position.y, posZ);
         }
-
 
         // Door texts
         for (let i = 0; i < corridorObjects["doorTexts"].length; i++) {
@@ -65,29 +98,6 @@ function onWindowResize(){
     }          
 }
 
-const canvas = document.querySelector('#c');
-
-scene = new THREE.Scene();
-const fov = 55; // field of view
-const aspect = window.innerWidth/window.innerHeight;  // the canvas default
-const near = 45;
-const far = 30000;
-camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(0, 0, 0);
-
-renderer = new THREE.WebGLRenderer({antialias:true, canvas});
-renderer.setSize(window.innerWidth,window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 1500;
-
-
-
-
-
 // Get the mouse position
 function onMouseMove( event ) {
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
@@ -100,11 +110,14 @@ function onClick(event) {
     const intersects = raycaster.intersectObjects( scene.children, true );
 
     for ( let i = 0; i < intersects.length; i ++ ) {
-        if ((intersects[0].object.name == 'Box') || (intersects[0].object.name == 'Box1')){
-            
-            if (Object.keys(corridorObjects).length > 1){
-                arrowClicked = true;
-            }
+        if (intersects[0].object.name == 'arrow'){  
+            arrowClicked = true;
+        }
+
+        if (intersects[0].object.name == 'arrowRoom'){  
+            camera.position.set(0, 0, 0);
+            corridorLights["hemiLight"].position.set(0, 0, 0);
+            corridorLights["dirLight"].position.set(0, 0, 300);
         }
 
         if (intersects[0].object.name.substring(0, 4) == 'door'){
@@ -112,7 +125,6 @@ function onClick(event) {
             
             if (corridorObjects["doors"][num] != undefined){
                 camera.position.set(1400, 100, 0);
-                camera.lookAt( room1Objects["box2"].position );
                 corridorLights["hemiLight"].position.set(0, -10000, 0);
                 corridorLights["dirLight"].position.set(0, -10000, 300);
             }
@@ -121,22 +133,12 @@ function onClick(event) {
     }
 }
 
-
-
-
-
-let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = loadCorridor(scene);
-let room1Objects = loadRoom1(scene);
-
-
-
-animate();
-
+// Loop
 function animate() {
 
     // Hover objects
     if (arrowClicked == false){
-        detectObjects(scene, raycaster, mouse, camera, corridorObjects, corridorMaterials["door"]);
+        detectObjects(scene, raycaster, mouse, camera, objects, corridorMaterials["door"]);
     }
 
     // Walk
@@ -163,6 +165,11 @@ function animate() {
     if ( corridorMixers["mixerWalk"] ) corridorMixers["mixerWalk"].update( delta );
     if ( corridorMixers["mixerStand"] ) corridorMixers["mixerStand"].update( delta );
     if ( corridorMixers["mixerRightTurn"] ) corridorMixers["mixerRightTurn"].update( delta );
+
+    // Rotates cubes of room 1
+    room1Objects["box1"].rotation.y += 0.01;
+    room1Objects["box2"].rotation.y += 0.01
+    room1Objects["box3"].rotation.y += 0.01
 
     requestAnimationFrame(animate);
 

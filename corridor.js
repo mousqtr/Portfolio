@@ -1,7 +1,7 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
-export function loadCorridor(scene){
+export function initCorridor(scene){
 
     let objects = {};
     let materials = {}
@@ -36,12 +36,12 @@ export function loadCorridor(scene){
     /*************************************************************/
 
     let corridorMaterialArray = [];
-    let texture_ft = new THREE.TextureLoader().load( 'img/wall2.jpg');
-    let texture_bk = new THREE.TextureLoader().load( 'img/wall2.jpg');
-    let texture_up = new THREE.TextureLoader().load( 'img/wall3.jpg');
-    let texture_dn = new THREE.TextureLoader().load( 'img/parquet.jpg');
-    let texture_rt = new THREE.TextureLoader().load( 'img/wall2.jpg');
-    let texture_lf = new THREE.TextureLoader().load( 'img/wall2.jpg');
+    let texture_ft = new THREE.TextureLoader().load( 'img/wallRed.jpg');
+    let texture_bk = new THREE.TextureLoader().load( 'img/wallRed.jpg');
+    let texture_up = new THREE.TextureLoader().load( 'img/ceilingWhite.jpg');
+    let texture_dn = new THREE.TextureLoader().load( 'img/floorGrey.jpg');
+    let texture_rt = new THREE.TextureLoader().load( 'img/wallRed.jpg');
+    let texture_lf = new THREE.TextureLoader().load( 'img/wallRed.jpg');
 
     texture_dn.wrapS = texture_dn.wrapT = THREE.RepeatWrapping;
     texture_up.wrapS = texture_up.wrapT = THREE.RepeatWrapping;
@@ -140,15 +140,18 @@ export function loadCorridor(scene){
     let doorPosX, doorPosZ;
     for ( let i = 0; i < 4; i ++ ) {
         const loaderDoor = new FBXLoader();
-        loaderDoor.load('models/door.fbx', (door) => {
+        loaderDoor.load('models/door2.fbx', (door) => {
             
             door.traverse(child => {
                 child.castShadow = true;
                 child.receiveShadow = true;
+                child.material = new THREE.MeshPhongMaterial( { 
+                    color: 0x696969
+                }); 
                 materials["door"] = child.material;
                 child.name = "door" + i.toString();
             });
-            door.scale.setScalar(0.3);
+            door.scale.setScalar(0.51);
 
             if (i % 2 == 0){
                 doorPosX = -500;
@@ -164,7 +167,7 @@ export function loadCorridor(scene){
                 doorPosZ = 0.67 * window.innerWidth - 4333;
             }
 
-            door.position.set(doorPosX, -500, doorPosZ);
+            door.position.set(doorPosX, -185, doorPosZ);
             scene.add(door);
             doors.push(door);
         });
@@ -173,7 +176,7 @@ export function loadCorridor(scene){
 
 
     /*************************************************************/
-    /*                         TEXTS                             */
+    /*                         TITLES                            */
     /*************************************************************/
 
     let doorTexts = [];
@@ -228,6 +231,7 @@ export function loadCorridor(scene){
         child.material = new THREE.MeshPhongMaterial( { 
             color: 0xff0000
         } );
+        child.name = 'arrow';
         });       
         arrow.scale.setScalar(200);
         arrow.position.set(0, 200, -600);
