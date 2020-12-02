@@ -12,7 +12,7 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
             if (objects["arrow"] != undefined){
                 objects["arrow"].traverse(function(child){
                     child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xff0000
+                        color: 0xffff00
                     }); 
                 });
             }
@@ -23,7 +23,7 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
             if (objects["arrow"] != undefined){
                 objects["arrow"].traverse(function(child){
                     child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xffff00
+                        color: 0xff0000
                     }); 
                 });
             } 
@@ -38,7 +38,7 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
             if (objects["doors"][num] != undefined){
                 objects["doors"][num].traverse(function(child){
                     child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xff0000
+                        color: 0xffff00
                     }); 
                 });
             }

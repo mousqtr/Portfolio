@@ -2,10 +2,12 @@ import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threej
 import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
 // import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import {OBJLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/OBJLoader.js';
 import {TGALoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/TGALoader.js';
 
 import { walkTo, stopWalk } from "./characterMovements.js";
 import { detectObjects } from "./detectObjects.js";
+import { loadRoom1 } from "./room1.js";
 
 let scene, camera, renderer;
 
@@ -125,7 +127,7 @@ arrowLoader.load('models/arrow.fbx', (arrow) => {
     child.castShadow = true;
     child.receiveShadow = true;
     child.material = new THREE.MeshPhongMaterial( { 
-        color: 0xffff00
+        color: 0xff0000
     } );
     });       
     arrow.scale.setScalar(200);
@@ -160,8 +162,9 @@ function onClick(event) {
             
             if (objects["doors"][num] != undefined){
                 camera.position.set(1400, 100, 0);
-                camera.lookAt( box2.position );
-                dirLight.position.set(1400, 0, 300);
+                camera.lookAt( room1Objects["box2"].position );
+                hemiLight.position.set(0, -10000, 0);
+                dirLight.position.set(0, -10000, 300);
             }
 
         }
@@ -319,80 +322,8 @@ for ( let i = 0; i < 4; i ++ ) {
 objects["doorTexts"] = doorTexts;
 
 
-// Load the corridor
-let room1MaterialArray = [];
-let room1Texture_ft = new THREE.TextureLoader().load( 'img/wall2.jpg');
-let room1Texture_bk = new THREE.TextureLoader().load( 'img/wall2.jpg');
-let room1Texture_up = new THREE.TextureLoader().load( 'img/wall3.jpg');
-let room1Texture_dn = new THREE.TextureLoader().load( 'img/parquet.jpg');
-let room1Texture_rt = new THREE.TextureLoader().load( 'img/wall2.jpg');
-let room1Texture_lf = new THREE.TextureLoader().load( 'img/wall2.jpg');
 
-room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_ft }));
-room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_bk }));
-room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_up }));
-room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_dn }));
-room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_rt }));
-room1MaterialArray.push(new THREE.MeshBasicMaterial( { map: room1Texture_lf }));
-
-for (let i = 0; i < 6; i++) {
-    room1MaterialArray[i].side = THREE.BackSide;
-}
-    
-let room1Geo = new THREE.BoxGeometry( 1000, 1000, 2000);
-let room1 = new THREE.Mesh( room1Geo, room1MaterialArray );
-room1.position.set(1400, 0, -600)
-scene.add( room1 );  
-
-
-
-let boxGeo = new THREE.BoxGeometry( 150, 150, 150);
-let texture = new THREE.TextureLoader().load( 'img/cpe2.jpg');
-let boxMat = new THREE.MeshPhongMaterial( { map: texture } );
-let box = new THREE.Mesh( boxGeo, boxMat );
-box.position.set(1200, -110, -1400)
-scene.add( box );  
-
-let boxGeo2 = new THREE.BoxGeometry( 150, 150, 150);
-let texture2 = new THREE.TextureLoader().load( 'img/charlemagne.jpg');
-let boxMat2 = new THREE.MeshPhongMaterial( { map: texture2 } );
-let box2 = new THREE.Mesh( boxGeo2, boxMat2 );
-box2.position.set(1400, -110, -1400)
-scene.add( box2 );  
-
-let boxGeo3 = new THREE.BoxGeometry( 150, 150, 150);
-let texture3 = new THREE.TextureLoader().load( 'img/henri.jpg');
-let boxMat3 = new THREE.MeshPhongMaterial( { map: texture3 } );
-let box3 = new THREE.Mesh( boxGeo3, boxMat3 );
-box3.position.set(1600, -110, -1400)
-scene.add( box3 );  
-
-
-const loader = new TGALoader();
-
-// load a resource
-const textureDesk = loader.load('models/desk/texture.tga', (texture) => {
-    console.log("texture loaded");
-});
-
-const matDesk = new THREE.MeshPhongMaterial( {
-	color: 0xffffff,
-	map: textureDesk
-} );
-
-const loaderDesk = new FBXLoader();
-loaderDesk.load('models/desk/desk.FBX', (desk) => {
-
-    desk.traverse(child => {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        child.material = matDesk;
-    });
-    desk.scale.setScalar(4);
-    desk.position.set(1400, -500, -1400);
-    desk.rotation.set(0, 0, 0);
-    scene.add(desk);
-});
+let room1Objects = loadRoom1(scene);
 
 
 
