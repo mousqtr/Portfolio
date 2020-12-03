@@ -53,25 +53,34 @@ export function initRoom1(scene){
     let texture1 = new THREE.TextureLoader().load( 'img/room1/cpe.jpg');
     let box1Mat = new THREE.MeshPhongMaterial( { map: texture1 } );
     let box1 = new THREE.Mesh( box1Geo, box1Mat );
+    box1.traverse(child => {
+        child.name = 'boxCpe'
+    } );
     box1.position.set(1150, -110, -1400)
     scene.add(box1);
-    objects["box1"] = box1
+    objects["boxCpe"] = box1
 
     let boxGeo2 = new THREE.BoxGeometry( 150, 150, 150);
     let texture2 = new THREE.TextureLoader().load( 'img/room1/charlemagne.jpg');
     let boxMat2 = new THREE.MeshPhongMaterial( { map: texture2 } );
     let box2 = new THREE.Mesh( boxGeo2, boxMat2 );
+    box2.traverse(child => {
+        child.name = 'boxCharlemagne'
+    } );
     box2.position.set(1400, -110, -1400)
     scene.add(box2);
-    objects["box2"] = box2
+    objects["boxCharlemagne"] = box2
 
     let boxGeo3 = new THREE.BoxGeometry( 150, 150, 150);
     let texture3 = new THREE.TextureLoader().load( 'img/room1/henri.jpg');
     let boxMat3 = new THREE.MeshPhongMaterial( { map: texture3 } );
     let box3 = new THREE.Mesh( boxGeo3, boxMat3 );
+    box3.traverse(child => {
+        child.name = 'boxHenri'
+    } );
     box3.position.set(1650, -110, -1400)
     scene.add( box3 );
-    objects["box3"] = box3 
+    objects["boxHenri"] = box3 
 
 
     /*************************************************************/
@@ -117,8 +126,8 @@ export function initRoom1(scene){
         } );
         child.name = 'arrowRoom';
         });       
-        arrow.scale.setScalar(50);
-        arrow.position.set(1300, 200, -600);
+        arrow.scale.setScalar(120);
+        arrow.position.set(1100, 400, -1500);
         arrow.rotation.set(0, Math.PI, 0);
         arrow.name = "arrow";
         objects["arrow"] = arrow;
@@ -133,7 +142,7 @@ export function initRoom1(scene){
     loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
 
         const textGeometry = new THREE.TextGeometry( 'Sortir', {
-            font: font, size: 14, height: 2,
+            font: font, size: 38, height: 2,
         });
         
         var textMaterial = new THREE.MeshPhongMaterial( { 
@@ -146,12 +155,38 @@ export function initRoom1(scene){
             child.name = 'textArrowRoom'
         } );
 
-        mesh.position.set(1282, 190, -580);
+        mesh.position.set(1050, 374, -1450);
         objects["textArrowRoom"] = mesh;
         
         scene.add( mesh );
             
     });
+
+    /*************************************************************/
+    /*                         PLANE                             */
+    /*************************************************************/
+    const textureBox1 = new THREE.TextureLoader().load('img/room1/cpePresentation.png');
+    const geometry = new THREE.PlaneGeometry( 600, 900 );
+    const material = new THREE.MeshBasicMaterial( {map: textureBox1} );
+    const plane = new THREE.Mesh( geometry, material );
+    plane.position.set(1400, -5000, -900);
+    objects["paperCpe"] = plane;
+    scene.add( plane );
+
+    /*************************************************************/
+    /*                      BUTTON CLOSE                         */
+    /*************************************************************/
+    const textureClose = new THREE.TextureLoader().load('img/room1/cross.png');
+    const geometryClose = new THREE.PlaneGeometry( 50, 50 );
+    const materialClose = new THREE.MeshBasicMaterial( { map: textureClose} );
+    const planeClose = new THREE.Mesh( geometryClose, materialClose );
+    planeClose.traverse(child => {
+        child.name = 'buttonClose'
+    } );
+    planeClose.position.set(1650, -5000, -890);
+    objects["buttonClose"] = planeClose;
+    scene.add( planeClose );
+
 
     return objects;
 }

@@ -56,7 +56,7 @@ let arrowClicked = false;
 let controls = new OrbitControls(camera, renderer.domElement );
 controls.addEventListener('change', renderer);
 controls.minDistance = 500;
-controls.maxDistance = 1500;
+controls.maxDistance = 4000;
 
 animate();
 
@@ -128,8 +128,26 @@ function onClick(event) {
                 corridorLights["hemiLight"].position.set(0, -10000, 0);
                 corridorLights["dirLight"].position.set(0, -10000, 300);
             }
-
         }
+
+        if (intersects[0].object.name == 'boxCpe'){  
+            camera.position.set(1400, 0, 0);
+
+            if ((room1Objects["paperCpe"] != undefined) && (room1Objects["buttonClose"] != undefined)){
+                room1Objects["paperCpe"].position.set(1400, 0, -900);
+                room1Objects["buttonClose"].position.set(1650, 400, -890);
+            }
+        }
+
+        if (intersects[0].object.name == 'buttonClose'){  
+            camera.position.set(1400, 100, 0);
+
+            if ((room1Objects["paperCpe"] != undefined) && (room1Objects["buttonClose"] != undefined)){
+                room1Objects["paperCpe"].position.set(1400, -5000, -900);
+                room1Objects["buttonClose"].position.set(1650, -5000, -890);
+            }
+        }
+
     }
 }
 
@@ -167,9 +185,9 @@ function animate() {
     if ( corridorMixers["mixerRightTurn"] ) corridorMixers["mixerRightTurn"].update( delta );
 
     // Rotates cubes of room 1
-    room1Objects["box1"].rotation.y += 0.01;
-    room1Objects["box2"].rotation.y += 0.01
-    room1Objects["box3"].rotation.y += 0.01
+    room1Objects["boxCpe"].rotation.y += 0.01;
+    room1Objects["boxCharlemagne"].rotation.y += 0.01
+    room1Objects["boxHenri"].rotation.y += 0.01
 
     requestAnimationFrame(animate);
 

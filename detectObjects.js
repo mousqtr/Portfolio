@@ -146,8 +146,58 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
 
         }
 
+        /*************************************************************/
+        /*                       BoxCpe (room1)                       */
+        /*************************************************************/
+        // let str = 'boxCpe'
+        // if (intersects[0].object.name == str){
+            
+        //     // Change the color of the arrow into red
+        //     if (room1Objects[str] != undefined){
+        //         room1Objects[str].traverse(function(child){
+        //             child.material.transparent = true;
+        //             child.material.opacity = 0.5; 
+        //         });
+        //     }
 
+        // }else{
+            
+        //     // Change the color of the arrow into yellow
+        //     if (room1Objects[str] != undefined){
+        //         room1Objects[str].traverse(function(child){
+        //             child.material.transparent = false;
+        //         });
+        //     } 
 
+        // }
+
+        changeOpacity(intersects, room1Objects["boxCpe"], 'boxCpe', 0.5);
+        changeOpacity(intersects, room1Objects["boxCharlemagne"], 'boxCharlemagne', 0.5);
+        changeOpacity(intersects, room1Objects["boxHenri"], 'boxHenri', 0.5);
 
     }
+}
+
+function changeOpacity(intersects, object, name, opacity){
+
+    // When the mouse hovers it
+    if (intersects[0].object.name == name){
+            
+        if (object != undefined){
+            object.traverse(function(child){
+                child.material.transparent = true;
+                child.material.opacity = opacity; 
+            });
+        }
+
+    }else{
+        
+        // Change the color of the arrow into yellow
+        if (object != undefined){
+            object.traverse(function(child){
+                child.material.transparent = false;
+            });
+        } 
+
+    }    
 }
