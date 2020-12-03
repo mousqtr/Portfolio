@@ -163,29 +163,40 @@ export function initRoom1(scene){
     });
 
     /*************************************************************/
-    /*                         PLANE                             */
+    /*                         PAPERS                            */
     /*************************************************************/
-    const textureBox1 = new THREE.TextureLoader().load('img/room1/cpePresentation.png');
-    const geometry = new THREE.PlaneGeometry( 600, 900 );
-    const material = new THREE.MeshBasicMaterial( {map: textureBox1} );
-    const plane = new THREE.Mesh( geometry, material );
-    plane.position.set(1400, -5000, -900);
-    objects["paperCpe"] = plane;
-    scene.add( plane );
+
+    const paperImg = ['img/room1/cpePresentation.png', 'img/room1/charlemagnePresentation.png', 'img/room1/henriPresentation.png']
+    const paperName = ["paperCpe", "paperCharlemagne", "paperHenri"]
+    for (let i = 0; i < 3; i++) {
+        const textureBox1 = new THREE.TextureLoader().load(paperImg[i]);
+        const geometry = new THREE.PlaneGeometry( 600, 900 );
+        const material = new THREE.MeshBasicMaterial( {map: textureBox1} );
+        const plane = new THREE.Mesh( geometry, material );
+        plane.position.set(1400, -5000, -900);
+        objects[paperName[i]] = plane;
+        scene.add( plane );
+    }
+    
 
     /*************************************************************/
-    /*                      BUTTON CLOSE                         */
+    /*                      BUTTONS CLOSE                        */
     /*************************************************************/
     const textureClose = new THREE.TextureLoader().load('img/room1/cross.png');
     const geometryClose = new THREE.PlaneGeometry( 50, 50 );
     const materialClose = new THREE.MeshBasicMaterial( { map: textureClose} );
-    const planeClose = new THREE.Mesh( geometryClose, materialClose );
-    planeClose.traverse(child => {
-        child.name = 'buttonClose'
-    } );
-    planeClose.position.set(1650, -5000, -890);
-    objects["buttonClose"] = planeClose;
-    scene.add( planeClose );
+    const buttonName = ["buttonCloseCpe", "buttonCloseCharlemagne", "buttonCloseHenri"]
+    for (let i = 0; i < 3; i++) {
+        const buttonClose = new THREE.Mesh( geometryClose, materialClose );
+        buttonClose.traverse(child => {
+            child.name = buttonName[i]
+        } );
+        buttonClose.position.set(1650, -5000, -890);
+        objects[buttonName[i]] = buttonClose;
+        scene.add( buttonClose );
+    } 
+    
+    
 
 
     return objects;

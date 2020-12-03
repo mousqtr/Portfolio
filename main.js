@@ -53,10 +53,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// let controls = new OrbitControls(camera, renderer.domElement );
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
 animate();
 
@@ -130,24 +130,36 @@ function onClick(event) {
             }
         }
 
-        if (intersects[0].object.name == 'boxCpe'){  
-            camera.position.set(1400, 0, 0);
+        openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe');
+        openBox(intersects, 'boxCharlemagne', 'paperCharlemagne', 'buttonCloseCharlemagne');
+        openBox(intersects, 'boxHenri', 'paperHenri', 'buttonCloseHenri');
 
-            if ((room1Objects["paperCpe"] != undefined) && (room1Objects["buttonClose"] != undefined)){
-                room1Objects["paperCpe"].position.set(1400, 0, -900);
-                room1Objects["buttonClose"].position.set(1650, 400, -890);
-            }
+        closeBox(intersects, 'paperCpe', 'buttonCloseCpe')
+        closeBox(intersects, 'paperCharlemagne', 'buttonCloseCharlemagne')
+        closeBox(intersects, 'paperHenri', 'buttonCloseHenri')
+
+    }
+}
+
+function openBox(intersects, objectName, paperName, buttonCloseName){
+    if (intersects[0].object.name == objectName){  
+        camera.position.set(1400, 0, 0);
+
+        if ((room1Objects[objectName] != undefined) && (room1Objects[buttonCloseName] != undefined)){
+            room1Objects[paperName].position.set(1400, 0, -900);
+            room1Objects[buttonCloseName].position.set(1650, 400, -890);
         }
+    }
+}
 
-        if (intersects[0].object.name == 'buttonClose'){  
-            camera.position.set(1400, 100, 0);
+function closeBox(intersects, paperName, buttonCloseName){
+    if (intersects[0].object.name == buttonCloseName){  
+        camera.position.set(1400, 100, 0);
 
-            if ((room1Objects["paperCpe"] != undefined) && (room1Objects["buttonClose"] != undefined)){
-                room1Objects["paperCpe"].position.set(1400, -5000, -900);
-                room1Objects["buttonClose"].position.set(1650, -5000, -890);
-            }
+        if ((room1Objects[paperName] != undefined) && (room1Objects[buttonCloseName] != undefined)){
+            room1Objects[paperName].position.set(1400, -5000, -900);
+            room1Objects[buttonCloseName].position.set(1650, -5000, -890);
         }
-
     }
 }
 
