@@ -4,6 +4,7 @@ import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitCont
 import { walkTo, stopWalk } from "./characterMovements.js";
 import { detectObjects } from "./detectObjects.js";
 import { initRoom1 } from "./room1.js";
+import { initRoom3 } from "./room3.js";
 import { initCorridor } from './corridor.js';
 
 // Canvas
@@ -42,21 +43,23 @@ window.addEventListener( 'click', onClick, false );
 // Models initialization
 let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene);
 let room1Objects = initRoom1(scene);
+let room3Objects = initRoom3(scene);
 
 // List of objects
 let objects = {}
 objects["corridorObjects"] = corridorObjects
 objects["room1Objects"] = room1Objects
+objects["room3Objects"] = room3Objects
 
 // Global variables
 let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-// let controls = new OrbitControls(camera, renderer.domElement );
-// controls.addEventListener('change', renderer);
-// controls.minDistance = 500;
-// controls.maxDistance = 4000;
+let controls = new OrbitControls(camera, renderer.domElement );
+controls.addEventListener('change', renderer);
+controls.minDistance = 500;
+controls.maxDistance = 4000;
 
 animate();
 
@@ -120,15 +123,8 @@ function onClick(event) {
             corridorLights["dirLight"].position.set(0, 0, 300);
         }
 
-        if (intersects[0].object.name.substring(0, 4) == 'door'){
-            let num = parseInt(intersects[0].object.name.charAt(4), 10); 
-            
-            if (corridorObjects["doors"][num] != undefined){
-                camera.position.set(1400, 100, 0);
-                corridorLights["hemiLight"].position.set(0, -10000, 0);
-                corridorLights["dirLight"].position.set(0, -10000, 300);
-            }
-        }
+        openDoor(intersects, 'door1', 1);
+        openDoor(intersects, 'door3', 3);
 
         openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe');
         openBox(intersects, 'boxCharlemagne', 'paperCharlemagne', 'buttonCloseCharlemagne');
@@ -138,6 +134,30 @@ function onClick(event) {
         closeBox(intersects, 'paperCharlemagne', 'buttonCloseCharlemagne')
         closeBox(intersects, 'paperHenri', 'buttonCloseHenri')
 
+    }
+}
+
+
+function openDoor(intersects, doorName, doorId){
+    if (intersects[0].object.name == doorName){
+            
+        if (corridorObjects["doors"][doorId] != undefined){       
+            corridorLights["hemiLight"].position.set(0, -10000, 0);
+            corridorLights["dirLight"].position.set(0, -10000, 300);
+
+            switch(doorId){
+                case 1:
+                    camera.position.set(1400, 100, 0);
+                    break;
+                case 3:
+                    camera.position.set(1400, 100, -2400);
+                    break;
+                default:
+                    break;
+            }
+            
+
+        }
     }
 }
 

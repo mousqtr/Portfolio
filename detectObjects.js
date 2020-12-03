@@ -3,6 +3,7 @@ import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threej
 export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
     let corridorObjects = objects["corridorObjects"]
     let room1Objects = objects["room1Objects"]
+    let room3Objects = objects["room3Objects"]
 
     raycaster.setFromCamera( mouse, camera );
     const intersects = raycaster.intersectObjects( scene.children, true );
@@ -31,6 +32,7 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
         /*************************************************************/
 
         changeArrowAndText(intersects, room1Objects["arrow"], 'arrowRoom', room1Objects["textArrowRoom"], 'textArrowRoom')
+        changeArrowAndText(intersects, room3Objects["arrow"], 'arrowRoom', room3Objects["textArrowRoom"], 'textArrowRoom')
 
         /*************************************************************/
         /*                       Boxes (room1)                       */
