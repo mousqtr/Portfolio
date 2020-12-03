@@ -9,167 +9,32 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
     for ( let i = 0; i < intersects.length; i ++ ) {
 
         /*************************************************************/
-        /*                    ARROW (Corridor)                       */
+        /*                 ARROW + TEXTS (Corridor)                  */
         /*************************************************************/
-        if ((intersects[0].object.name == 'arrow') || (intersects[0].object.name == 'textArrow')){
 
-            // Change the color of the arrow into red
-            if (corridorObjects["arrow"] != undefined){
-                corridorObjects["arrow"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xffff00
-                    }); 
-                });
-            }
-
-            // Change the color of the previousText in the arrow
-            if (corridorObjects["textPrevious"] != undefined){
-                corridorObjects["textPrevious"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0x000000
-                    }); 
-                });
-            }
-
-            // Change the color of the text in the arrow
-            if (corridorObjects["textNext"] != undefined){
-                corridorObjects["textNext"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0x000000
-                    }); 
-                });
-            }
-
-        }else{
-            
-            // Change the color of the arrow into yellow
-            if (corridorObjects["arrow"] != undefined){
-                corridorObjects["arrow"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0x00003f
-                    }); 
-                });
-            } 
-
-            // Change the color of the previousText in the arrow
-            if (corridorObjects["textPrevious"] != undefined){
-                corridorObjects["textPrevious"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xffffff
-                    }); 
-                });
-            }
-
-            // Change the color of the text in the arrow
-            if (corridorObjects["textNext"] != undefined){
-                corridorObjects["textNext"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xffffff
-                    }); 
-                });
-            }
-
-        }
+        changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textNext"], 'textArrow');
+        changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textPrevious"], 'textArrow');
 
         /*************************************************************/
         /*                    DOOR (Corridor)                        */
         /*************************************************************/
 
-        if (intersects[0].object.name.substring(0, 4) == 'door'){
-            let num = parseInt(intersects[0].object.name.charAt(4), 10); 
-            
-            // Change the color of the arrow into red
-            if (corridorObjects["doors"][num] != undefined){
-                corridorObjects["doors"][num].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xffff00
-                    }); 
-                });
-            }
-        }else{
-            for ( let i = 0; i < 4; i ++ ) {
-
-                // Change the color of the arrow into yellow
-                if (corridorObjects["doors"][i] != undefined){
-                    corridorObjects["doors"][i].traverse(function(child){
-                        child.material = new THREE.MeshPhongMaterial( { 
-                            color: 0x696969
-                        }); 
-                    });
-                }
-            }    
-        }
+        const color1 = new THREE.Color( 0xffff00 );
+        const color2 = new THREE.Color( 0x696969 );
+        changeColor(intersects, corridorObjects["doors"][0], 'door0', color1, color2)
+        changeColor(intersects, corridorObjects["doors"][1], 'door1', color1, color2)
+        changeColor(intersects, corridorObjects["doors"][2], 'door2', color1, color2)
+        changeColor(intersects, corridorObjects["doors"][3], 'door3', color1, color2)
 
         /*************************************************************/
-        /*                       ARROW (room1)                       */
+        /*                   ARROW + TEXT(room1)                     */
         /*************************************************************/
 
-        if ((intersects[0].object.name == 'arrowRoom') || (intersects[0].object.name == 'textArrowRoom')){
-            
-            // Change the color of the arrow into red
-            if (room1Objects["arrow"] != undefined){
-                room1Objects["arrow"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xffff00
-                    }); 
-                });
-            }
-
-            // Change the color of the textArrowRoom in the arrow
-            if (room1Objects["textArrowRoom"] != undefined){
-                room1Objects["textArrowRoom"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0x000000
-                    }); 
-                });
-            }
-
-        }else{
-            
-            // Change the color of the arrow into yellow
-            if (room1Objects["arrow"] != undefined){
-                room1Objects["arrow"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0x00008b
-                    }); 
-                });
-            } 
-
-            // Change the color of the textArrowRoom in the arrow
-            if (room1Objects["textArrowRoom"] != undefined){
-                room1Objects["textArrowRoom"].traverse(function(child){
-                    child.material = new THREE.MeshPhongMaterial( { 
-                        color: 0xffffff
-                    }); 
-                });
-            }
-
-        }
+        changeArrowAndText(intersects, room1Objects["arrow"], 'arrowRoom', room1Objects["textArrowRoom"], 'textArrowRoom')
 
         /*************************************************************/
-        /*                       BoxCpe (room1)                       */
+        /*                       Boxes (room1)                       */
         /*************************************************************/
-        // let str = 'boxCpe'
-        // if (intersects[0].object.name == str){
-            
-        //     // Change the color of the arrow into red
-        //     if (room1Objects[str] != undefined){
-        //         room1Objects[str].traverse(function(child){
-        //             child.material.transparent = true;
-        //             child.material.opacity = 0.5; 
-        //         });
-        //     }
-
-        // }else{
-            
-        //     // Change the color of the arrow into yellow
-        //     if (room1Objects[str] != undefined){
-        //         room1Objects[str].traverse(function(child){
-        //             child.material.transparent = false;
-        //         });
-        //     } 
-
-        // }
 
         changeOpacity(intersects, room1Objects["boxCpe"], 'boxCpe', 0.5);
         changeOpacity(intersects, room1Objects["boxCharlemagne"], 'boxCharlemagne', 0.5);
@@ -177,6 +42,29 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
 
     }
 }
+
+function changeColor(intersects, object, name, color1, color2){
+
+    if (intersects[0].object.name == name){
+
+        // Change the color of object into color1
+        if (object != undefined){
+            object.traverse(function(child){
+                child.material.color = color1
+            });
+        }
+    }else{
+
+        // Change the color of object into color2
+        if (object != undefined){
+            object.traverse(function(child){
+                child.material.color = color2 
+            });
+        }
+        
+    }
+}
+
 
 function changeOpacity(intersects, object, name, opacity){
 
@@ -200,4 +88,49 @@ function changeOpacity(intersects, object, name, opacity){
         } 
 
     }    
+}
+
+
+function changeArrowAndText(intersects, arrow, nameArrow, text, nameText){
+    if ((intersects[0].object.name == nameArrow) || (intersects[0].object.name == nameText)){
+            
+        // Change the color of arrow
+        if (arrow != undefined){
+            arrow.traverse(function(child){
+                child.material = new THREE.MeshPhongMaterial( { 
+                    color: 0xffff00
+                }); 
+            });
+        }
+
+        // Change the color of object2
+        if (text != undefined){
+            text.traverse(function(child){
+                child.material = new THREE.MeshPhongMaterial( { 
+                    color: 0x000000
+                }); 
+            });
+        }
+
+    }else{
+        
+        // Change the color of object1
+        if (arrow != undefined){
+            arrow.traverse(function(child){
+                child.material = new THREE.MeshPhongMaterial( { 
+                    color: 0x00008b
+                }); 
+            });
+        } 
+
+        // Change the color of object2
+        if (text != undefined){
+            text.traverse(function(child){
+                child.material = new THREE.MeshPhongMaterial( { 
+                    color: 0xffffff
+                }); 
+            });
+        }
+
+    }
 }
