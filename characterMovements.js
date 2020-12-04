@@ -13,16 +13,15 @@ export function walkTo(positionState, objects, actions, camera){
         case 0:
             objects["paladin"].rotation.set(0, Math.PI, 0);
             objects["paladin"].position.z -= 10;
-            camera.position.z -= 10;
             break;
         case 1:
             objects["paladin"].rotation.set(0, 0, 0);
             objects["paladin"].position.z += 10;
-            camera.position.z += 10;
             break;
         default:
             break;
     }
+    camera.position.z = objects["paladin"].position.z + 600
 
 }
 

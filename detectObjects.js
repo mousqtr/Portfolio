@@ -1,9 +1,13 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 
-export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
+export function detectObjects(scene, raycaster, mouse, camera, objects, materials){
     let corridorObjects = objects["corridorObjects"]
     let room1Objects = objects["room1Objects"]
     let room3Objects = objects["room3Objects"]
+
+    let corridorMaterials = materials["corridorMaterials"];
+    let room1Materials = materials["room1Materials"];
+    let room3Materials = materials["room3Materials"];
 
     raycaster.setFromCamera( mouse, camera );
     const intersects = raycaster.intersectObjects( scene.children, true );
@@ -13,8 +17,8 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
         /*                 ARROW + TEXTS (Corridor)                  */
         /*************************************************************/
 
-        changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textNext"], 'textArrow');
-        changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textPrevious"], 'textArrow');
+        changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textNext"], 'textArrow', corridorMaterials["arrow"]);
+        changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textPrevious"], 'textArrow', corridorMaterials["arrow"]);
 
         /*************************************************************/
         /*                    DOOR (Corridor)                        */
@@ -31,8 +35,8 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, mat){
         /*                   ARROW + TEXT(room1)                     */
         /*************************************************************/
 
-        changeArrowAndText(intersects, room1Objects["arrow"], 'arrowRoom', room1Objects["textArrowRoom"], 'textArrowRoom')
-        changeArrowAndText(intersects, room3Objects["arrow"], 'arrowRoom', room3Objects["textArrowRoom"], 'textArrowRoom')
+        changeArrowAndText(intersects, room1Objects["arrow"], 'arrowRoom', room1Objects["textArrowRoom"], 'textArrowRoom', room1Materials["arrow"])
+        changeArrowAndText(intersects, room3Objects["arrow"], 'arrowRoom', room3Objects["textArrowRoom"], 'textArrowRoom', room3Materials["arrow"])
 
         /*************************************************************/
         /*                       Boxes (room1)                       */
@@ -93,7 +97,7 @@ function changeOpacity(intersects, object, name, opacity){
 }
 
 
-function changeArrowAndText(intersects, arrow, nameArrow, text, nameText){
+function changeArrowAndText(intersects, arrow, nameArrow, text, nameText, materialArrow){
     if ((intersects[0].object.name == nameArrow) || (intersects[0].object.name == nameText)){
             
         // Change the color of arrow
@@ -119,9 +123,7 @@ function changeArrowAndText(intersects, arrow, nameArrow, text, nameText){
         // Change the color of object1
         if (arrow != undefined){
             arrow.traverse(function(child){
-                child.material = new THREE.MeshPhongMaterial( { 
-                    color: 0x00008b
-                }); 
+                child.material = materialArrow;
             });
         } 
 

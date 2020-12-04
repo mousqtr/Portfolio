@@ -42,8 +42,8 @@ window.addEventListener( 'click', onClick, false );
 
 // Models initialization
 let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene);
-let room1Objects = initRoom1(scene);
-let room3Objects = initRoom3(scene);
+let [room1Objects, room1Materials] = initRoom1(scene);
+let [room3Objects, room3Materials] = initRoom3(scene);
 
 // List of objects
 let objects = {}
@@ -51,15 +51,21 @@ objects["corridorObjects"] = corridorObjects
 objects["room1Objects"] = room1Objects
 objects["room3Objects"] = room3Objects
 
+// List of materials
+let materials = {}
+materials["corridorMaterials"] = corridorMaterials
+materials["room1Materials"] = room1Materials
+materials["room3Materials"] = room3Materials
+
 // Global variables
 let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// let controls = new OrbitControls(camera, renderer.domElement );
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
 animate();
 
@@ -188,7 +194,7 @@ function animate() {
 
     // Hover objects
     if (arrowClicked == false){
-        detectObjects(scene, raycaster, mouse, camera, objects, corridorMaterials["door"]);
+        detectObjects(scene, raycaster, mouse, camera, objects, materials);
     }
 
     // Walk

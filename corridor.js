@@ -231,6 +231,7 @@ export function initCorridor(scene){
         child.material = new THREE.MeshPhongMaterial( { 
             color: 0x00003f
         } );
+        materials["arrow"] = child.material;
         child.name = 'arrow';
         });       
         arrow.scale.setScalar(200);

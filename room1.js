@@ -1,91 +1,56 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 import {TGALoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/TGALoader.js';
+import { createArrow, createArrowText, createRoom, createLight, createBox, createPaper, createButtonClose } from './utils.js';
 
 export function initRoom1(scene){
 
+    // List which contains every room object/materials
     let objects = {};
+    let materials = {};
 
-    /*************************************************************/
-    /*                          LIGHTS                           */
-    /*************************************************************/
+    // Light
+    const posLight = new THREE.Vector3(1400, 0, 0);
+    createLight(scene, posLight);
 
-    const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-    hemiLight.position.set(1400, 0, 0);
-    scene.add( hemiLight );
+    // Room
+    const posRoom = new THREE.Vector3(1400, 0, -600);
+    let wall = 'img/room1/wall.jpg';
+    let frontWall = 'img/room1/frontWall.png';
+    let ceiling = 'img/ceilingWhite.jpg';
+    let floor = 'img/floorGrey.jpg';
+    let textures = [wall, frontWall, ceiling, floor];
+    createRoom(scene, objects, posRoom, textures);
 
+    // Boxes
+    const posBox1 = new THREE.Vector3(1150, -110, -1400);
+    const posBox2 = new THREE.Vector3(1400, -110, -1400);
+    const posBox3 = new THREE.Vector3(1650, -110, -1400);
+    createBox(scene, objects, posBox1, 'img/room1/cpe.jpg', 'boxCpe');
+    createBox(scene, objects, posBox2, 'img/room1/charlemagne.jpg', 'boxCharlemagne');
+    createBox(scene, objects, posBox3, 'img/room1/henri.jpg', 'boxHenri');
 
-    /*************************************************************/
-    /*                         ROOM                              */
-    /*************************************************************/
+    // Arrow
+    const posArrow = new THREE.Vector3(1100, 400, -1500);
+    const rotArrow = new THREE.Vector3(0, Math.PI, 0);
+    const materialArrow = new THREE.MeshPhongMaterial( { color:  0x00008b } );
+    createArrow(scene, objects, materials, posArrow, rotArrow, materialArrow, 'arrowRoom1');
+
+    // ArrowText
+    const posArrowText = new THREE.Vector3(1050, 374, -1450);
+    createArrowText(scene, objects, posArrowText)
     
-    let roomMaterialArray = [];
-    let roomTexture_ft = new THREE.TextureLoader().load( 'img/wallRed.jpg');
-    let roomTexture_bk = new THREE.TextureLoader().load( 'img/wallRed.jpg');
-    let roomTexture_up = new THREE.TextureLoader().load( 'img/ceilingWhite.jpg');
-    let roomTexture_dn = new THREE.TextureLoader().load( 'img/floorGrey.jpg');
-    let roomTexture_rt = new THREE.TextureLoader().load( 'img/wallRed.jpg');
-    let roomTexture_lf = new THREE.TextureLoader().load( 'img/room1/wallRoom.png');
-
-    roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_ft }));
-    roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_bk }));
-    roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_up }));
-    roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_dn }));
-    roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_rt }));
-    roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_lf }));
-
-    for (let i = 0; i < 6; i++) {
-        roomMaterialArray[i].side = THREE.BackSide;
-    }
-        
-    let roomGeo = new THREE.BoxGeometry( 1000, 1000, 2000);
-    let room = new THREE.Mesh( roomGeo, roomMaterialArray );
-    room.position.set(1400, 0, -600)
-    scene.add(room);  
-    objects["room"] = room
-
-
-    /*************************************************************/
-    /*                         BOXES                             */
-    /*************************************************************/
-
-    let box1Geo = new THREE.BoxGeometry( 150, 150, 150);
-    let texture1 = new THREE.TextureLoader().load( 'img/room1/cpe.jpg');
-    let box1Mat = new THREE.MeshPhongMaterial( { map: texture1 } );
-    let box1 = new THREE.Mesh( box1Geo, box1Mat );
-    box1.traverse(child => {
-        child.name = 'boxCpe'
-    } );
-    box1.position.set(1150, -110, -1400)
-    scene.add(box1);
-    objects["boxCpe"] = box1
-
-    let boxGeo2 = new THREE.BoxGeometry( 150, 150, 150);
-    let texture2 = new THREE.TextureLoader().load( 'img/room1/charlemagne.jpg');
-    let boxMat2 = new THREE.MeshPhongMaterial( { map: texture2 } );
-    let box2 = new THREE.Mesh( boxGeo2, boxMat2 );
-    box2.traverse(child => {
-        child.name = 'boxCharlemagne'
-    } );
-    box2.position.set(1400, -110, -1400)
-    scene.add(box2);
-    objects["boxCharlemagne"] = box2
-
-    let boxGeo3 = new THREE.BoxGeometry( 150, 150, 150);
-    let texture3 = new THREE.TextureLoader().load( 'img/room1/henri.jpg');
-    let boxMat3 = new THREE.MeshPhongMaterial( { map: texture3 } );
-    let box3 = new THREE.Mesh( boxGeo3, boxMat3 );
-    box3.traverse(child => {
-        child.name = 'boxHenri'
-    } );
-    box3.position.set(1650, -110, -1400)
-    scene.add( box3 );
-    objects["boxHenri"] = box3 
-
-
-    /*************************************************************/
-    /*                          DESK                             */
-    /*************************************************************/
+    // Papers
+    createPaper(scene, objects, 'img/room1/cpePresentation.png', 'paperCpe');
+    createPaper(scene, objects, 'img/room1/charlemagnePresentation.png', 'paperCharlemagne');
+    createPaper(scene, objects, 'img/room1/henriPresentation.png', 'paperHenri');
+    
+    // Buttons close
+    createButtonClose(scene, objects, 'buttonCloseCpe');
+    createButtonClose(scene, objects, 'buttonCloseCharlemagne');
+    createButtonClose(scene, objects, 'buttonCloseHenri');
+    
+    // Desk
     const loaderTextureDesk = new TGALoader();
     const textureDesk = loaderTextureDesk.load('models/desk/texture.tga');
 
@@ -106,100 +71,10 @@ export function initRoom1(scene){
         desk.position.set(1400, -500, -1400);
         desk.rotation.set(0, 0, 0);
         scene.add(desk);
-        objects["desk"] = desk 
+        objects["desk"] = desk; 
     });
 
-
-
-    /*************************************************************/
-    /*                         ARROW                             */
-    /*************************************************************/
-
-    // Load the top arrow 
-    const arrowLoader = new FBXLoader();
-    arrowLoader.load('models/arrow.fbx', (arrow) => {
-        arrow.traverse(child => {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        child.material = new THREE.MeshPhongMaterial( { 
-            color: 0x00008b
-        } );
-        child.name = 'arrowRoom';
-        });       
-        arrow.scale.setScalar(120);
-        arrow.position.set(1100, 400, -1500);
-        arrow.rotation.set(0, Math.PI, 0);
-        arrow.name = "arrow";
-        objects["arrow"] = arrow;
-        scene.add(arrow);
-    });
-
-    /*************************************************************/
-    /*                         TEXT                              */
-    /*************************************************************/
-
-    const loaderText = new THREE.FontLoader();
-    loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
-
-        const textGeometry = new THREE.TextGeometry( 'Sortir', {
-            font: font, size: 38, height: 2,
-        });
-        
-        var textMaterial = new THREE.MeshPhongMaterial( { 
-            color: 0xffffff, 
-        });
-        
-        var mesh = new THREE.Mesh( textGeometry, textMaterial );
-
-        mesh.traverse(child => {
-            child.name = 'textArrowRoom'
-        } );
-
-        mesh.position.set(1050, 374, -1450);
-        objects["textArrowRoom"] = mesh;
-        
-        scene.add( mesh );
-            
-    });
-
-    /*************************************************************/
-    /*                         PAPERS                            */
-    /*************************************************************/
-
-    const paperImg = ['img/room1/cpePresentation.png', 'img/room1/charlemagnePresentation.png', 'img/room1/henriPresentation.png']
-    const paperName = ["paperCpe", "paperCharlemagne", "paperHenri"]
-    for (let i = 0; i < 3; i++) {
-        const textureBox1 = new THREE.TextureLoader().load(paperImg[i]);
-        const geometry = new THREE.PlaneGeometry( 600, 900 );
-        const material = new THREE.MeshBasicMaterial( {map: textureBox1} );
-        const plane = new THREE.Mesh( geometry, material );
-        plane.position.set(1400, -5000, -900);
-        objects[paperName[i]] = plane;
-        scene.add( plane );
-    }
-    
-
-    /*************************************************************/
-    /*                      BUTTONS CLOSE                        */
-    /*************************************************************/
-    const textureClose = new THREE.TextureLoader().load('img/room1/cross.png');
-    const geometryClose = new THREE.PlaneGeometry( 50, 50 );
-    const materialClose = new THREE.MeshBasicMaterial( { map: textureClose} );
-    const buttonName = ["buttonCloseCpe", "buttonCloseCharlemagne", "buttonCloseHenri"]
-    for (let i = 0; i < 3; i++) {
-        const buttonClose = new THREE.Mesh( geometryClose, materialClose );
-        buttonClose.traverse(child => {
-            child.name = buttonName[i]
-        } );
-        buttonClose.position.set(1650, -5000, -890);
-        objects[buttonName[i]] = buttonClose;
-        scene.add( buttonClose );
-    } 
-    
-    
-
-
-    return objects;
+    return [objects, materials];
 }
 
 
