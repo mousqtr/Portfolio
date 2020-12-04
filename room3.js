@@ -24,7 +24,7 @@ export function initRoom3(scene){
     const posArrow = new THREE.Vector3(1100, 400, -3900);
     const rotArrow = new THREE.Vector3(0, Math.PI, 0);
     const materialArrow = new THREE.MeshPhongMaterial( { color:  0xff0000 } );
-    createArrow(scene, objects, materials, posArrow, rotArrow, materialArrow, 'arrowRoom3');
+    createArrow(scene, objects, materials, posArrow, rotArrow, materialArrow);
 
     // ArrowText
     const posArrowText = new THREE.Vector3(1050, 374, -3850);

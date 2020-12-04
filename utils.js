@@ -35,7 +35,7 @@ export function createLight(scene, position){
     scene.add( hemiLight );
 }
 
-export function createArrow(scene, objects, materials, position, rotation, material, name){
+export function createArrow(scene, objects, materials, position, rotation, material){
     
     const arrowLoader = new FBXLoader();
     arrowLoader.load('models/arrow.fbx', (arrow) => {
@@ -44,12 +44,11 @@ export function createArrow(scene, objects, materials, position, rotation, mater
             child.receiveShadow = true;
             child.material = material;
             materials["arrow"] = material;
-            child.name = name;
+            child.name = 'arrowRoom';
         });       
         arrow.scale.setScalar(120);
         arrow.position.set(position.x, position.y, position.z);
         arrow.rotation.set(rotation.x, rotation.y, rotation.z);
-        arrow.name = "arrow";
         objects["arrow"] = arrow;
         scene.add(arrow);
     });

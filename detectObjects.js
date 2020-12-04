@@ -99,7 +99,7 @@ function changeOpacity(intersects, object, name, opacity){
 
 function changeArrowAndText(intersects, arrow, nameArrow, text, nameText, materialArrow){
     if ((intersects[0].object.name == nameArrow) || (intersects[0].object.name == nameText)){
-            
+        console.log("ok")
         // Change the color of arrow
         if (arrow != undefined){
             arrow.traverse(function(child){
