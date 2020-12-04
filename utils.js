@@ -82,8 +82,8 @@ export function createArrowText(scene, objects, position){
     });
 }
 
-export function createBox(scene, objects, position, textureImg, objectName){
-    let boxGeo = new THREE.BoxGeometry( 150, 150, 150);
+export function createBox(scene, objects, position, size, textureImg, objectName){
+    let boxGeo = new THREE.BoxGeometry( size.x, size.y, size.z);
     let texture = new THREE.TextureLoader().load( textureImg );
     let boxMat = new THREE.MeshPhongMaterial( { map: texture } );
     let box = new THREE.Mesh( boxGeo, boxMat );

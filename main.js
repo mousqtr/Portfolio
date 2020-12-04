@@ -227,6 +227,11 @@ function animate() {
     room1Objects["boxCharlemagne"].rotation.y += 0.01
     room1Objects["boxHenri"].rotation.y += 0.01
 
+    room3Objects["boxPython"].rotation.y += 0.01
+    room3Objects["boxMatlab"].rotation.y += 0.01
+    room3Objects["boxC++"].rotation.y += 0.01
+    room3Objects["boxC"].rotation.y += 0.01
+
     requestAnimationFrame(animate);
 
     renderer.render(scene,camera);

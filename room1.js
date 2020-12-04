@@ -26,9 +26,10 @@ export function initRoom1(scene){
     const posBox1 = new THREE.Vector3(1150, -110, -1400);
     const posBox2 = new THREE.Vector3(1400, -110, -1400);
     const posBox3 = new THREE.Vector3(1650, -110, -1400);
-    createBox(scene, objects, posBox1, 'img/room1/cpe.jpg', 'boxCpe');
-    createBox(scene, objects, posBox2, 'img/room1/charlemagne.jpg', 'boxCharlemagne');
-    createBox(scene, objects, posBox3, 'img/room1/henri.jpg', 'boxHenri');
+    const sizeBox = new THREE.Vector3(150, 150, 150);
+    createBox(scene, objects, posBox1, sizeBox, 'img/room1/cpe.jpg', 'boxCpe');
+    createBox(scene, objects, posBox2, sizeBox, 'img/room1/charlemagne.jpg', 'boxCharlemagne');
+    createBox(scene, objects, posBox3, sizeBox, 'img/room1/henri.jpg', 'boxHenri');
 
     // Arrow
     const posArrow = new THREE.Vector3(1100, 400, -1500);

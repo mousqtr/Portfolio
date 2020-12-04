@@ -1,6 +1,6 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import { createArrow, createArrowText, createRoom, createLight } from './utils.js';
+import { createArrow, createArrowText, createRoom, createLight, createBox } from './utils.js';
 
 export function initRoom3(scene){
 
@@ -29,6 +29,17 @@ export function initRoom3(scene){
     // ArrowText
     const posArrowText = new THREE.Vector3(1050, 374, -3850);
     createArrowText(scene, objects, posArrowText)
+
+    // Boxes
+    const sizeBox = new THREE.Vector3(110, 110, 110);
+    const posBox1 = new THREE.Vector3(1100, 140, -3800);
+    const posBox2 = new THREE.Vector3(1300, 0, -3800);
+    const posBox3 = new THREE.Vector3(1300, -140, -3800);
+    const posBox4 = new THREE.Vector3(1100, 0, -3800);
+    createBox(scene, objects, posBox1, sizeBox, 'img/room3/python.png', 'boxPython');
+    createBox(scene, objects, posBox2, sizeBox, 'img/room3/python.png', 'boxMatlab');
+    createBox(scene, objects, posBox3, sizeBox, 'img/room3/python.png', 'boxC++');
+    createBox(scene, objects, posBox4, sizeBox, 'img/room3/python.png', 'boxC');
 
     // Library
     const posLibraryLeft = new THREE.Vector3(1190, -500, -3800);
