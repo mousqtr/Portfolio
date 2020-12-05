@@ -116,3 +116,34 @@ export function createButtonClose(scene, objects, buttonName){
     objects[buttonName] = buttonClose;
     scene.add( buttonClose );
 }
+
+
+export function createTitle(scene, objects, position, text){
+    const loaderTitles = new THREE.FontLoader();
+    loaderTitles.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+
+        const textGeometry = new THREE.TextGeometry( text, {
+            font: font, size: 60, height: 2,
+        });
+        
+        var textMaterial = new THREE.MeshPhongMaterial( { 
+            color: 0x00ff00, 
+        });
+        
+        var mesh = new THREE.Mesh( textGeometry, textMaterial );
+
+        
+        mesh.position.set(position.x, position.y, position.z)
+        scene.add( mesh );
+     
+        if (objects["doorTexts"] != undefined){
+            objects["doorTexts"].push(mesh)
+        }else{
+            objects["doorTexts"] = [mesh];
+        }
+
+    } );
+    
+}
+
+

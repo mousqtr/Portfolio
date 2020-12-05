@@ -1,5 +1,6 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import { createBox, createTitle } from './utils.js';
 
 export function initCorridor(scene){
 
@@ -179,43 +180,57 @@ export function initCorridor(scene){
     /*                         TITLES                            */
     /*************************************************************/
 
-    let doorTexts = [];
-    let doorTextPosX, doorTextPosZ;
-    let titles = ['Profil', 'Formation', 'Experiences', 'Projets']
-    for ( let i = 0; i < 4; i ++ ) {
-        const loaderTitles = new THREE.FontLoader();
-        loaderTitles.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+    // let doorTexts = [];
+    // let doorTextPosX, doorTextPosZ;
+    // let titles = ['Profil', 'Formation', 'Experiences', 'Projets']
+    // for ( let i = 0; i < 4; i ++ ) {
+    //     const loaderTitles = new THREE.FontLoader();
+    //     loaderTitles.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
 
-            const textGeometry = new THREE.TextGeometry( titles[i], {
-                font: font, size: 60, height: 2,
-            });
+    //         const textGeometry = new THREE.TextGeometry( titles[i], {
+    //             font: font, size: 60, height: 2,
+    //         });
             
-            var textMaterial = new THREE.MeshPhongMaterial( { 
-                color: 0x00ff00, 
-            });
+    //         var textMaterial = new THREE.MeshPhongMaterial( { 
+    //             color: 0x00ff00, 
+    //         });
             
-            var mesh = new THREE.Mesh( textGeometry, textMaterial );
+    //         var mesh = new THREE.Mesh( textGeometry, textMaterial );
 
-            if (i % 2 == 0){
-                doorTextPosX = -475;
-            }else{
-                doorTextPosX = 190;
-            }
+    //         if (i % 2 == 0){
+    //             doorTextPosX = -475;
+    //         }else{
+    //             doorTextPosX = 190;
+    //         }
 
-            if (i < 2){
-                doorTextPosZ = 0.67 * window.innerWidth - 2033;
-            }else{
-                doorTextPosZ = 0.67 * window.innerWidth - 4033;
-            }
+    //         if (i < 2){
+    //             doorTextPosZ = 0.67 * window.innerWidth - 2033;
+    //         }else{
+    //             doorTextPosZ = 0.67 * window.innerWidth - 4033;
+    //         }
 
-            mesh.position.set(doorTextPosX, 150, doorTextPosZ)
-            scene.add( mesh );
+    //         mesh.position.set(doorTextPosX, 150, doorTextPosZ)
+    //         scene.add( mesh );
 
             
-            doorTexts.push(mesh);
-        } );
-    }
-    objects["doorTexts"] = doorTexts;
+    //         doorTexts.push(mesh);
+    //     } );
+    // }
+    // objects["doorTexts"] = doorTexts;
+
+    let posX_left = -475;
+    let posX_right = 190;
+    let posZ_1 = 0.67 * window.innerWidth - 2033;
+    let posZ_2 = 0.67 * window.innerWidth - 4033;
+    let posTextProfil = new THREE.Vector3(posX_left, 150, posZ_1);
+    let posTextFormation = new THREE.Vector3(posX_right, 150, posZ_1);
+    let posTextExperiences = new THREE.Vector3(posX_left, 150, posZ_2);
+    let posTextProjets = new THREE.Vector3(posX_right, 150, posZ_2);
+    createTitle(scene, objects, posTextProfil, 'Profil');
+    createTitle(scene, objects, posTextFormation, 'Formation');
+    createTitle(scene, objects, posTextExperiences, 'Experiences');
+    createTitle(scene, objects, posTextProjets, 'Projets');
+
 
 
     /*************************************************************/

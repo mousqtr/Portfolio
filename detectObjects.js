@@ -13,17 +13,11 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, material
     const intersects = raycaster.intersectObjects( scene.children, true );
     for ( let i = 0; i < intersects.length; i ++ ) {
 
-        /*************************************************************/
-        /*                 ARROW + TEXTS (Corridor)                  */
-        /*************************************************************/
-
+        // Arrow + text (Corridor) 
         changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textNext"], 'textArrow', corridorMaterials["arrow"]);
         changeArrowAndText(intersects, corridorObjects["arrow"], 'arrow', corridorObjects["textPrevious"], 'textArrow', corridorMaterials["arrow"]);
 
-        /*************************************************************/
-        /*                    DOOR (Corridor)                        */
-        /*************************************************************/
-
+        // Door (Corridor)
         const color1 = new THREE.Color( 0xffff00 );
         const color2 = new THREE.Color( 0x696969 );
         changeColor(intersects, corridorObjects["doors"][0], 'door0', color1, color2)
@@ -31,20 +25,29 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, material
         changeColor(intersects, corridorObjects["doors"][2], 'door2', color1, color2)
         changeColor(intersects, corridorObjects["doors"][3], 'door3', color1, color2)
 
-        /*************************************************************/
-        /*                   ARROW + TEXT(room1)                     */
-        /*************************************************************/
-
+        // Arrow + text (room1)
         changeArrowAndText(intersects, room1Objects["arrow"], 'arrowRoom', room1Objects["textArrowRoom"], 'textArrowRoom', room1Materials["arrow"])
-        changeArrowAndText(intersects, room3Objects["arrow"], 'arrowRoom', room3Objects["textArrowRoom"], 'textArrowRoom', room3Materials["arrow"])
 
-        /*************************************************************/
-        /*                       Boxes (room1)                       */
-        /*************************************************************/
-
+        // Boxes (room1)
         changeOpacity(intersects, room1Objects["boxCpe"], 'boxCpe', 0.5);
         changeOpacity(intersects, room1Objects["boxCharlemagne"], 'boxCharlemagne', 0.5);
         changeOpacity(intersects, room1Objects["boxHenri"], 'boxHenri', 0.5);
+
+        // Arrow + text (room3)
+        changeArrowAndText(intersects, room3Objects["arrow"], 'arrowRoom', room3Objects["textArrowRoom"], 'textArrowRoom', room3Materials["arrow"])
+
+        // Boxes (room3)
+        changeOpacity(intersects, room3Objects["boxPython"], 'boxPython', 0.5);
+        changeOpacity(intersects, room3Objects["boxC++"], 'boxC++', 0.5);
+        changeOpacity(intersects, room3Objects["boxC#"], 'boxC#', 0.5);
+        changeOpacity(intersects, room3Objects["boxC"], 'boxC', 0.5);
+        changeOpacity(intersects, room3Objects["boxLua"], 'boxLua', 0.5);
+        changeOpacity(intersects, room3Objects["boxJava"], 'boxJava', 0.5);
+        changeOpacity(intersects, room3Objects["boxMatlab"], 'boxMatlab', 0.5);
+        changeOpacity(intersects, room3Objects["boxVhdl"], 'boxVhdl', 0.5);
+        changeOpacity(intersects, room3Objects["boxPowerbi"], 'boxPowerbi', 0.5);
+        changeOpacity(intersects, room3Objects["boxVba"], 'boxVba', 0.5);
+        changeOpacity(intersects, room3Objects["boxLabview"], 'boxLabview', 0.5);
 
     }
 }
@@ -89,12 +92,30 @@ function changeOpacity(intersects, object, name, opacity){
         // Change the color of the arrow into yellow
         if (object != undefined){
             object.traverse(function(child){
-                child.material.transparent = false;
+                child.material.transparent = false; 
             });
         } 
 
     }    
 }
+
+// function changeScale(intersects, object, name){
+
+//     // When the mouse hovers it
+//     if (intersects[0].object.name == name){
+        
+//         if (object != undefined){
+//             object.scale.set(1.3, 1.3, 1.3);
+//         }
+
+//     }else{
+        
+//         if (object != undefined){
+//             object.scale.set(1, 1, 1);
+//         }
+
+//     }    
+// }
 
 
 function changeArrowAndText(intersects, arrow, nameArrow, text, nameText, materialArrow){
