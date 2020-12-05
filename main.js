@@ -62,10 +62,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// let controls = new OrbitControls(camera, renderer.domElement );
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
 animate();
 
@@ -123,16 +123,10 @@ function onClick(event) {
             arrowClicked = true;
         }
 
-        if ((intersects[0].object.name == 'arrowRoom') || (intersects[0].object.name == 'textArrowRoom')){  
-            
-            corridorLights["hemiLight"].position.set(0, 0, 0);
-            corridorLights["dirLight"].position.set(0, 0, 300);
+        goToCorridor(intersects);
 
-            camera.position.set(0, 0, corridorObjects["paladin"].position.z + 600);          
-        }
-
-        openDoor(intersects, 'door1', 1);
-        openDoor(intersects, 'door3', 3);
+        goToRoom(intersects, 'door1', 1);
+        goToRoom(intersects, 'door3', 3);
 
         openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe');
         openBox(intersects, 'boxCharlemagne', 'paperCharlemagne', 'buttonCloseCharlemagne');
@@ -145,8 +139,18 @@ function onClick(event) {
     }
 }
 
+function goToCorridor(intersects){
+    if ((intersects[0].object.name == 'arrowRoom') || (intersects[0].object.name == 'textArrowRoom')){  
+            
+        corridorLights["hemiLight"].position.set(0, 0, 0);
+        corridorLights["dirLight"].position.set(0, 0, 300);
 
-function openDoor(intersects, doorName, doorId){
+        camera.position.set(0, 0, corridorObjects["paladin"].position.z + 600);          
+    }
+}
+
+
+function goToRoom(intersects, doorName, doorId){
     if (intersects[0].object.name == doorName){
             
         if (corridorObjects["doors"][doorId] != undefined){       
@@ -164,7 +168,6 @@ function openDoor(intersects, doorName, doorId){
                     break;
             }
             
-
         }
     }
 }
@@ -229,10 +232,19 @@ function animate() {
     room1Objects["boxCharlemagne"].rotation.y += 0.01
     room1Objects["boxHenri"].rotation.y += 0.01
 
+    // Rotates cubes of room 3
     room3Objects["boxPython"].rotation.y += 0.01
     room3Objects["boxMatlab"].rotation.y += 0.01
     room3Objects["boxC++"].rotation.y += 0.01
     room3Objects["boxC"].rotation.y += 0.01
+    room3Objects["boxC#"].rotation.y += 0.01
+    room3Objects["boxJava"].rotation.y += 0.01
+    room3Objects["boxPowerbi"].rotation.y += 0.01
+    room3Objects["boxVhdl"].rotation.y += 0.01
+    room3Objects["boxLabview"].rotation.y += 0.01
+    room3Objects["boxLua"].rotation.y += 0.01
+    room3Objects["boxVba"].rotation.y += 0.01
+    
 
     requestAnimationFrame(animate);
 
