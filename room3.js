@@ -13,18 +13,20 @@ export function initRoom3(scene){
 
     // Room
     const posRoom = new THREE.Vector3(1400, 0, -3000);
-    let wall = 'img/room3/wall.png';
+    let leftWall = 'img/room3/wall.png';
+    let rightWall = 'img/room3/wall.png';
     let frontWall = 'img/room3/wall.png';
     let ceiling = 'img/ceilingWhite.jpg';
     let floor = 'img/floorGrey.jpg';
-    let textures = [wall, frontWall, ceiling, floor];
+    let textures = [leftWall, rightWall, frontWall, ceiling, floor];
     createRoom(scene, objects, posRoom, textures)
 
     // Arrow
     const posArrow = new THREE.Vector3(1100, 400, -3900);
     const rotArrow = new THREE.Vector3(0, Math.PI, 0);
+    const scaleArrow = 120;
     const materialArrow = new THREE.MeshPhongMaterial( { color:  0xff0000 } );
-    createArrow(scene, objects, materials, posArrow, rotArrow, materialArrow);
+    createArrow(scene, objects, materials, posArrow, rotArrow, scaleArrow, materialArrow);
 
     // ArrowText
     const posArrowText = new THREE.Vector3(1050, 374, -3850);

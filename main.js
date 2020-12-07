@@ -3,7 +3,9 @@ import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitCont
 
 import { walkTo, stopWalk } from "./characterMovements.js";
 import { detectObjects } from "./detectObjects.js";
+import { initRoom0 } from "./room0.js";
 import { initRoom1 } from "./room1.js";
+import { initRoom2 } from "./room2.js";
 import { initRoom3 } from "./room3.js";
 import { initCorridor } from './corridor.js';
 
@@ -42,19 +44,25 @@ window.addEventListener( 'click', onClick, false );
 
 // Models initialization
 let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene);
+let [room0Objects, room0Materials] = initRoom0(scene);
 let [room1Objects, room1Materials] = initRoom1(scene);
+let [room2Objects, room2Materials] = initRoom2(scene);
 let [room3Objects, room3Materials] = initRoom3(scene);
 
 // List of objects
 let objects = {}
 objects["corridorObjects"] = corridorObjects
+objects["room0Objects"] = room0Objects
 objects["room1Objects"] = room1Objects
+objects["room2Objects"] = room2Objects
 objects["room3Objects"] = room3Objects
 
 // List of materials
 let materials = {}
 materials["corridorMaterials"] = corridorMaterials
+materials["room0Materials"] = room0Materials
 materials["room1Materials"] = room1Materials
+materials["room2Materials"] = room2Materials
 materials["room3Materials"] = room3Materials
 
 // Global variables
@@ -62,10 +70,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-// let controls = new OrbitControls(camera, renderer.domElement );
-// controls.addEventListener('change', renderer);
-// controls.minDistance = 500;
-// controls.maxDistance = 4000;
+let controls = new OrbitControls(camera, renderer.domElement );
+controls.addEventListener('change', renderer);
+controls.minDistance = 500;
+controls.maxDistance = 4000;
 
 animate();
 
@@ -125,7 +133,9 @@ function onClick(event) {
 
         goToCorridor(intersects);
 
+        goToRoom(intersects, 'door0', 0);
         goToRoom(intersects, 'door1', 1);
+        goToRoom(intersects, 'door2', 2);
         goToRoom(intersects, 'door3', 3);
 
         openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe');
@@ -158,8 +168,14 @@ function goToRoom(intersects, doorName, doorId){
             corridorLights["dirLight"].position.set(0, -10000, 300);
 
             switch(doorId){
+                case 0:
+                    camera.position.set(-1400, 100, 100);
+                    break;
                 case 1:
                     camera.position.set(1400, 100, 0);
+                    break;
+                case 2:
+                    camera.position.set(-1400, 100, -2400);
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);

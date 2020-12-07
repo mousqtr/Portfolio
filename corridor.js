@@ -1,5 +1,6 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 import { createBox, createTitle } from './utils.js';
 
 export function initCorridor(scene){
@@ -180,44 +181,6 @@ export function initCorridor(scene){
     /*                         TITLES                            */
     /*************************************************************/
 
-    // let doorTexts = [];
-    // let doorTextPosX, doorTextPosZ;
-    // let titles = ['Profil', 'Formation', 'Experiences', 'Projets']
-    // for ( let i = 0; i < 4; i ++ ) {
-    //     const loaderTitles = new THREE.FontLoader();
-    //     loaderTitles.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
-
-    //         const textGeometry = new THREE.TextGeometry( titles[i], {
-    //             font: font, size: 60, height: 2,
-    //         });
-            
-    //         var textMaterial = new THREE.MeshPhongMaterial( { 
-    //             color: 0x00ff00, 
-    //         });
-            
-    //         var mesh = new THREE.Mesh( textGeometry, textMaterial );
-
-    //         if (i % 2 == 0){
-    //             doorTextPosX = -475;
-    //         }else{
-    //             doorTextPosX = 190;
-    //         }
-
-    //         if (i < 2){
-    //             doorTextPosZ = 0.67 * window.innerWidth - 2033;
-    //         }else{
-    //             doorTextPosZ = 0.67 * window.innerWidth - 4033;
-    //         }
-
-    //         mesh.position.set(doorTextPosX, 150, doorTextPosZ)
-    //         scene.add( mesh );
-
-            
-    //         doorTexts.push(mesh);
-    //     } );
-    // }
-    // objects["doorTexts"] = doorTexts;
-
     let posX_left = -475;
     let posX_right = 190;
     let posZ_1 = 0.67 * window.innerWidth - 2033;
@@ -296,7 +259,23 @@ export function initCorridor(scene){
         } );
     }
 
-    
+
+
+    // const benchLoader = new FBXLoader();
+    // benchLoader.load('models/corridor/bench3.fbx', (plant) => {
+    //     plant.traverse(child => {
+    //         child.castShadow = true;
+    //         child.receiveShadow = true;
+    //         child.material = new THREE.MeshPhongMaterial( { 
+    //             color: 0x855E42
+    //         } );
+    //     });       
+    //     plant.scale.setScalar(1.4);
+    //     plant.position.set(420, -500, -2400);
+    //     plant.rotation.set(0, Math.PI, 0);
+    //     scene.add(plant);
+    // });
+
 
 
     return [objects, materials, mixers, actions, lights];

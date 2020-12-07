@@ -4,12 +4,20 @@ import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm
 
 export function createRoom(scene, objects, position, textures){
     let roomMaterialArray = [];
-    let roomTexture_ft = new THREE.TextureLoader().load( textures[0] );
-    let roomTexture_bk = new THREE.TextureLoader().load( textures[0] );
-    let roomTexture_up = new THREE.TextureLoader().load( textures[2] );
-    let roomTexture_dn = new THREE.TextureLoader().load( textures[3] );
-    let roomTexture_rt = new THREE.TextureLoader().load( textures[0] );
-    let roomTexture_lf = new THREE.TextureLoader().load( textures[1] );
+
+    let leftWall = textures[0];
+    let rightWall = textures[1];
+    let frontWall = textures[2];
+    let backWall = textures[0];
+    let ceiling =  textures[3];
+    let floor = textures[4];
+
+    let roomTexture_ft = new THREE.TextureLoader().load( leftWall );
+    let roomTexture_bk = new THREE.TextureLoader().load( rightWall );
+    let roomTexture_up = new THREE.TextureLoader().load( ceiling );
+    let roomTexture_dn = new THREE.TextureLoader().load( floor );
+    let roomTexture_rt = new THREE.TextureLoader().load( backWall );
+    let roomTexture_lf = new THREE.TextureLoader().load( frontWall );
 
     roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_ft }));
     roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_bk }));
@@ -24,9 +32,9 @@ export function createRoom(scene, objects, position, textures){
         
     let roomGeo = new THREE.BoxGeometry( 1000, 1000, 2000);
     let room = new THREE.Mesh( roomGeo, roomMaterialArray );
-    room.position.set(position.x, position.y, position.z)
+    room.position.set(position.x, position.y, position.z);
     scene.add(room);  
-    objects["room"] = room
+    objects["room"] = room;
 }
 
 export function createLight(scene, position){
@@ -35,7 +43,7 @@ export function createLight(scene, position){
     scene.add( hemiLight );
 }
 
-export function createArrow(scene, objects, materials, position, rotation, material){
+export function createArrow(scene, objects, materials, position, rotation, scale, material){
     
     const arrowLoader = new FBXLoader();
     arrowLoader.load('models/arrow.fbx', (arrow) => {
@@ -46,7 +54,7 @@ export function createArrow(scene, objects, materials, position, rotation, mater
             materials["arrow"] = material;
             child.name = 'arrowRoom';
         });       
-        arrow.scale.setScalar(120);
+        arrow.scale.setScalar(scale);
         arrow.position.set(position.x, position.y, position.z);
         arrow.rotation.set(rotation.x, rotation.y, rotation.z);
         objects["arrow"] = arrow;
@@ -92,6 +100,12 @@ export function createBox(scene, objects, position, size, textureImg, objectName
     box.position.set(position.x, position.y, position.z)
     scene.add(box);
     objects[objectName] = box
+
+    // var geo = new THREE.EdgesGeometry( box.geometry );
+    // var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 1 } );
+    // var wireframe = new THREE.LineSegments( geo, mat );
+    // wireframe.renderOrder = 1;
+    // box.add( wireframe );
 }
 
 export function createPaper(scene, objects, paperImg, paperName){
@@ -123,11 +137,11 @@ export function createTitle(scene, objects, position, text){
     loaderTitles.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
 
         const textGeometry = new THREE.TextGeometry( text, {
-            font: font, size: 60, height: 2,
+            font: font, size: 60, height: 2
         });
         
         var textMaterial = new THREE.MeshPhongMaterial( { 
-            color: 0x00ff00, 
+            color: 0xffff00
         });
         
         var mesh = new THREE.Mesh( textGeometry, textMaterial );
