@@ -243,6 +243,11 @@ function animate() {
     if ( corridorMixers["mixerStand"] ) corridorMixers["mixerStand"].update( delta );
     if ( corridorMixers["mixerRightTurn"] ) corridorMixers["mixerRightTurn"].update( delta );
 
+    // Rotates cubes of room 0
+    room0Objects["boxComputing"].rotation.y += 0.01
+    room0Objects["boxAsso"].rotation.y += 0.01
+    room0Objects["boxSport"].rotation.y += 0.01
+
     // Rotates cubes of room 1
     room1Objects["boxCpe"].rotation.y += 0.01;
     room1Objects["boxCharlemagne"].rotation.y += 0.01
@@ -260,7 +265,6 @@ function animate() {
     room3Objects["boxLabview"].rotation.y += 0.01
     room3Objects["boxLua"].rotation.y += 0.01
     room3Objects["boxVba"].rotation.y += 0.01
-    
 
     requestAnimationFrame(animate);
 

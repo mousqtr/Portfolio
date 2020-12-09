@@ -13,9 +13,9 @@ export function initRoom0(scene){
 
     // Room
     const posRoom = new THREE.Vector3(-1400, 0, -600);
-    let leftWall = 'img/room0/pexels2.jpg';
-    let rightWall = 'img/room0/pexels2.jpg';
-    let frontWall = 'img/room0/pexels3.jpg';
+    let leftWall = 'img/room0/wall0.jpg';
+    let rightWall = 'img/room0/wall0.jpg';
+    let frontWall = 'img/room0/wall1.jpg';
     let ceiling = 'img/ceilingWhite.jpg';
     let floor = 'img/floorGrey.jpg';
     let textures = [leftWall, rightWall, frontWall, ceiling, floor];
@@ -94,6 +94,17 @@ export function initRoom0(scene){
         shelf.rotation.set(Math.PI, Math.PI/2, Math.PI);
         scene.add(shelf);
     });
+
+      // Boxes
+      const posBox1 = new THREE.Vector3(-1100, -110, -1400);
+      const posBox2 = new THREE.Vector3(-1470, 165, -1400);
+      const posBox3 = new THREE.Vector3(-1700, 400, -1400);
+      const posBox4 = new THREE.Vector3(-1650, -200, -1350);
+      const sizeBox = new THREE.Vector3(150, 150, 150);
+      createBox(scene, objects, posBox1, sizeBox, 'img/room0/computing.png', 'boxComputing');
+      createBox(scene, objects, posBox2, sizeBox, 'img/room0/group.png', 'boxAsso');
+      createBox(scene, objects, posBox3, sizeBox, 'img/room0/bike.png', 'boxSport');
+      createBox(scene, objects, posBox4, sizeBox, 'img/room0/bike.png', 'boxMe');
 
 
     return [objects, materials];
