@@ -32,12 +32,12 @@ export function initRoom0(scene){
     const posArrowText = new THREE.Vector3(-1150, 374, -1450);
     createArrowText(scene, objects, posArrowText)
 
-    let textureLibrary = new THREE.TextureLoader().load( 'img/room0/blue.jpg');
+    let textureLibrary = new THREE.TextureLoader().load( 'models/room0/sofa/blue.jpg');
     const materialLibrary = new THREE.MeshPhongMaterial( {
         map: textureLibrary
     } );
     const benchLoader = new FBXLoader();
-    benchLoader.load('models/sofa4.fbx', (plant) => {
+    benchLoader.load('models/room0/sofa/sofa.fbx', (plant) => {
         plant.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
@@ -49,13 +49,13 @@ export function initRoom0(scene){
         scene.add(plant);
     });
 
-
-    let chairTexture = new THREE.TextureLoader().load( 'img/room0/black.jpg');
+    // Chair
+    let chairTexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg');
     const chairMaterial = new THREE.MeshPhongMaterial( {
         map: chairTexture
     } );
     const chairLoader = new FBXLoader();
-    chairLoader.load('models/chair_desk.fbx', (chair) => {
+    chairLoader.load('models/room0/chair/chair.fbx', (chair) => {
         chair.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
@@ -67,23 +67,25 @@ export function initRoom0(scene){
         scene.add(chair);
     });
 
+    // Shelfs
     let shelfGeo = new THREE.BoxGeometry(500, 30, 300);
-    let shelftexture = new THREE.TextureLoader().load( 'img/room0/black.jpg' );
+    let shelftexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg' );
     let shelfMat = new THREE.MeshPhongMaterial( { map: shelftexture } );
     let shelf = new THREE.Mesh( shelfGeo, shelfMat );
     shelf.position.set(-1600, 300, -1430);
     scene.add(shelf);
 
     let shelf2Geo = new THREE.BoxGeometry(500, 30, 300);
-    let shelf2texture = new THREE.TextureLoader().load( 'img/room0/black.jpg' );
+    let shelf2texture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg' );
     let shelf2Mat = new THREE.MeshPhongMaterial( { map: shelf2texture } );
     let shelf2 = new THREE.Mesh( shelf2Geo, shelf2Mat );
     shelf2.position.set(-1600, 70, -1430);
     scene.add(shelf2);
 
+    // Desk
     const deskMaterial = new THREE.MeshPhongMaterial( { color: 0x7f7f7f } );
     const deskLoader = new FBXLoader();
-    deskLoader.load('models/desk.fbx', (desk) => {
+    deskLoader.load('models/room0/desk/desk.fbx', (desk) => {
         desk.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;

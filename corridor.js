@@ -38,12 +38,12 @@ export function initCorridor(scene){
     /*************************************************************/
 
     let corridorMaterialArray = [];
-    let texture_ft = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
-    let texture_bk = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
+    let texture_ft = new THREE.TextureLoader().load( 'img/corridor/wall.png');
+    let texture_bk = new THREE.TextureLoader().load( 'img/corridor/wall.png');
     let texture_up = new THREE.TextureLoader().load( 'img/ceilingWhite.jpg');
     let texture_dn = new THREE.TextureLoader().load( 'img/floorGrey.jpg');
-    let texture_rt = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
-    let texture_lf = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
+    let texture_rt = new THREE.TextureLoader().load( 'img/corridor/wall.png');
+    let texture_lf = new THREE.TextureLoader().load( 'img/corridor/wall.png');
 
     texture_dn.wrapS = texture_dn.wrapT = THREE.RepeatWrapping;
     texture_up.wrapS = texture_up.wrapT = THREE.RepeatWrapping;
@@ -78,7 +78,7 @@ export function initCorridor(scene){
     /*************************************************************/
 
     const loaderPaladin = new FBXLoader();
-    loaderPaladin.load('models/paladin/paladin.fbx', (paladin) => {
+    loaderPaladin.load('models/corridor/paladin/paladin.fbx', (paladin) => {
 
         // Load the model
         paladin.scale.setScalar(3);
@@ -92,7 +92,7 @@ export function initCorridor(scene){
 
         // Load the walk animation
         const animWalk = new FBXLoader();
-        animWalk.load('models/paladin/walk.fbx', (animWalk) => {
+        animWalk.load('models/corridor/paladin/walk.fbx', (animWalk) => {
             const mixer = new THREE.AnimationMixer(paladin);     
             const action = mixer.clipAction( animWalk.animations[0] );
             mixers["mixerWalk"] = mixer
@@ -101,7 +101,7 @@ export function initCorridor(scene){
         
         // Load the stand animation
         const animStand = new FBXLoader();
-        animStand.load('models/paladin/stand_brief.fbx', (animStand) => {
+        animStand.load('models/corridor/paladin/stand_brief.fbx', (animStand) => {
             const mixer = new THREE.AnimationMixer(paladin);
             const action = mixer.clipAction(animStand.animations[0]);
             mixers["mixerStand"] = mixer
@@ -111,7 +111,7 @@ export function initCorridor(scene){
 
         // Load the stand animation
         const animRightTurn = new FBXLoader();
-        animRightTurn.load('models/paladin/right_turn.fbx', (animRightTurn) => {
+        animRightTurn.load('models/corridor/paladin/right_turn.fbx', (animRightTurn) => {
             const mixer = new THREE.AnimationMixer(paladin);
             const action = mixer.clipAction(animRightTurn.animations[0]);
             action.loop = THREE.LoopOnce;
@@ -142,7 +142,7 @@ export function initCorridor(scene){
     let doorPosX, doorPosZ;
     for ( let i = 0; i < 4; i ++ ) {
         const loaderDoor = new FBXLoader();
-        loaderDoor.load('models/door2.fbx', (door) => {
+        loaderDoor.load('models/corridor/door/door.fbx', (door) => {
             
             door.traverse(child => {
                 child.castShadow = true;
@@ -202,12 +202,12 @@ export function initCorridor(scene){
 
     // Load the top arrow 
     const arrowLoader = new FBXLoader();
-    arrowLoader.load('models/arrow.fbx', (arrow) => {
+    arrowLoader.load('models/commun/arrow.fbx', (arrow) => {
         arrow.traverse(child => {
         child.castShadow = true;
         child.receiveShadow = true;
         child.material = new THREE.MeshPhongMaterial( { 
-            color: 0x00003f
+            color: 0x400000
         } );
         materials["arrow"] = child.material;
         child.name = 'arrow';

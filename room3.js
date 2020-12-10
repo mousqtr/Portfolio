@@ -67,13 +67,13 @@ export function initRoom3(scene){
     const posLibraryRight = new THREE.Vector3(1610, -500, -3800);
     const posLibraries = [posLibraryLeft, posLibraryRight];
     const nameLibraries = ["libraryLeft", "libraryRight"];
-    let textureLibrary = new THREE.TextureLoader().load( 'models/library/wood.jpg');
+    let textureLibrary = new THREE.TextureLoader().load( 'models/room3/library/wood.jpg');
     const materialLibrary = new THREE.MeshPhongMaterial( {
         map: textureLibrary
     } );
     for ( let i = 0; i < 2; i ++ ) {
         const loaderLibrary = new FBXLoader();
-        loaderLibrary.load('models/library/library.FBX', (library) => {
+        loaderLibrary.load('models/room3/library/library.FBX', (library) => {
             library.traverse(child => {
                 child.castShadow = true;
                 child.receiveShadow = true;

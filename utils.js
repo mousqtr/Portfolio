@@ -46,7 +46,7 @@ export function createLight(scene, position){
 export function createArrow(scene, objects, materials, position, rotation, scale, material){
     
     const arrowLoader = new FBXLoader();
-    arrowLoader.load('models/arrow.fbx', (arrow) => {
+    arrowLoader.load('models/commun/arrow.fbx', (arrow) => {
         arrow.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;

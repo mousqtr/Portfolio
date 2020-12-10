@@ -71,10 +71,11 @@ let arrowClicked = false;
 
 // Control the camera manually
 let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
+let theta = 0;
 animate();
 
 // When the window is resized
@@ -210,6 +211,8 @@ function closeBox(intersects, paperName, buttonCloseName){
     }
 }
 
+
+
 // Loop
 function animate() {
 
@@ -253,6 +256,22 @@ function animate() {
     room1Objects["boxCpe"].rotation.y += 0.01;
     room1Objects["boxCharlemagne"].rotation.y += 0.01
     room1Objects["boxHenri"].rotation.y += 0.01
+
+    // Rotates cubes of room 2
+    room2Objects["boxBarco"].rotation.y += 0.01;
+    room2Objects["boxSNCF1"].rotation.y += 0.01
+    room2Objects["boxSNCF2"].rotation.y += 0.01
+    room2Objects["boxCompletude"].rotation.y += 0.01;
+
+    theta += 0.01
+    room2Objects["boxBarco"].position.x = -1400 + 120 * Math.cos(theta);
+    room2Objects["boxBarco"].position.z = -3500 + 260 * Math.sin(theta);
+    room2Objects["boxSNCF1"].position.x = -1400 + 120 * Math.cos(theta + Math.PI/2);
+    room2Objects["boxSNCF1"].position.z = -3500 + 260 * Math.sin(theta + Math.PI/2);
+    room2Objects["boxSNCF2"].position.x = -1400 + 120 * Math.cos(theta + Math.PI);
+    room2Objects["boxSNCF2"].position.z = -3500 + 260 * Math.sin(theta + Math.PI);
+    room2Objects["boxCompletude"].position.x = -1400 + 120 * Math.cos(theta + 3*Math.PI/2);
+    room2Objects["boxCompletude"].position.z = -3500 + 260 * Math.sin(theta + 3*Math.PI/2);
 
     // Rotates cubes of room 3
     room3Objects["boxPython"].rotation.y += 0.01

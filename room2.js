@@ -37,7 +37,7 @@ export function initRoom2(scene){
         color: 0x2b1d0e, 
     });
     const tableLoader = new FBXLoader();
-    tableLoader.load('models/table_pro.fbx', (table) => {
+    tableLoader.load('models/room2/table/table.fbx', (table) => {
         table.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
@@ -50,14 +50,14 @@ export function initRoom2(scene){
         objects["table"] = table; 
     });
 
-    let chairLibrary = new THREE.TextureLoader().load( 'img/room2/black.jpg');
+    let chairLibrary = new THREE.TextureLoader().load( 'models/room2/chair/black.jpg');
     const chairMaterial = new THREE.MeshPhongMaterial( {
         map: chairLibrary
     } );
     let chairs = [];
     for ( let i = 0; i < 4; i ++ ) {
         const loaderChair = new FBXLoader();
-        loaderChair.load('models/chair_low.fbx', (chair) => {
+        loaderChair.load('models/room2/chair/chair.fbx', (chair) => {
 
             chair.traverse(child => {
                 child.castShadow = true;
@@ -96,25 +96,38 @@ export function initRoom2(scene){
     // TV
     const materialTV = new THREE.MeshPhongMaterial( { color:  0x000000 } );
     const loaderTV = new FBXLoader();
-    loaderTV.load('models/tv.fbx', (tv) => {
+    loaderTV.load('models/room2/tv/tv.fbx', (tv) => {
         tv.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
             child.material = materialTV;
         });
         tv.scale.setScalar(0.01);
-        tv.position.set(-1400, 100, -3900);
+        tv.position.set(-1400, 140, -3900);
         tv.rotation.set(0, 0, 0);
         scene.add(tv);
         objects["tv"] = tv; 
     });
 
-    let shelfGeo = new THREE.BoxGeometry(495, 290, 5);
-    let shelftexture = new THREE.TextureLoader().load( 'img/room2/dashboard.jpg' );
-    let shelfMat = new THREE.MeshPhongMaterial( { map: shelftexture } );
-    let shelf = new THREE.Mesh( shelfGeo, shelfMat );
-    shelf.position.set(-1400, 120, -3920);
-    scene.add(shelf);
+    // Screen
+    let screenGeo = new THREE.BoxGeometry(495, 290, 5);
+    let screenTexture = new THREE.TextureLoader().load( 'img/room2/dashboard.jpg' );
+    let screenMat = new THREE.MeshPhongMaterial( { map: screenTexture } );
+    let screen = new THREE.Mesh( screenGeo, screenMat );
+    screen.position.set(-1400, 160, -3920);
+    scene.add(screen);
+    objects["screen"] = screen; 
+
+    // Boxes
+    const posBox1 = new THREE.Vector3(-1500, -80, -3400);
+    const posBox2 = new THREE.Vector3(-1300, -80, -3400);
+    const posBox3 = new THREE.Vector3(-1300, -80, -3600);
+    const posBox4 = new THREE.Vector3(-1500, -80, -3600);  
+    const sizeBox = new THREE.Vector3(110, 110, 110);
+    createBox(scene, objects, posBox1, sizeBox, 'img/room2/barco.png', 'boxBarco');
+    createBox(scene, objects, posBox2, sizeBox, 'img/room2/SNCF.jpg', 'boxSNCF1');
+    createBox(scene, objects, posBox3, sizeBox, 'img/room2/SNCF2.jpg', 'boxSNCF2');
+    createBox(scene, objects, posBox4, sizeBox, 'img/room2/completude.png', 'boxCompletude');
 
     return [objects, materials];
 }

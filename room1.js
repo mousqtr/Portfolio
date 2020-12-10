@@ -55,7 +55,7 @@ export function initRoom1(scene){
     
     // Desk
     const loaderTextureDesk = new TGALoader();
-    const textureDesk = loaderTextureDesk.load('models/desk/texture.tga');
+    const textureDesk = loaderTextureDesk.load('models/room1/desk/texture.tga');
 
     const matDesk = new THREE.MeshPhongMaterial( {
         color: 0xffffff,
@@ -63,7 +63,7 @@ export function initRoom1(scene){
     } );
 
     const loaderDesk = new FBXLoader();
-    loaderDesk.load('models/desk/desk.FBX', (desk) => {
+    loaderDesk.load('models/room1/desk/desk.FBX', (desk) => {
 
         desk.traverse(child => {
             child.castShadow = true;
