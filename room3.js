@@ -13,9 +13,9 @@ export function initRoom3(scene){
 
     // Room
     const posRoom = new THREE.Vector3(1400, 0, -3000);
-    let leftWall = 'img/room3/wall.png';
-    let rightWall = 'img/room3/wall.png';
-    let frontWall = 'img/room3/wall.png';
+    let leftWall = 'img/room3/wall.jpg';
+    let rightWall = 'img/room3/wall.jpg';
+    let frontWall = 'img/room3/wall2.jpg';
     let ceiling = 'img/ceilingWhite.jpg';
     let floor = 'img/floorGrey.jpg';
     let textures = [leftWall, rightWall, frontWall, ceiling, floor];
@@ -86,7 +86,6 @@ export function initRoom3(scene){
             objects[nameLibraries[i]] = library; 
         });
     }
-    
 
     return [objects, materials];
 }

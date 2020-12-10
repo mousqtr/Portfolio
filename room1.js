@@ -17,7 +17,7 @@ export function initRoom1(scene){
     const posRoom = new THREE.Vector3(1400, 0, -600);
     let leftWall = 'img/room1/wall.jpg';
     let rightWall = 'img/room1/wall.jpg';
-    let frontWall = 'img/room1/frontWall.png';
+    let frontWall = 'img/room1/wall2.jpg';
     let ceiling = 'img/ceilingWhite.jpg';
     let floor = 'img/floorGrey.jpg';
     let textures = [leftWall, rightWall, frontWall, ceiling, floor];

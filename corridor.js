@@ -38,12 +38,12 @@ export function initCorridor(scene){
     /*************************************************************/
 
     let corridorMaterialArray = [];
-    let texture_ft = new THREE.TextureLoader().load( 'img/wallRed.jpg');
-    let texture_bk = new THREE.TextureLoader().load( 'img/wallRed.jpg');
+    let texture_ft = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
+    let texture_bk = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
     let texture_up = new THREE.TextureLoader().load( 'img/ceilingWhite.jpg');
     let texture_dn = new THREE.TextureLoader().load( 'img/floorGrey.jpg');
-    let texture_rt = new THREE.TextureLoader().load( 'img/wallRed.jpg');
-    let texture_lf = new THREE.TextureLoader().load( 'img/wallRed.jpg');
+    let texture_rt = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
+    let texture_lf = new THREE.TextureLoader().load( 'img/corridor/wall.jpg');
 
     texture_dn.wrapS = texture_dn.wrapT = THREE.RepeatWrapping;
     texture_up.wrapS = texture_up.wrapT = THREE.RepeatWrapping;

@@ -13,9 +13,9 @@ export function initRoom0(scene){
 
     // Room
     const posRoom = new THREE.Vector3(-1400, 0, -600);
-    let leftWall = 'img/room0/wall0.jpg';
-    let rightWall = 'img/room0/wall0.jpg';
-    let frontWall = 'img/room0/wall1.jpg';
+    let leftWall = 'img/room0/wall.jpg';
+    let rightWall = 'img/room0/wall.jpg';
+    let frontWall = 'img/room0/wall2.jpg';
     let ceiling = 'img/ceilingWhite.jpg';
     let floor = 'img/floorGrey.jpg';
     let textures = [leftWall, rightWall, frontWall, ceiling, floor];
@@ -32,7 +32,7 @@ export function initRoom0(scene){
     const posArrowText = new THREE.Vector3(-1150, 374, -1450);
     createArrowText(scene, objects, posArrowText)
 
-    let textureLibrary = new THREE.TextureLoader().load( 'img/pexels13.jpg');
+    let textureLibrary = new THREE.TextureLoader().load( 'img/room0/blue.jpg');
     const materialLibrary = new THREE.MeshPhongMaterial( {
         map: textureLibrary
     } );
@@ -50,32 +50,32 @@ export function initRoom0(scene){
     });
 
 
-    let chairTexture = new THREE.TextureLoader().load( 'img/pexel12.jpg');
+    let chairTexture = new THREE.TextureLoader().load( 'img/room0/black.jpg');
     const chairMaterial = new THREE.MeshPhongMaterial( {
         map: chairTexture
     } );
     const chairLoader = new FBXLoader();
-    chairLoader.load('models/chair_desk.fbx', (shelf) => {
-        shelf.traverse(child => {
+    chairLoader.load('models/chair_desk.fbx', (chair) => {
+        chair.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
             child.material = chairMaterial;
         });      
-        shelf.scale.setScalar(4); 
-        shelf.position.set(-1100, -550, -1200);
-        shelf.rotation.set(-Math.PI/2, 0, Math.PI);
-        scene.add(shelf);
+        chair.scale.setScalar(4); 
+        chair.position.set(-1100, -550, -1200);
+        chair.rotation.set(-Math.PI/2, 0, Math.PI);
+        scene.add(chair);
     });
 
     let shelfGeo = new THREE.BoxGeometry(500, 30, 300);
-    let shelftexture = new THREE.TextureLoader().load( 'img/pexel12.jpg' );
+    let shelftexture = new THREE.TextureLoader().load( 'img/room0/black.jpg' );
     let shelfMat = new THREE.MeshPhongMaterial( { map: shelftexture } );
     let shelf = new THREE.Mesh( shelfGeo, shelfMat );
     shelf.position.set(-1600, 300, -1430);
     scene.add(shelf);
 
     let shelf2Geo = new THREE.BoxGeometry(500, 30, 300);
-    let shelf2texture = new THREE.TextureLoader().load( 'img/pexel12.jpg' );
+    let shelf2texture = new THREE.TextureLoader().load( 'img/room0/black.jpg' );
     let shelf2Mat = new THREE.MeshPhongMaterial( { map: shelf2texture } );
     let shelf2 = new THREE.Mesh( shelf2Geo, shelf2Mat );
     shelf2.position.set(-1600, 70, -1430);
@@ -83,28 +83,28 @@ export function initRoom0(scene){
 
     const deskMaterial = new THREE.MeshPhongMaterial( { color: 0x7f7f7f } );
     const deskLoader = new FBXLoader();
-    deskLoader.load('models/desk.fbx', (shelf) => {
-        shelf.traverse(child => {
+    deskLoader.load('models/desk.fbx', (desk) => {
+        desk.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
             child.material = deskMaterial;
         });      
-        shelf.scale.setScalar(0.8); 
-        shelf.position.set(-1100, -500, -1900);
-        shelf.rotation.set(Math.PI, Math.PI/2, Math.PI);
-        scene.add(shelf);
+        desk.scale.setScalar(0.8); 
+        desk.position.set(-1100, -500, -1900);
+        desk.rotation.set(Math.PI, Math.PI/2, Math.PI);
+        scene.add(desk);
     });
 
       // Boxes
       const posBox1 = new THREE.Vector3(-1100, -110, -1400);
       const posBox2 = new THREE.Vector3(-1470, 165, -1400);
       const posBox3 = new THREE.Vector3(-1700, 400, -1400);
-      const posBox4 = new THREE.Vector3(-1650, -200, -1350);
+      const posBox4 = new THREE.Vector3(-1650, -170, -1350);
       const sizeBox = new THREE.Vector3(150, 150, 150);
       createBox(scene, objects, posBox1, sizeBox, 'img/room0/computing.png', 'boxComputing');
       createBox(scene, objects, posBox2, sizeBox, 'img/room0/group.png', 'boxAsso');
       createBox(scene, objects, posBox3, sizeBox, 'img/room0/bike.png', 'boxSport');
-      createBox(scene, objects, posBox4, sizeBox, 'img/room0/bike.png', 'boxMe');
+      createBox(scene, objects, posBox4, sizeBox, 'img/room0/me.png', 'boxMe');
 
 
     return [objects, materials];

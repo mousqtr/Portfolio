@@ -247,6 +247,7 @@ function animate() {
     room0Objects["boxComputing"].rotation.y += 0.01
     room0Objects["boxAsso"].rotation.y += 0.01
     room0Objects["boxSport"].rotation.y += 0.01
+    room0Objects["boxMe"].rotation.y += 0.01
 
     // Rotates cubes of room 1
     room1Objects["boxCpe"].rotation.y += 0.01;
