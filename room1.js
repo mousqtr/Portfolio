@@ -44,14 +44,16 @@ export function initRoom1(scene){
     createArrowText(scene, objects, posArrowText)
     
     // Papers
-    createPaper(scene, objects, 'img/room1/cpePresentation.png', 'paperCpe');
-    createPaper(scene, objects, 'img/room1/charlemagnePresentation.png', 'paperCharlemagne');
-    createPaper(scene, objects, 'img/room1/henriPresentation.png', 'paperHenri');
+    const posPaper = new THREE.Vector3(1400, -5000, -900);
+    createPaper(scene, objects, posPaper,  'img/room1/description/cpe.png', 'paperCpe');
+    createPaper(scene, objects, posPaper, 'img/room1/description/charlemagne.png', 'paperCharlemagne');
+    createPaper(scene, objects, posPaper, 'img/room1/description/henri.png', 'paperHenri');
     
     // Buttons close
-    createButtonClose(scene, objects, 'buttonCloseCpe');
-    createButtonClose(scene, objects, 'buttonCloseCharlemagne');
-    createButtonClose(scene, objects, 'buttonCloseHenri');
+    const posButtonClose = new THREE.Vector3(1650, -5000, -890);
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCpe');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCharlemagne');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseHenri');
     
     // Desk
     const loaderTextureDesk = new TGALoader();

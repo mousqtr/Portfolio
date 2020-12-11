@@ -70,7 +70,7 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
+//let controls = new OrbitControls(camera, renderer.domElement );
 // controls.addEventListener('change', renderer);
 // controls.minDistance = 500;
 // controls.maxDistance = 4000;
@@ -139,13 +139,23 @@ function onClick(event) {
         goToRoom(intersects, 'door2', 2);
         goToRoom(intersects, 'door3', 3);
 
-        openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe');
-        openBox(intersects, 'boxCharlemagne', 'paperCharlemagne', 'buttonCloseCharlemagne');
-        openBox(intersects, 'boxHenri', 'paperHenri', 'buttonCloseHenri');
+        openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe', 1);
+        openBox(intersects, 'boxCharlemagne', 'paperCharlemagne', 'buttonCloseCharlemagne', 1);
+        openBox(intersects, 'boxHenri', 'paperHenri', 'buttonCloseHenri', 1);
 
-        closeBox(intersects, 'paperCpe', 'buttonCloseCpe')
-        closeBox(intersects, 'paperCharlemagne', 'buttonCloseCharlemagne')
-        closeBox(intersects, 'paperHenri', 'buttonCloseHenri')
+        openBox(intersects, 'boxBarco', 'paperBarco', 'buttonCloseBarco', 2);
+        openBox(intersects, 'boxSncf1', 'paperSncf1', 'buttonCloseSncf1', 2);
+        openBox(intersects, 'boxSncf2', 'paperSncf2', 'buttonCloseSncf2', 2);
+        openBox(intersects, 'boxCompletude', 'paperCompletude', 'buttonCloseCompletude', 2);
+
+        closeBox(intersects, 'paperCpe', 'buttonCloseCpe', 1)
+        closeBox(intersects, 'paperCharlemagne', 'buttonCloseCharlemagne', 1)
+        closeBox(intersects, 'paperHenri', 'buttonCloseHenri', 1)
+
+        closeBox(intersects, 'paperBarco', 'buttonCloseBarco', 2)
+        closeBox(intersects, 'paperSncf1', 'buttonCloseSncf1', 2)
+        closeBox(intersects, 'paperSncf2', 'buttonCloseSncf2', 2)
+        closeBox(intersects, 'paperCompletude', 'buttonCloseCompletude', 2)
 
     }
 }
@@ -189,24 +199,49 @@ function goToRoom(intersects, doorName, doorId){
     }
 }
 
-function openBox(intersects, objectName, paperName, buttonCloseName){
-    if (intersects[0].object.name == objectName){  
-        camera.position.set(1400, 0, 0);
+function openBox(intersects, objectName, paperName, buttonCloseName, nbRoom){
+    if (intersects[0].object.name == objectName){
+        switch(nbRoom){
+            case 1:
+                camera.position.set(1400, 0, 0);
+                if ((room1Objects[objectName] != undefined) && (room1Objects[buttonCloseName] != undefined)){
+                    room1Objects[paperName].position.set(1400, 0, -900);
+                    room1Objects[buttonCloseName].position.set(1650, 400, -890);
+                }
+                break;
+            case 2:
+                camera.position.set(-1400, 0, -2400);
+                if ((room2Objects[objectName] != undefined) && (room2Objects[buttonCloseName] != undefined)){
+                    room2Objects[paperName].position.set(-1400, 0, -3300);
+                    room2Objects[buttonCloseName].position.set(-1650, 400, -3290);
+                }
+                break;
+            default:
+                break;
+        }  
 
-        if ((room1Objects[objectName] != undefined) && (room1Objects[buttonCloseName] != undefined)){
-            room1Objects[paperName].position.set(1400, 0, -900);
-            room1Objects[buttonCloseName].position.set(1650, 400, -890);
-        }
     }
 }
 
-function closeBox(intersects, paperName, buttonCloseName){
+function closeBox(intersects, paperName, buttonCloseName, nbRoom){
     if (intersects[0].object.name == buttonCloseName){  
-        camera.position.set(1400, 100, 0);
-
-        if ((room1Objects[paperName] != undefined) && (room1Objects[buttonCloseName] != undefined)){
-            room1Objects[paperName].position.set(1400, -5000, -900);
-            room1Objects[buttonCloseName].position.set(1650, -5000, -890);
+        switch(nbRoom){
+            case 1:
+                camera.position.set(1400, 100, 0);
+                if ((room1Objects[paperName] != undefined) && (room1Objects[buttonCloseName] != undefined)){
+                    room1Objects[paperName].position.set(1400, -5000, -900);
+                    room1Objects[buttonCloseName].position.set(1650, -5000, -890);
+                }
+                break;
+            case 2:
+                camera.position.set(-1400, 100, -2400);
+                if ((room2Objects[paperName] != undefined) && (room2Objects[buttonCloseName] != undefined)){
+                    room2Objects[paperName].position.set(-1400, -5000, -3300);
+                    room2Objects[buttonCloseName].position.set(-1650, -5000, -3290);
+                }
+                break;
+            default:
+                break;
         }
     }
 }
@@ -259,17 +294,17 @@ function animate() {
 
     // Rotates cubes of room 2
     room2Objects["boxBarco"].rotation.y += 0.01;
-    room2Objects["boxSNCF1"].rotation.y += 0.01
-    room2Objects["boxSNCF2"].rotation.y += 0.01
+    room2Objects["boxSncf1"].rotation.y += 0.01
+    room2Objects["boxSncf2"].rotation.y += 0.01
     room2Objects["boxCompletude"].rotation.y += 0.01;
 
     theta += 0.01
     room2Objects["boxBarco"].position.x = -1400 + 120 * Math.cos(theta);
     room2Objects["boxBarco"].position.z = -3500 + 260 * Math.sin(theta);
-    room2Objects["boxSNCF1"].position.x = -1400 + 120 * Math.cos(theta + Math.PI/2);
-    room2Objects["boxSNCF1"].position.z = -3500 + 260 * Math.sin(theta + Math.PI/2);
-    room2Objects["boxSNCF2"].position.x = -1400 + 120 * Math.cos(theta + Math.PI);
-    room2Objects["boxSNCF2"].position.z = -3500 + 260 * Math.sin(theta + Math.PI);
+    room2Objects["boxSncf1"].position.x = -1400 + 120 * Math.cos(theta + Math.PI/2);
+    room2Objects["boxSncf1"].position.z = -3500 + 260 * Math.sin(theta + Math.PI/2);
+    room2Objects["boxSncf2"].position.x = -1400 + 120 * Math.cos(theta + Math.PI);
+    room2Objects["boxSncf2"].position.z = -3500 + 260 * Math.sin(theta + Math.PI);
     room2Objects["boxCompletude"].position.x = -1400 + 120 * Math.cos(theta + 3*Math.PI/2);
     room2Objects["boxCompletude"].position.z = -3500 + 260 * Math.sin(theta + 3*Math.PI/2);
 

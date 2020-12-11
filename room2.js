@@ -1,6 +1,6 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import { createArrow, createArrowText, createRoom, createLight, createBox } from './utils.js';
+import { createArrow, createArrowText, createRoom, createLight, createBox, createPaper, createButtonClose } from './utils.js';
 
 export function initRoom2(scene){
 
@@ -125,9 +125,23 @@ export function initRoom2(scene){
     const posBox4 = new THREE.Vector3(-1500, -80, -3600);  
     const sizeBox = new THREE.Vector3(110, 110, 110);
     createBox(scene, objects, posBox1, sizeBox, 'img/room2/barco.png', 'boxBarco');
-    createBox(scene, objects, posBox2, sizeBox, 'img/room2/SNCF.jpg', 'boxSNCF1');
-    createBox(scene, objects, posBox3, sizeBox, 'img/room2/SNCF2.jpg', 'boxSNCF2');
+    createBox(scene, objects, posBox2, sizeBox, 'img/room2/SNCF.jpg', 'boxSncf1');
+    createBox(scene, objects, posBox3, sizeBox, 'img/room2/SNCF2.jpg', 'boxSncf2');
     createBox(scene, objects, posBox4, sizeBox, 'img/room2/completude.png', 'boxCompletude');
+
+    // Papers
+    const posPaper = new THREE.Vector3(-1400, -5000, -3300);
+    createPaper(scene, objects, posPaper, 'img/room2/description/barco.png', 'paperBarco');
+    createPaper(scene, objects, posPaper, 'img/room2/description/sncf1.png', 'paperSncf1');
+    createPaper(scene, objects, posPaper, 'img/room2/description/sncf2.png', 'paperSncf2');
+    createPaper(scene, objects, posPaper, 'img/room2/description/completude.png', 'paperCompletude');
+    
+    // Buttons close
+    const posButtonClose = new THREE.Vector3(-1650, -5000, -3290);
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseBarco');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseSncf1');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseSncf2');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCompletude');
 
     return [objects, materials];
 }

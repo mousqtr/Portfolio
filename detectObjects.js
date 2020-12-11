@@ -40,6 +40,12 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, material
         changeOpacity(intersects, room1Objects["boxCharlemagne"], 'boxCharlemagne', 0.5);
         changeOpacity(intersects, room1Objects["boxHenri"], 'boxHenri', 0.5);
 
+        // Boxes (room2)
+        changeOpacity(intersects, room2Objects["boxBarco"], 'boxBarco', 0.5);
+        changeOpacity(intersects, room2Objects["boxSncf1"], 'boxSncf1', 0.5);
+        changeOpacity(intersects, room2Objects["boxSncf2"], 'boxSncf2', 0.5);
+        changeOpacity(intersects, room2Objects["boxCompletude"], 'boxCompletude', 0.5);
+
         // Boxes (room3)
         changeOpacity(intersects, room3Objects["boxPython"], 'boxPython', 0.5);
         changeOpacity(intersects, room3Objects["boxC++"], 'boxC++', 0.5);

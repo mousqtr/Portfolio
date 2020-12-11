@@ -108,17 +108,17 @@ export function createBox(scene, objects, position, size, textureImg, objectName
     // box.add( wireframe );
 }
 
-export function createPaper(scene, objects, paperImg, paperName){
+export function createPaper(scene, objects, position, paperImg, paperName){
     const textureBox1 = new THREE.TextureLoader().load(paperImg);
     const geometry = new THREE.PlaneGeometry( 600, 900 );
     const material = new THREE.MeshBasicMaterial( {map: textureBox1} );
     const plane = new THREE.Mesh( geometry, material );
-    plane.position.set(1400, -5000, -900);
+    plane.position.set(position.x, position.y, position.z);
     objects[paperName] = plane;
     scene.add( plane )
 }
 
-export function createButtonClose(scene, objects, buttonName){
+export function createButtonClose(scene, objects, position, buttonName){
     const textureClose = new THREE.TextureLoader().load('img/room1/cross.png');
     const geometryClose = new THREE.PlaneGeometry( 50, 50 );
     const materialClose = new THREE.MeshBasicMaterial( { map: textureClose} );
@@ -126,7 +126,7 @@ export function createButtonClose(scene, objects, buttonName){
     buttonClose.traverse(child => {
         child.name = buttonName
     } );
-    buttonClose.position.set(1650, -5000, -890);
+    buttonClose.position.set(position.x, position.y, position.z);
     objects[buttonName] = buttonClose;
     scene.add( buttonClose );
 }
