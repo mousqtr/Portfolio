@@ -139,24 +139,45 @@ function onClick(event) {
         goToRoom(intersects, 'door2', 2);
         goToRoom(intersects, 'door3', 3);
 
-        openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe', 1);
-        openBox(intersects, 'boxCharlemagne', 'paperCharlemagne', 'buttonCloseCharlemagne', 1);
-        openBox(intersects, 'boxHenri', 'paperHenri', 'buttonCloseHenri', 1);
-
+        // Room 1
         openBox(intersects, 'boxBarco', 'paperBarco', 'buttonCloseBarco', 2);
         openBox(intersects, 'boxSncf1', 'paperSncf1', 'buttonCloseSncf1', 2);
         openBox(intersects, 'boxSncf2', 'paperSncf2', 'buttonCloseSncf2', 2);
         openBox(intersects, 'boxCompletude', 'paperCompletude', 'buttonCloseCompletude', 2);
-
         closeBox(intersects, 'paperCpe', 'buttonCloseCpe', 1)
         closeBox(intersects, 'paperCharlemagne', 'buttonCloseCharlemagne', 1)
         closeBox(intersects, 'paperHenri', 'buttonCloseHenri', 1)
 
+        // Room 2
+        openBox(intersects, 'boxCpe', 'paperCpe', 'buttonCloseCpe', 1);
+        openBox(intersects, 'boxCharlemagne', 'paperCharlemagne', 'buttonCloseCharlemagne', 1);
+        openBox(intersects, 'boxHenri', 'paperHenri', 'buttonCloseHenri', 1);
         closeBox(intersects, 'paperBarco', 'buttonCloseBarco', 2)
         closeBox(intersects, 'paperSncf1', 'buttonCloseSncf1', 2)
         closeBox(intersects, 'paperSncf2', 'buttonCloseSncf2', 2)
         closeBox(intersects, 'paperCompletude', 'buttonCloseCompletude', 2)
 
+        // Room 3
+        openBox(intersects, 'boxC', 'paperC', 'buttonCloseC', 3);
+        openBox(intersects, 'boxC++', 'paperCplusplus', 'buttonCloseCplusplus', 3);
+        openBox(intersects, 'boxC#', 'paperCsharp', 'buttonCloseCsharp', 3);
+        openBox(intersects, 'boxJava', 'paperJava', 'buttonCloseJava', 3);
+        openBox(intersects, 'boxLabview', 'paperLabview', 'buttonCloseLabview', 3);
+        openBox(intersects, 'boxLua', 'paperLua', 'buttonCloseLua', 3);
+        openBox(intersects, 'boxMatlab', 'paperMatlab', 'buttonCloseMatlab', 3);
+        openBox(intersects, 'boxPowerbi', 'paperPowerbi', 'buttonClosePowerbi', 3);
+        openBox(intersects, 'boxVba', 'paperVba', 'buttonCloseVba', 3);
+        openBox(intersects, 'boxVhdl', 'paperVhdl', 'buttonCloseVhdl', 3);
+        closeBox(intersects, 'paperC', 'buttonCloseC', 3);
+        closeBox(intersects, 'paperCplusplus', 'buttonCloseCplusplus', 3);
+        closeBox(intersects, 'paperCsharp', 'buttonCloseCsharp', 3);
+        closeBox(intersects, 'paperJava', 'buttonCloseJava', 3);
+        closeBox(intersects, 'paperLabview', 'buttonCloseLabview', 3);
+        closeBox(intersects, 'paperLua', 'buttonCloseLua', 3);
+        closeBox(intersects, 'paperMatlab', 'buttonCloseMatlab', 3);
+        closeBox(intersects, 'paperPowerbi', 'buttonClosePowerbi', 3);
+        closeBox(intersects, 'paperVba', 'buttonCloseVba', 3);
+        closeBox(intersects, 'paperVhdl', 'buttonCloseVhdl', 3);
     }
 }
 
@@ -216,6 +237,13 @@ function openBox(intersects, objectName, paperName, buttonCloseName, nbRoom){
                     room2Objects[buttonCloseName].position.set(-1150, 400, -2890);
                 }
                 break;
+            case 3:
+                camera.position.set(1400, 0, -2000);
+                if ((room3Objects[objectName] != undefined) && (room3Objects[buttonCloseName] != undefined)){
+                    room3Objects[paperName].position.set(1400, 0, -2900);
+                    room3Objects[buttonCloseName].position.set(1650, 400, -2890);
+                }
+                break;
             default:
                 break;
         }  
@@ -238,6 +266,13 @@ function closeBox(intersects, paperName, buttonCloseName, nbRoom){
                 if ((room2Objects[paperName] != undefined) && (room2Objects[buttonCloseName] != undefined)){
                     room2Objects[paperName].position.set(-1400, -5000, -3300);
                     room2Objects[buttonCloseName].position.set(-1650, -5000, -3290);
+                }
+                break;
+            case 3:
+                camera.position.set(1400, 100, -2400);
+                if ((room3Objects[paperName] != undefined) && (room3Objects[buttonCloseName] != undefined)){
+                    room3Objects[paperName].position.set(1400, -5000, -3300);
+                    room3Objects[buttonCloseName].position.set(1650, -5000, -3290);
                 }
                 break;
             default:

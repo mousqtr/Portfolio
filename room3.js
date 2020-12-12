@@ -52,28 +52,40 @@ export function initRoom3(scene){
     createBox(scene, objects, posBox1, sizeBox, 'img/room3/python.png', 'boxPython');
     createBox(scene, objects, posBox2, sizeBox, 'img/room3/cplusplus.png', 'boxC++');
     createBox(scene, objects, posBox3, sizeBox, 'img/room3/csharp.png', 'boxC#');
-    createBox(scene, objects, posBox4, sizeBox, 'img/room3/c.png', 'boxC');
-    createBox(scene, objects, posBox5, sizeBox2, 'img/room3/matlab.png', 'boxLua');
+    createBox(scene, objects, posBox4, sizeBox, 'img/room3/matlab.png', 'boxMatlab');
+    createBox(scene, objects, posBox5, sizeBox2, 'img/room3/c.png', 'boxC');
     createBox(scene, objects, posBox6, sizeBox, 'img/room3/java.png', 'boxJava');
-    createBox(scene, objects, posBox7, sizeBox, 'img/room3/powerbi.png', 'boxMatlab');
-    createBox(scene, objects, posBox8, sizeBox, 'img/room3/vba.png', 'boxVhdl');
-    createBox(scene, objects, posBox9, sizeBox, 'img/room3/lua.png', 'boxPowerbi');
-    createBox(scene, objects, posBox10, sizeBox, 'img/room3/vhdl.png', 'boxVba');
+    createBox(scene, objects, posBox7, sizeBox, 'img/room3/powerbi.png', 'boxPowerbi');
+    createBox(scene, objects, posBox8, sizeBox, 'img/room3/vba.png', 'boxVba');
+    createBox(scene, objects, posBox9, sizeBox, 'img/room3/lua.png', 'boxLua');
+    createBox(scene, objects, posBox10, sizeBox, 'img/room3/vhdl.png', 'boxVhdl');
     createBox(scene, objects, posBox11, sizeBox2, 'img/room3/labview.png', 'boxLabview');
 
-    // //Papers
-    // const posPaper = new THREE.Vector3(1400, -5000, -3300);
-    // createPaper(scene, objects, posPaper, 'img/room2/description/c.png', 'paperC');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/cplusplus.png', 'paperCplusplus');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/csharp.png', 'paperCsharp');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/java.png', 'paperJava');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/labview.png', 'paperLabview');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/lua.png', 'paperLua');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/matlab.png', 'paperMatlab');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/powerbi.png', 'paperPowerbi');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/vba.png', 'paperVba');
-    // createPaper(scene, objects, posPaper, 'img/room2/description/vhdl.png', 'paperSncf1');
-    // createPaper(scene, objects, posPaper, 'img/room32/description/web.png', 'paperSncf2');
+    //Papers
+    const posPaper = new THREE.Vector3(1400, -5000, -3300);
+    createPaper(scene, objects, posPaper, 'img/room3/description/c.png', 'paperC');
+    createPaper(scene, objects, posPaper, 'img/room3/description/cplusplus.png', 'paperCplusplus');
+    createPaper(scene, objects, posPaper, 'img/room3/description/csharp.png', 'paperCsharp');
+    createPaper(scene, objects, posPaper, 'img/room3/description/java.png', 'paperJava');
+    createPaper(scene, objects, posPaper, 'img/room3/description/labview.png', 'paperLabview');
+    createPaper(scene, objects, posPaper, 'img/room3/description/lua.png', 'paperLua');
+    createPaper(scene, objects, posPaper, 'img/room3/description/matlab.png', 'paperMatlab');
+    createPaper(scene, objects, posPaper, 'img/room3/description/powerbi.png', 'paperPowerbi');
+    createPaper(scene, objects, posPaper, 'img/room3/description/vba.png', 'paperVba');
+    createPaper(scene, objects, posPaper, 'img/room3/description/vhdl.png', 'paperVhdl');
+
+    // Buttons close
+    const posButtonClose = new THREE.Vector3(1650, -5000, -3290);
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseC');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCplusplus');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCsharp');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseJava');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseLabview');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseLua');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseMatlab');
+    createButtonClose(scene, objects, posButtonClose, 'buttonClosePowerbi');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseVba');
+    createButtonClose(scene, objects, posButtonClose, 'buttonCloseVhdl');
 
     // Library
     const posLibraryLeft = new THREE.Vector3(1190, -500, -3800);
