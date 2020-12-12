@@ -70,7 +70,7 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-//let controls = new OrbitControls(camera, renderer.domElement );
+// let controls = new OrbitControls(camera, renderer.domElement );
 // controls.addEventListener('change', renderer);
 // controls.minDistance = 500;
 // controls.maxDistance = 4000;
@@ -186,7 +186,7 @@ function goToRoom(intersects, doorName, doorId){
                     camera.position.set(1400, 100, 0);
                     break;
                 case 2:
-                    camera.position.set(-1400, 100, -2400);
+                    camera.position.set(-1400, 100, -2000);
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);
@@ -210,10 +210,10 @@ function openBox(intersects, objectName, paperName, buttonCloseName, nbRoom){
                 }
                 break;
             case 2:
-                camera.position.set(-1400, 0, -2400);
+                camera.position.set(-1400, 0, -2000);
                 if ((room2Objects[objectName] != undefined) && (room2Objects[buttonCloseName] != undefined)){
-                    room2Objects[paperName].position.set(-1400, 0, -3300);
-                    room2Objects[buttonCloseName].position.set(-1650, 400, -3290);
+                    room2Objects[paperName].position.set(-1400, 0, -2900);
+                    room2Objects[buttonCloseName].position.set(-1150, 400, -2890);
                 }
                 break;
             default:

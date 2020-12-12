@@ -49,7 +49,6 @@ export function initRoom3(scene){
     const posBox9 = new THREE.Vector3(columns[3], rows[1], -3800);
     const posBox10 = new THREE.Vector3(columns[3], rows[2], -3800);
     const posBox11 = new THREE.Vector3(columns[3], rows[4], -3800);
-
     createBox(scene, objects, posBox1, sizeBox, 'img/room3/python.png', 'boxPython');
     createBox(scene, objects, posBox2, sizeBox, 'img/room3/cplusplus.png', 'boxC++');
     createBox(scene, objects, posBox3, sizeBox, 'img/room3/csharp.png', 'boxC#');
@@ -61,6 +60,20 @@ export function initRoom3(scene){
     createBox(scene, objects, posBox9, sizeBox, 'img/room3/lua.png', 'boxPowerbi');
     createBox(scene, objects, posBox10, sizeBox, 'img/room3/vhdl.png', 'boxVba');
     createBox(scene, objects, posBox11, sizeBox2, 'img/room3/labview.png', 'boxLabview');
+
+    // //Papers
+    // const posPaper = new THREE.Vector3(1400, -5000, -3300);
+    // createPaper(scene, objects, posPaper, 'img/room2/description/c.png', 'paperC');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/cplusplus.png', 'paperCplusplus');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/csharp.png', 'paperCsharp');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/java.png', 'paperJava');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/labview.png', 'paperLabview');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/lua.png', 'paperLua');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/matlab.png', 'paperMatlab');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/powerbi.png', 'paperPowerbi');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/vba.png', 'paperVba');
+    // createPaper(scene, objects, posPaper, 'img/room2/description/vhdl.png', 'paperSncf1');
+    // createPaper(scene, objects, posPaper, 'img/room32/description/web.png', 'paperSncf2');
 
     // Library
     const posLibraryLeft = new THREE.Vector3(1190, -500, -3800);
