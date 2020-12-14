@@ -1,15 +1,12 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
-import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import { createArrow, createArrowText, createRoom, createLight, createBox, createPaper, createButtonClose } from './utils.js';
+import { Room } from './room.js';
 
 export function initRoom2(scene){
 
+    // Initialization of the room
     let objects = {};
     let materials = {};
-
-    // Light
-    // const posLight = new THREE.Vector3(1400, 0, -4000);
-    // createLight(scene, posLight);
+    let room = new Room(scene, objects, materials);
 
     // Room
     const posRoom = new THREE.Vector3(-1400, 0, -3000);
@@ -18,96 +15,64 @@ export function initRoom2(scene){
     let frontWall = 'img/room2/wall2.jpg';
     let ceiling = 'img/ceilingWhite.jpg';
     let floor = 'img/floorGrey.jpg';
-    let textures = [leftWall, rightWall, frontWall, ceiling, floor];
-    createRoom(scene, objects, posRoom, textures)
-
+    let texturesRoom = [leftWall, rightWall, frontWall, ceiling, floor];
+    room.createRoom(posRoom, texturesRoom);
+    
     // Arrow
-    const posArrow = new THREE.Vector3(-1100, 400, -3900);
-    const rotArrow = new THREE.Vector3(0, 0, 0);
-    const scaleArrow = 120;
-    const materialArrow = new THREE.MeshPhongMaterial( { color:  0xff0000 } );
-    createArrow(scene, objects, materials, posArrow, rotArrow, scaleArrow, materialArrow);
+    const arrowUrl = 'models/commun/arrow.fbx';
+    const arrowPos = new THREE.Vector3(-1100, 400, -3900);
+    const arrowRot = new THREE.Vector3(0, 0, 0);
+    const arrowScale = 120;
+    const arrowMaterial = new THREE.MeshPhongMaterial( { color:  0xff0000 } );
+    const arrowName = 'arrowRoom'
+    room.loadFBXModel(arrowUrl, arrowPos, arrowRot, arrowScale, arrowMaterial, arrowName);
 
     // ArrowText
-    const posArrowText = new THREE.Vector3(-1150, 374, -3850);
-    createArrowText(scene, objects, posArrowText);
+    const arrowTextUrl = 'fonts/Bebas_Neue_Regular.json';
+    const arrowTextText = 'Sortir'
+    const arrowTextPos = new THREE.Vector3(-1150, 374, -3850);
+    const arrowTextSize = 38;
+    const arrowTextHeight = 2;
+    const arrowTextMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff });
+    const arrowTextName = 'textArrowRoom'
+    room.loadFont(scene, objects, arrowTextUrl, arrowTextText, arrowTextPos, arrowTextSize, arrowTextHeight, arrowTextMaterial, arrowTextName);
 
     // Table
-    const tableMaterial = new THREE.MeshPhongMaterial( { 
-        color: 0x2b1d0e, 
-    });
-    const tableLoader = new FBXLoader();
-    tableLoader.load('models/room2/table/table.fbx', (table) => {
-        table.traverse(child => {
-            child.castShadow = true;
-            child.receiveShadow = true;
-            child.material = tableMaterial;
-        });      
-        table.scale.setScalar(0.05); 
-        table.position.set(-1400, -550, -3500);
-        table.rotation.set(0, Math.PI/2, 0);
-        scene.add(table);
-        objects["table"] = table; 
-    });
+    const tableUrl = 'models/room2/table/table.fbx';
+    const tablePos = new THREE.Vector3(-1400, -550, -3500);
+    const tableRot = new THREE.Vector3(0, Math.PI/2, 0);
+    const tableScale = 0.05;
+    const tableMaterial = new THREE.MeshPhongMaterial( { color: 0x2b1d0e } );
+    const tableName = 'table';
+    room.loadFBXModel(tableUrl, tablePos, tableRot, tableScale, tableMaterial, tableName);
 
-    let chairLibrary = new THREE.TextureLoader().load( 'models/room2/chair/black.jpg');
-    const chairMaterial = new THREE.MeshPhongMaterial( {
-        map: chairLibrary
-    } );
-    let chairs = [];
-    for ( let i = 0; i < 4; i ++ ) {
-        const loaderChair = new FBXLoader();
-        loaderChair.load('models/room2/chair/chair.fbx', (chair) => {
-
-            chair.traverse(child => {
-                child.castShadow = true;
-                child.receiveShadow = true;
-                child.material = chairMaterial;
-            });
-            chair.scale.setScalar(2.4);
-            switch(i){
-                case 0:
-                    chair.position.set(-1600, -450, -3700);
-                    chair.rotation.set(0, Math.PI/2, 0);
-                    break;
-                case 1:
-                    chair.position.set(-1200, -450, -3700);
-                    chair.rotation.set(0, -Math.PI/2, 0);
-                    break;
-                case 2:
-                    chair.position.set(-1600, -450, -3400);
-                    chair.rotation.set(0, Math.PI/2, 0);
-                    break;
-                case 3:
-                    chair.position.set(-1200, -450, -3400);
-                    chair.rotation.set(0, -Math.PI/2, 0);
-                    break;
-                default:
-                    break;
-            }
-            
-            scene.add(chair);
-            chairs.push(chair)
-        });
-    }
-    objects["chairs"] = chairs;
-
+    // Chairs
+    const chairUrl = 'models/room2/chair/chair.fbx';
+    const chairScale = 2.4;
+    const chairTexture = new THREE.TextureLoader().load( 'models/room2/chair/black.jpg');
+    const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
+    const chairName = 'chair';
+    const chair0Pos = new THREE.Vector3(-1600, -450, -3700);
+    const chair1Pos = new THREE.Vector3(-1200, -450, -3700);
+    const chair2Pos = new THREE.Vector3(-1600, -450, -3400);
+    const chair3Pos = new THREE.Vector3(-1200, -450, -3400);
+    const chair0Rot = new THREE.Vector3(0, Math.PI/2, 0);
+    const chair1Rot = new THREE.Vector3(0, -Math.PI/2, 0);
+    const chair2Rot = new THREE.Vector3(0, Math.PI/2, 0);
+    const chair3Rot = new THREE.Vector3(0, -Math.PI/2, 0);
+    room.loadFBXModel(chairUrl, chair0Pos, chair0Rot, chairScale, chairMaterial, chairName);
+    room.loadFBXModel(chairUrl, chair1Pos, chair1Rot, chairScale, chairMaterial, chairName);
+    room.loadFBXModel(chairUrl, chair2Pos, chair2Rot, chairScale, chairMaterial, chairName);
+    room.loadFBXModel(chairUrl, chair3Pos, chair3Rot, chairScale, chairMaterial, chairName);
 
     // TV
-    const materialTV = new THREE.MeshPhongMaterial( { color:  0x000000 } );
-    const loaderTV = new FBXLoader();
-    loaderTV.load('models/room2/tv/tv.fbx', (tv) => {
-        tv.traverse(child => {
-            child.castShadow = true;
-            child.receiveShadow = true;
-            child.material = materialTV;
-        });
-        tv.scale.setScalar(0.01);
-        tv.position.set(-1400, 140, -3900);
-        tv.rotation.set(0, 0, 0);
-        scene.add(tv);
-        objects["tv"] = tv; 
-    });
+    const tvUrl = 'models/room2/tv/tv.fbx';
+    const tvPos = new THREE.Vector3(-1400, 140, -3900);
+    const tvRot = new THREE.Vector3(0, 0, 0);
+    const tvScale = 0.01;
+    const tvMaterial = new THREE.MeshPhongMaterial( { color:  0x000000 } );
+    const tvName = 'tv'
+    room.loadFBXModel(tvUrl, tvPos, tvRot, tvScale, tvMaterial, tvName);
 
     // Screen
     let screenGeo = new THREE.BoxGeometry(495, 290, 5);
@@ -124,24 +89,24 @@ export function initRoom2(scene){
     const posBox3 = new THREE.Vector3(-1300, -80, -3600);
     const posBox4 = new THREE.Vector3(-1500, -80, -3600);  
     const sizeBox = new THREE.Vector3(110, 110, 110);
-    createBox(scene, objects, posBox1, sizeBox, 'img/room2/barco.png', 'boxBarco');
-    createBox(scene, objects, posBox2, sizeBox, 'img/room2/SNCF.jpg', 'boxSncf1');
-    createBox(scene, objects, posBox3, sizeBox, 'img/room2/SNCF2.jpg', 'boxSncf2');
-    createBox(scene, objects, posBox4, sizeBox, 'img/room2/completude.png', 'boxCompletude');
+    room.createBox(posBox1, sizeBox, 'img/room2/barco.png', 'boxBarco');
+    room.createBox(posBox2, sizeBox, 'img/room2/SNCF.jpg', 'boxSncf1');
+    room.createBox(posBox3, sizeBox, 'img/room2/SNCF2.jpg', 'boxSncf2');
+    room.createBox(posBox4, sizeBox, 'img/room2/completude.png', 'boxCompletude');
 
     // Papers
     const posPaper = new THREE.Vector3(-1400, -5000, -3300);
-    createPaper(scene, objects, posPaper, 'img/room2/description/barco.png', 'paperBarco');
-    createPaper(scene, objects, posPaper, 'img/room2/description/sncf1.png', 'paperSncf1');
-    createPaper(scene, objects, posPaper, 'img/room2/description/sncf2.png', 'paperSncf2');
-    createPaper(scene, objects, posPaper, 'img/room2/description/completude.png', 'paperCompletude');
+    room.createPaper(posPaper, 'img/room2/description/barco.png', 'paperBarco');
+    room.createPaper(posPaper, 'img/room2/description/sncf1.png', 'paperSncf1');
+    room.createPaper(posPaper, 'img/room2/description/sncf2.png', 'paperSncf2');
+    room.createPaper(posPaper, 'img/room2/description/completude.png', 'paperCompletude');
     
     // Buttons close
     const posButtonClose = new THREE.Vector3(-1650, -5000, -3290);
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseBarco');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseSncf1');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseSncf2');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCompletude');
+    room.createButtonClose(posButtonClose, 'buttonCloseBarco');
+    room.createButtonClose(posButtonClose, 'buttonCloseSncf1');
+    room.createButtonClose(posButtonClose, 'buttonCloseSncf2');
+    room.createButtonClose(posButtonClose, 'buttonCloseCompletude');
 
     return [objects, materials];
 }

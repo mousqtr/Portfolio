@@ -30,10 +30,10 @@ export function detectObjects(scene, raycaster, mouse, camera, objects, material
         changeColor(intersects, corridorObjects["doors"][3], 'door3', color1, color2)
 
         // Arrow + text
-        changeArrowAndText(intersects, room0Objects["arrow"], 'arrowRoom', room0Objects["textArrowRoom"], 'textArrowRoom', room0Materials["arrow"])
-        changeArrowAndText(intersects, room1Objects["arrow"], 'arrowRoom', room1Objects["textArrowRoom"], 'textArrowRoom', room1Materials["arrow"])
-        changeArrowAndText(intersects, room2Objects["arrow"], 'arrowRoom', room2Objects["textArrowRoom"], 'textArrowRoom', room2Materials["arrow"])
-        changeArrowAndText(intersects, room3Objects["arrow"], 'arrowRoom', room3Objects["textArrowRoom"], 'textArrowRoom', room3Materials["arrow"])
+        changeArrowAndText(intersects, room0Objects["arrowRoom"], 'arrowRoom', room0Objects["textArrowRoom"], 'textArrowRoom', room0Materials["arrowRoom"])
+        changeArrowAndText(intersects, room1Objects["arrowRoom"], 'arrowRoom', room1Objects["textArrowRoom"], 'textArrowRoom', room1Materials["arrowRoom"])
+        changeArrowAndText(intersects, room2Objects["arrowRoom"], 'arrowRoom', room2Objects["textArrowRoom"], 'textArrowRoom', room2Materials["arrowRoom"])
+        changeArrowAndText(intersects, room3Objects["arrowRoom"], 'arrowRoom', room3Objects["textArrowRoom"], 'textArrowRoom', room3Materials["arrowRoom"])
 
         // Boxes (room1)
         changeOpacity(intersects, room1Objects["boxCpe"], 'boxCpe', 0.5);

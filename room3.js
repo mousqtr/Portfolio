@@ -1,15 +1,12 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
-import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import { createArrow, createArrowText, createRoom, createLight, createBox, createPaper, createButtonClose } from './utils.js';
+import { Room } from './room.js';
 
 export function initRoom3(scene){
 
+    // Initialization of the room
     let objects = {};
     let materials = {};
-
-    // Light
-    // const posLight = new THREE.Vector3(1400, 0, -4000);
-    // createLight(scene, posLight);
+    let room = new Room(scene, objects, materials);
 
     // Room
     const posRoom = new THREE.Vector3(1400, 0, -3000);
@@ -18,26 +15,33 @@ export function initRoom3(scene){
     let frontWall = 'img/room3/wall2.jpg';
     let ceiling = 'img/ceilingWhite.jpg';
     let floor = 'img/floorGrey.jpg';
-    let textures = [leftWall, rightWall, frontWall, ceiling, floor];
-    createRoom(scene, objects, posRoom, textures)
+    let texturesRoom = [leftWall, rightWall, frontWall, ceiling, floor];
+    room.createRoom(posRoom, texturesRoom);
 
     // Arrow
-    const posArrow = new THREE.Vector3(1100, 400, -3900);
-    const rotArrow = new THREE.Vector3(0, Math.PI, 0);
-    const scaleArrow = 120;
-    const materialArrow = new THREE.MeshPhongMaterial( { color:  0xff0000 } );
-    createArrow(scene, objects, materials, posArrow, rotArrow, scaleArrow, materialArrow);
+    const arrowUrl = 'models/commun/arrow.fbx';
+    const arrowPos = new THREE.Vector3(1100, 400, -3900);
+    const arrowRot = new THREE.Vector3(0, Math.PI, 0);
+    const arrowScale = 120;
+    const arrowMaterial = new THREE.MeshPhongMaterial( { color:  0xff0000 } );
+    const arrowName = 'arrowRoom'
+    room.loadFBXModel(arrowUrl, arrowPos, arrowRot, arrowScale, arrowMaterial, arrowName);
 
     // ArrowText
-    const posArrowText = new THREE.Vector3(1050, 374, -3850);
-    createArrowText(scene, objects, posArrowText)
+    const arrowTextUrl = 'fonts/Bebas_Neue_Regular.json';
+    const arrowTextText = 'Sortir'
+    const arrowTextPos = new THREE.Vector3(1050, 374, -3850);
+    const arrowTextSize = 38;
+    const arrowTextHeight = 2;
+    const arrowTextMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff });
+    const arrowTextName = 'textArrowRoom'
+    room.loadFont(scene, objects, arrowTextUrl, arrowTextText, arrowTextPos, arrowTextSize, arrowTextHeight, arrowTextMaterial, arrowTextName);
 
     // Boxes
     let rows = [140, 0, -140, -280, -397];
     let columns = [1110, 1300, 1500, 1700]
     const sizeBox = new THREE.Vector3(110, 110, 110);
     const sizeBox2 = new THREE.Vector3(110, 100, 110);
-
     const posBox1 = new THREE.Vector3(columns[0], rows[0], -3800);
     const posBox2 = new THREE.Vector3(columns[0], rows[1], -3800);
     const posBox3 = new THREE.Vector3(columns[0], rows[3], -3800);
@@ -49,68 +53,57 @@ export function initRoom3(scene){
     const posBox9 = new THREE.Vector3(columns[3], rows[1], -3800);
     const posBox10 = new THREE.Vector3(columns[3], rows[2], -3800);
     const posBox11 = new THREE.Vector3(columns[3], rows[4], -3800);
-    createBox(scene, objects, posBox1, sizeBox, 'img/room3/python.png', 'boxPython');
-    createBox(scene, objects, posBox2, sizeBox, 'img/room3/cplusplus.png', 'boxC++');
-    createBox(scene, objects, posBox3, sizeBox, 'img/room3/csharp.png', 'boxC#');
-    createBox(scene, objects, posBox4, sizeBox, 'img/room3/matlab.png', 'boxMatlab');
-    createBox(scene, objects, posBox5, sizeBox2, 'img/room3/c.png', 'boxC');
-    createBox(scene, objects, posBox6, sizeBox, 'img/room3/java.png', 'boxJava');
-    createBox(scene, objects, posBox7, sizeBox, 'img/room3/powerbi.png', 'boxPowerbi');
-    createBox(scene, objects, posBox8, sizeBox, 'img/room3/vba.png', 'boxVba');
-    createBox(scene, objects, posBox9, sizeBox, 'img/room3/lua.png', 'boxLua');
-    createBox(scene, objects, posBox10, sizeBox, 'img/room3/vhdl.png', 'boxVhdl');
-    createBox(scene, objects, posBox11, sizeBox2, 'img/room3/labview.png', 'boxLabview');
+    room.createBox(posBox1, sizeBox, 'img/room3/python.png', 'boxPython');
+    room.createBox(posBox2, sizeBox, 'img/room3/cplusplus.png', 'boxC++');
+    room.createBox(posBox3, sizeBox, 'img/room3/csharp.png', 'boxC#');
+    room.createBox(posBox4, sizeBox, 'img/room3/matlab.png', 'boxMatlab');
+    room.createBox(posBox5, sizeBox2, 'img/room3/c.png', 'boxC');
+    room.createBox(posBox6, sizeBox, 'img/room3/java.png', 'boxJava');
+    room.createBox(posBox7, sizeBox, 'img/room3/powerbi.png', 'boxPowerbi');
+    room.createBox(posBox8, sizeBox, 'img/room3/vba.png', 'boxVba');
+    room.createBox(posBox9, sizeBox, 'img/room3/lua.png', 'boxLua');
+    room.createBox(posBox10, sizeBox, 'img/room3/vhdl.png', 'boxVhdl');
+    room.createBox(posBox11, sizeBox2, 'img/room3/labview.png', 'boxLabview');
 
     //Papers
     const posPaper = new THREE.Vector3(1400, -5000, -3300);
-    createPaper(scene, objects, posPaper, 'img/room3/description/c.png', 'paperC');
-    createPaper(scene, objects, posPaper, 'img/room3/description/cplusplus.png', 'paperCplusplus');
-    createPaper(scene, objects, posPaper, 'img/room3/description/csharp.png', 'paperCsharp');
-    createPaper(scene, objects, posPaper, 'img/room3/description/java.png', 'paperJava');
-    createPaper(scene, objects, posPaper, 'img/room3/description/labview.png', 'paperLabview');
-    createPaper(scene, objects, posPaper, 'img/room3/description/lua.png', 'paperLua');
-    createPaper(scene, objects, posPaper, 'img/room3/description/matlab.png', 'paperMatlab');
-    createPaper(scene, objects, posPaper, 'img/room3/description/powerbi.png', 'paperPowerbi');
-    createPaper(scene, objects, posPaper, 'img/room3/description/vba.png', 'paperVba');
-    createPaper(scene, objects, posPaper, 'img/room3/description/vhdl.png', 'paperVhdl');
+    room.createPaper(posPaper, 'img/room3/description/c.png', 'paperC');
+    room.createPaper(posPaper, 'img/room3/description/cplusplus.png', 'paperCplusplus');
+    room.createPaper(posPaper, 'img/room3/description/csharp.png', 'paperCsharp');
+    room.createPaper(posPaper, 'img/room3/description/java.png', 'paperJava');
+    room.createPaper(posPaper, 'img/room3/description/labview.png', 'paperLabview');
+    room.createPaper(posPaper, 'img/room3/description/lua.png', 'paperLua');
+    room.createPaper(posPaper, 'img/room3/description/matlab.png', 'paperMatlab');
+    room.createPaper(posPaper, 'img/room3/description/powerbi.png', 'paperPowerbi');
+    room.createPaper(posPaper, 'img/room3/description/vba.png', 'paperVba');
+    room.createPaper(posPaper, 'img/room3/description/vhdl.png', 'paperVhdl');
 
     // Buttons close
     const posButtonClose = new THREE.Vector3(1650, -5000, -3290);
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseC');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCplusplus');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseCsharp');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseJava');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseLabview');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseLua');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseMatlab');
-    createButtonClose(scene, objects, posButtonClose, 'buttonClosePowerbi');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseVba');
-    createButtonClose(scene, objects, posButtonClose, 'buttonCloseVhdl');
+    room.createButtonClose(posButtonClose, 'buttonCloseC');
+    room.createButtonClose(posButtonClose, 'buttonCloseCplusplus');
+    room.createButtonClose(posButtonClose, 'buttonCloseCsharp');
+    room.createButtonClose(posButtonClose, 'buttonCloseJava');
+    room.createButtonClose(posButtonClose, 'buttonCloseLabview');
+    room.createButtonClose(posButtonClose, 'buttonCloseLua');
+    room.createButtonClose(posButtonClose, 'buttonCloseMatlab');
+    room.createButtonClose(posButtonClose, 'buttonClosePowerbi');
+    room.createButtonClose(posButtonClose, 'buttonCloseVba');
+    room.createButtonClose(posButtonClose, 'buttonCloseVhdl');
 
     // Library
-    const posLibraryLeft = new THREE.Vector3(1190, -500, -3800);
-    const posLibraryRight = new THREE.Vector3(1610, -500, -3800);
-    const posLibraries = [posLibraryLeft, posLibraryRight];
-    const nameLibraries = ["libraryLeft", "libraryRight"];
-    let textureLibrary = new THREE.TextureLoader().load( 'models/room3/library/wood.jpg');
-    const materialLibrary = new THREE.MeshPhongMaterial( {
-        map: textureLibrary
-    } );
-    for ( let i = 0; i < 2; i ++ ) {
-        const loaderLibrary = new FBXLoader();
-        loaderLibrary.load('models/room3/library/library.FBX', (library) => {
-            library.traverse(child => {
-                child.castShadow = true;
-                child.receiveShadow = true;
-                child.material = materialLibrary;
-            });
-            library.scale.setScalar(4);
-            library.position.set(posLibraries[i].x, posLibraries[i].y, posLibraries[i].z);
-            library.rotation.set(0, 0, 0);
-            scene.add(library);
-            objects[nameLibraries[i]] = library; 
-        });
-    }
+    const libraryUrl = 'models/room3/library/library.FBX';
+    const libraryRot = new THREE.Vector3(0, 0, 0);
+    const libraryScale = 4;
+    const libraryTexture = new THREE.TextureLoader().load( 'models/room3/library/wood.jpg');
+    const libraryMaterial = new THREE.MeshPhongMaterial( { map: libraryTexture } );
+    const libraryName1 = 'leftLibrary';
+    const libraryName2 = 'rightLibrary';
+    const libraryPos1 = new THREE.Vector3(1190, -500, -3800);
+    const libraryPos2 = new THREE.Vector3(1610, -500, -3800);
+    room.loadFBXModel(libraryUrl, libraryPos1, libraryRot, libraryScale, libraryMaterial, libraryName1);
+    room.loadFBXModel(libraryUrl, libraryPos2, libraryRot, libraryScale, libraryMaterial, libraryName2);
+
 
     return [objects, materials];
 }
