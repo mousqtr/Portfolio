@@ -70,10 +70,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// let controls = new OrbitControls(camera, renderer.domElement );
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
 let theta = 0;
 animate();
@@ -125,13 +125,17 @@ function onWindowResize(){
 
         // Plants corridor
         for (let i = 0; i < corridorObjects["plants"].length; i++) {
-            if (i < 2){
-                posZ = 0.67 * window.innerWidth - 2600;
-            }else{
-                posZ = 0.67 * window.innerWidth - 4600;
-            }
+            posZ = 0.67 * window.innerWidth - 4600;
             corridorObjects["plants"][i].position.set(corridorObjects["plants"][i].position.x, corridorObjects["plants"][i].position.y, posZ);
         }
+
+        // Table
+        posZ = 0.67 * window.innerWidth - 3100;
+        corridorObjects["table"].position.set(corridorObjects["table"].position.x, corridorObjects["table"].position.y, posZ);
+
+        // Lamp
+        posZ = 0.67 * window.innerWidth - 3020;
+        corridorObjects["lamp"].position.set(corridorObjects["lamp"].position.x, corridorObjects["lamp"].position.y, posZ);
     
     }          
 }

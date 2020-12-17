@@ -77,10 +77,10 @@ export function initCorridor(scene){
     /*************************************************************/
 
     const loaderPaladin = new FBXLoader();
-    loaderPaladin.load('models/corridor/paladin/paladin.fbx', (paladin) => {
+    loaderPaladin.load('models/corridor/malcolm/malcolm.fbx', (paladin) => {
 
         // Load the model
-        paladin.scale.setScalar(3);
+        paladin.scale.setScalar(1.5);
         paladin.position.set(0, -500, -600)
         paladin.rotation.set(0, Math.PI, 0)
         paladin.traverse(child => {
@@ -91,7 +91,7 @@ export function initCorridor(scene){
 
         // Load the walk animation
         const animWalk = new FBXLoader();
-        animWalk.load('models/corridor/paladin/walk.fbx', (animWalk) => {
+        animWalk.load('models/corridor/malcolm/malcolm_walk.fbx', (animWalk) => {
             const mixer = new THREE.AnimationMixer(paladin);     
             const action = mixer.clipAction( animWalk.animations[0] );
             mixers["mixerWalk"] = mixer
@@ -100,7 +100,7 @@ export function initCorridor(scene){
         
         // Load the stand animation
         const animStand = new FBXLoader();
-        animStand.load('models/corridor/paladin/stand_brief.fbx', (animStand) => {
+        animStand.load('models/corridor/malcolm/malcolm_stand.fbx', (animStand) => {
             const mixer = new THREE.AnimationMixer(paladin);
             const action = mixer.clipAction(animStand.animations[0]);
             mixers["mixerStand"] = mixer
@@ -261,14 +261,13 @@ export function initCorridor(scene){
 
     // Plants
     const plantUrl = 'models/corridor/plant2/plant.fbx';
-    const plantXPositions = [-370, 370, -370, 370];
-    const plantZPositions = [2600, 2600, 4600, 4600];
-    const plantRotations = [-Math.PI, Math.PI, -Math.PI, Math.PI]
+    const plantXPositions = [-370, 370];
+    const plantRotations = [-Math.PI, Math.PI]
     const plantScale = 0.6;
     
-    for ( let i = 0; i < 4; i ++ ) {
+    for ( let i = 0; i < 2; i ++ ) {
         const plantName = 'plant'.concat(i.toString());
-        const plantPosZ = 0.67 * window.innerWidth - plantZPositions[i];
+        const plantPosZ = 0.67 * window.innerWidth - 4600;
         const plantPos = new THREE.Vector3(plantXPositions[i], -480, plantPosZ);
         const plantRot = new THREE.Vector3(0, plantRotations[i], 0);
         createPlant(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
@@ -302,6 +301,24 @@ export function initCorridor(scene){
         const doormatRot = new THREE.Vector3(0, doormatRotations[i], 0);
         createDoorMat(scene, objects, doormatUrl, doormatPos, doormatRot, doormatName);
     }
+
+    // Table
+    const tableUrl = 'models/corridor/table/table.fbx';
+    const tablePosZ = 0.67 * window.innerWidth - 3100
+    const tablePos = new THREE.Vector3(370, -480, tablePosZ);
+    const tableRot = new THREE.Vector3(0, 0, 0);
+    const tableScale = 0.18;
+    const tableName = 'table';
+    loadFBXModel(scene, objects, tableUrl, tablePos, tableRot, tableScale, tableName);
+
+    // Lamp
+    const lampUrl = 'models/corridor/lamp/lamp.fbx';
+    const lampPosZ = 0.67 * window.innerWidth - 3020
+    const lampPos = new THREE.Vector3(355, -200, lampPosZ);
+    const lampRot = new THREE.Vector3(0, 0, 0);
+    const lampScale = 0.03;
+    const lampName = 'lamp';
+    loadFBXModel(scene, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
 
     return [objects, materials, mixers, actions, lights];
 
