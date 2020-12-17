@@ -70,10 +70,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-// let controls = new OrbitControls(camera, renderer.domElement );
-// controls.addEventListener('change', renderer);
-// controls.minDistance = 500;
-// controls.maxDistance = 4000;
+let controls = new OrbitControls(camera, renderer.domElement );
+controls.addEventListener('change', renderer);
+controls.minDistance = 500;
+controls.maxDistance = 4000;
 
 let theta = 0;
 animate();
@@ -184,8 +184,8 @@ function onClick(event) {
 function goToCorridor(intersects){
     if ((intersects[0].object.name == 'arrowRoom') || (intersects[0].object.name == 'textArrowRoom')){  
             
-        corridorLights["hemiLight"].position.set(0, 0, 0);
-        corridorLights["dirLight"].position.set(0, 0, 300);
+        corridorLights["hemiLight"].position.set(0, 200, 200);
+        corridorLights["dirLight"].position.set(0, 300, 300);
 
         camera.position.set(0, 0, corridorObjects["paladin"].position.z + 600);          
     }

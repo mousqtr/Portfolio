@@ -17,14 +17,14 @@ export function initCorridor(scene){
     /*************************************************************/
 
     // Hemisphere Light
-    const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-    hemiLight.position.set(0, 0, 0);
+    const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x555555 );
+    hemiLight.position.set(0, 100, 0);
     scene.add( hemiLight );
     lights["hemiLight"] = hemiLight;
 
     // Directional Light
     const dirLight = new THREE.DirectionalLight( 0xffffff );
-    dirLight.position.set(0, 0, 300);
+    dirLight.position.set(0, 300, 300);
     dirLight.castShadow = true;
     dirLight.shadow.camera.top = 180;
     dirLight.shadow.camera.bottom = - 100;
@@ -261,21 +261,41 @@ export function initCorridor(scene){
 
 
 
-    // const benchLoader = new FBXLoader();
-    // benchLoader.load('models/corridor/bench3.fbx', (plant) => {
-    //     plant.traverse(child => {
-    //         child.castShadow = true;
-    //         child.receiveShadow = true;
-    //         child.material = new THREE.MeshPhongMaterial( { 
-    //             color: 0x855E42
-    //         } );
-    //     });       
-    //     plant.scale.setScalar(1.4);
-    //     plant.position.set(420, -500, -2400);
-    //     plant.rotation.set(0, Math.PI, 0);
-    //     scene.add(plant);
-    // });
+    const plant1Loader = new FBXLoader();
+    plant1Loader.load('models/corridor/plant2/plant.fbx', (plant) => {
+        plant.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+        });       
+        plant.scale.setScalar(0.6);
+        plant.position.set(370, -480, -1700);
+        plant.rotation.set(0, -Math.PI/4, 0);
+        scene.add(plant);
+    });
 
+    const plant2Loader = new FBXLoader();
+    plant2Loader.load('models/corridor/plant2/plant.fbx', (plant) => {
+        plant.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+        });       
+        plant.scale.setScalar(0.6);
+        plant.position.set(-370, -480, -1700);
+        plant.rotation.set(0, Math.PI/4, 0);
+        scene.add(plant);
+    });
+
+    const bookShelfLoader = new FBXLoader();
+    bookShelfLoader.load('models/bookshelf.fbx', (plant) => {
+        plant.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+        });       
+        plant.scale.setScalar(6);
+        plant.position.set(-800, -480, -6000);
+        plant.rotation.set(0, 0, 0);
+        scene.add(plant);
+    });
 
 
     return [objects, materials, mixers, actions, lights];
