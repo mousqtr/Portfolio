@@ -1,7 +1,6 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-import { createBox, createTitle } from './utils.js';
+import { createTitle, loadFBXModel } from './utils.js';
 
 export function initCorridor(scene){
 
@@ -66,9 +65,9 @@ export function initCorridor(scene){
         corridorMaterialArray[i].side = THREE.BackSide;
     }
         
-    let corridorGeo = new THREE.BoxGeometry( 1000, 1000, 10000);
+    let corridorGeo = new THREE.BoxGeometry( 1000, 1000, 7000);
     let corridor = new THREE.Mesh( corridorGeo, corridorMaterialArray );
-    corridor.position.set(0, 0, -4500)
+    corridor.position.set(0, 0, -3000)
     scene.add( corridor );  
     objects["corridor"] = corridor;
 
@@ -260,46 +259,91 @@ export function initCorridor(scene){
     }
 
 
+    // Plants
+    const plantUrl = 'models/corridor/plant2/plant.fbx';
+    const plantXPositions = [-370, 370, -370, 370];
+    const plantZPositions = [2600, 2600, 4600, 4600];
+    const plantRotations = [-Math.PI, Math.PI, -Math.PI, Math.PI]
+    const plantScale = 0.6;
+    
+    for ( let i = 0; i < 4; i ++ ) {
+        const plantName = 'plant'.concat(i.toString());
+        const plantPosZ = 0.67 * window.innerWidth - plantZPositions[i];
+        const plantPos = new THREE.Vector3(plantXPositions[i], -480, plantPosZ);
+        const plantRot = new THREE.Vector3(0, plantRotations[i], 0);
+        createPlant(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
+    }
 
-    const plant1Loader = new FBXLoader();
-    plant1Loader.load('models/corridor/plant2/plant.fbx', (plant) => {
-        plant.traverse(child => {
-            child.castShadow = true;
-            child.receiveShadow = true;
-        });       
-        plant.scale.setScalar(0.6);
-        plant.position.set(370, -480, -1700);
-        plant.rotation.set(0, -Math.PI/4, 0);
-        scene.add(plant);
-    });
 
-    const plant2Loader = new FBXLoader();
-    plant2Loader.load('models/corridor/plant2/plant.fbx', (plant) => {
-        plant.traverse(child => {
-            child.castShadow = true;
-            child.receiveShadow = true;
-        });       
-        plant.scale.setScalar(0.6);
-        plant.position.set(-370, -480, -1700);
-        plant.rotation.set(0, Math.PI/4, 0);
-        scene.add(plant);
-    });
+    // Shelf
+    const bookShelfUrl = 'models/corridor/bookshelf/bookshelf.fbx';
+    const bookShelfPos = new THREE.Vector3(-800, -480, -6000);
+    const bookShelfRot = new THREE.Vector3(0, 0, 0);
+    const bookShelfScale = 6;
+    const bookShelfName = 'bookshelf';
+    loadFBXModel(scene, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
 
-    const bookShelfLoader = new FBXLoader();
-    bookShelfLoader.load('models/bookshelf.fbx', (plant) => {
-        plant.traverse(child => {
-            child.castShadow = true;
-            child.receiveShadow = true;
-        });       
-        plant.scale.setScalar(6);
-        plant.position.set(-800, -480, -6000);
-        plant.rotation.set(0, 0, 0);
-        scene.add(plant);
-    });
 
+   // Doormats
+    const doormatUrl1 = 'img/corridor/doormat.jpg';
+    const doormatUrl2 = 'img/corridor/formation.jpg';
+    const doormatUrl3 = 'img/corridor/experiences.jpg';
+    const doormatUrl4 = 'img/corridor/projets.jpg';
+    const doormatUrls = [doormatUrl1, doormatUrl2, doormatUrl3, doormatUrl4]
+    const doormatXPositions = [-360, 360, -360, 360];
+    const doormatZPositions = [2300, 2300, 4300, 4300];
+    const doormatRotations = [0, Math.PI, 0, Math.PI]
+
+    for ( let i = 0; i < 4; i ++ ) {
+        const doormatName = 'doormat'.concat(i.toString());
+        const doormatUrl = doormatUrls[i]
+        const doormatPosZ = 0.67 * window.innerWidth - doormatZPositions[i];
+        const doormatPos = new THREE.Vector3(doormatXPositions[i], -480, doormatPosZ);
+        const doormatRot = new THREE.Vector3(0, doormatRotations[i], 0);
+        createDoorMat(scene, objects, doormatUrl, doormatPos, doormatRot, doormatName);
+    }
 
     return [objects, materials, mixers, actions, lights];
 
+}
+
+
+function createPlant(scene, objects, url, position, rotation, scale, name){
+
+    const plantLoader = new FBXLoader();
+    plantLoader.load(url, (plant) => {
+        plant.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            child.name = name
+        });       
+        plant.scale.setScalar(scale);
+        plant.position.set(position.x, position.y, position.z);
+        plant.rotation.set(rotation.x, rotation.y, rotation.z);
+        if (objects["plants"] == undefined){
+            objects["plants"] = [plant];
+        }else{
+            objects["plants"].push(plant);
+        }
+        scene.add(plant);
+    });
+
+}
+
+function createDoorMat(scene, objects, textureUrl, position, rotation, name){
+    const doormatGeo = new THREE.BoxGeometry(200, 10, 380);
+    const doormatTexture = new THREE.TextureLoader().load( textureUrl );
+    const doormatMat = new THREE.MeshPhongMaterial( { map: doormatTexture } );
+    const doormat = new THREE.Mesh( doormatGeo, doormatMat );
+    doormat.position.set(position.x, position.y, position.z);
+    doormat.rotation.set(rotation.x, rotation.y, rotation.z);
+    if (objects["doormats"] == undefined){
+        objects["doormats"] = [doormat];
+    }else{
+        objects["doormats"].push(doormat);
+    }
+    
+    scene.add(doormat);
 }
 
 

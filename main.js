@@ -112,6 +112,26 @@ function onWindowResize(){
             }
             corridorObjects["doorTexts"][i].position.set(corridorObjects["doorTexts"][i].position.x, corridorObjects["doorTexts"][i].position.y, posZ);
         }
+
+        // Doormats
+        for (let i = 0; i < corridorObjects["doormats"].length; i++) {
+            if (i < 2){
+                posZ = 0.67 * window.innerWidth - 2300;
+            }else{
+                posZ = 0.67 * window.innerWidth - 4300;
+            }
+            corridorObjects["doormats"][i].position.set(corridorObjects["doormats"][i].position.x, corridorObjects["doormats"][i].position.y, posZ);
+        }
+
+        // Plants corridor
+        for (let i = 0; i < corridorObjects["plants"].length; i++) {
+            if (i < 2){
+                posZ = 0.67 * window.innerWidth - 2600;
+            }else{
+                posZ = 0.67 * window.innerWidth - 4600;
+            }
+            corridorObjects["plants"][i].position.set(corridorObjects["plants"][i].position.x, corridorObjects["plants"][i].position.y, posZ);
+        }
     
     }          
 }

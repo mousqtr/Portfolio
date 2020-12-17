@@ -52,3 +52,22 @@ export function createTitle(scene, objects, position, text){
 }
 
 
+export function loadFBXModel(scene, objects, url, position, rotation, scale, name){
+
+    const modelLoader = new FBXLoader();
+    modelLoader.load(url, (model) => {
+        model.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            child.name = name
+        });       
+        model.scale.setScalar(scale);
+        model.position.set(position.x, position.y, position.z);
+        model.rotation.set(rotation.x, rotation.y, rotation.z);
+        objects[name] = model;
+        scene.add(model);
+    });
+
+}
+
+
