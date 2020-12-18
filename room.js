@@ -125,7 +125,7 @@ export class Room {
     }
     
     createButtonClose(position, buttonName){
-        const textureClose = new THREE.TextureLoader().load('img/room1/cross.png');
+        const textureClose = new THREE.TextureLoader().load('img/common/cross.png');
         const geometryClose = new THREE.PlaneGeometry( 50, 50 );
         const materialClose = new THREE.MeshBasicMaterial( { map: textureClose} );
         const buttonClose = new THREE.Mesh( geometryClose, materialClose );

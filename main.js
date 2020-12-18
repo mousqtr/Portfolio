@@ -125,10 +125,8 @@ function onWindowResize(){
         }
 
         // Plants corridor
-        for (let i = 0; i < corridorObjects["plants"].length; i++) {
-            posZ = 0.67 * window.innerWidth - 5400;
-            corridorObjects["plants"][i].position.set(corridorObjects["plants"][i].position.x, corridorObjects["plants"][i].position.y, posZ);
-        }
+        posZ = 0.67 * window.innerWidth - 5400;
+        corridorObjects["plant"].position.set(corridorObjects["plant"].position.x, corridorObjects["plant"].position.y, posZ);
 
         // Table
         posZ = 0.67 * window.innerWidth - 3300;
@@ -158,9 +156,9 @@ function onWindowResize(){
         }
 
         // Shoes
-        posZ = 0.67 * window.innerWidth - 2600;
+        posZ = 0.67 * window.innerWidth - 4700;
         corridorObjects["shoes"][0].position.set(corridorObjects["shoes"][0].position.x, corridorObjects["shoes"][0].position.y, posZ);
-        posZ = 0.67 * window.innerWidth - 2700;
+        posZ = 0.67 * window.innerWidth - 4800;
         corridorObjects["shoes"][1].position.set(corridorObjects["shoes"][1].position.x, corridorObjects["shoes"][1].position.y, posZ);
        
         // Lamp
@@ -235,6 +233,20 @@ function onClick(event) {
         closeBox(intersects, 'paperPowerbi', 'buttonClosePowerbi', 3);
         closeBox(intersects, 'paperVba', 'buttonCloseVba', 3);
         closeBox(intersects, 'paperVhdl', 'buttonCloseVhdl', 3);
+
+        // Video in Room 2
+        if (intersects[0].object.name == 'playButton'){  
+            if (room2Videos["video"] != undefined){
+                room2Videos["video"].play();
+            }
+        }
+
+        if (intersects[0].object.name == 'pauseButton'){  
+            if (room2Videos["video"] != undefined){
+                room2Videos["video"].pause();
+            }
+        }
+
     }
 }
 
@@ -265,6 +277,9 @@ function goToRoom(intersects, doorName, doorId){
                     break;
                 case 2:
                     camera.position.set(-1400, 100, -2400);
+                    if (room2Videos["video"] != undefined){
+                        room2Videos["video"].play();
+                    }
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);
@@ -323,11 +338,6 @@ function closeBox(intersects, paperName, buttonCloseName, nbRoom){
                 if ((room2Objects[paperName] != undefined) && (room2Objects[buttonCloseName] != undefined)){
                     room2Objects[paperName].position.set(-1400, -5000, -3300);
                     room2Objects[buttonCloseName].position.set(-1650, -5000, -3290);
-                }
-
-                if (room2Videos["video"] != undefined){
-                    room2Videos["video"].load();
-                    room2Videos["video"].play();
                 }
 
                 break;

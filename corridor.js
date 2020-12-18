@@ -203,7 +203,7 @@ export function initCorridor(scene){
 
     // Load the top arrow 
     const arrowLoader = new FBXLoader();
-    arrowLoader.load('models/commun/arrow.fbx', (arrow) => {
+    arrowLoader.load('models/common/arrow.fbx', (arrow) => {
         arrow.traverse(child => {
         child.castShadow = true;
         child.receiveShadow = true;
@@ -260,20 +260,14 @@ export function initCorridor(scene){
         } );
     }
 
-
-    // Plants
+    // Plant
     const plantUrl = 'models/corridor/plant2/plant.fbx';
-    const plantXPositions = [-370, 370];
-    const plantRotations = [-Math.PI, Math.PI]
+    const plantPosZ = 0.67 * window.innerWidth - 5000;
+    const plantPos = new THREE.Vector3(370, -480, plantPosZ);
+    const plantRot = new THREE.Vector3(0, Math.PI, 0);
     const plantScale = 0.6;
-    
-    for ( let i = 0; i < 2; i ++ ) {
-        const plantName = 'plant'.concat(i.toString());
-        const plantPosZ = 0.67 * window.innerWidth - 5400;
-        const plantPos = new THREE.Vector3(plantXPositions[i], -480, plantPosZ);
-        const plantRot = new THREE.Vector3(0, plantRotations[i], 0);
-        createPlant(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
-    }
+    const plantName = 'plant'
+    loadFBXModel(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
 
 
     // Shelf
@@ -348,14 +342,14 @@ export function initCorridor(scene){
         objLoader.load( 'models/corridor/shoes/all_star.obj', function ( object ) {
     
             object.scale.setScalar(45);
-            shoesPosZ = 0.67 * window.innerWidth - 2600;
+            shoesPosZ = 0.67 * window.innerWidth - 4700;
             object.position.set(-370, -500, shoesPosZ);
             object.rotation.set(0, Math.PI/2, 0);
             scene.add(object);
             shoes.push(object)
     
             let object2 = object.clone();
-            shoesPosZ = 0.67 * window.innerWidth - 2700;
+            shoesPosZ = 0.67 * window.innerWidth - 4800;
             object2.position.set(-370, -500, shoesPosZ);
             scene.add(object2);
             shoes.push(object2)
@@ -400,28 +394,6 @@ export function initCorridor(scene){
 
 }
 
-
-function createPlant(scene, objects, url, position, rotation, scale, name){
-
-    const plantLoader = new FBXLoader();
-    plantLoader.load(url, (plant) => {
-        plant.traverse(child => {
-            child.castShadow = true;
-            child.receiveShadow = true;
-            child.name = name
-        });       
-        plant.scale.setScalar(scale);
-        plant.position.set(position.x, position.y, position.z);
-        plant.rotation.set(rotation.x, rotation.y, rotation.z);
-        if (objects["plants"] == undefined){
-            objects["plants"] = [plant];
-        }else{
-            objects["plants"].push(plant);
-        }
-        scene.add(plant);
-    });
-
-}
 
 function createDoorMat(scene, objects, textureUrl, position, rotation, name){
     const doormatGeo = new THREE.BoxGeometry(200, 10, 380);

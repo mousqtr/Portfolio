@@ -20,7 +20,7 @@ export function initRoom2(scene){
     room.createRoom(posRoom, texturesRoom);
     
     // Arrow
-    const arrowUrl = 'models/commun/arrow.fbx';
+    const arrowUrl = 'models/common/arrow.fbx';
     const arrowPos = new THREE.Vector3(-1100, 400, -3900);
     const arrowRot = new THREE.Vector3(0, 0, 0);
     const arrowScale = 120;
@@ -78,13 +78,15 @@ export function initRoom2(scene){
     // Screen
     var video = document.createElement( 'video' );
     video.src = "./video/office.mp4";
+    video.loop = true;
+    video.load();
 
     var videoImage = document.createElement( 'canvas' );
 	videoImage.width = 1280;
     videoImage.height = 720; // 720p : 1280x720 pixels
 
     var videoImageContext = videoImage.getContext( '2d' );
-	videoImageContext.fillStyle = '#ff0000';// background color if no video present
+	videoImageContext.fillStyle = '#000000';// background color if no video present
     videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height );
     
     var videoTexture = new THREE.Texture( videoImage );
@@ -95,13 +97,39 @@ export function initRoom2(scene){
     videos["videoImageContext"] = videoImageContext;
     videos["videoTexture"] = videoTexture;
     
-    var movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
+    var screenMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
 
-    let screenGeo = new THREE.PlaneGeometry( 600, 340, 4, 4 );
-    let screen = new THREE.Mesh( screenGeo, movieMaterial );
+    let screenGeometry = new THREE.PlaneGeometry( 600, 340, 4, 4 );
+    let screen = new THREE.Mesh( screenGeometry, screenMaterial );
     screen.position.set(-1400, 170, -3920);
     scene.add(screen);
     objects["screen"] = screen; 
+
+    // Play Button
+    const playButtonTexture = new THREE.TextureLoader().load('img/common/play.png');
+    const playButtonGeometry = new THREE.PlaneGeometry( 70, 70 );
+    const playButtonMaterial = new THREE.MeshBasicMaterial( { map: playButtonTexture} );
+    const playButton = new THREE.Mesh( playButtonGeometry, playButtonMaterial );
+    playButton.traverse(child => {
+        child.name = 'playButton';
+    } );
+    playButton.position.set(-1650, 400, -3900);
+
+    videos["playButton"] = playButton;
+    scene.add(playButton);
+
+    // Pause Button
+    const pauseButtonTexture = new THREE.TextureLoader().load('img/common/pause.png');
+    const pauseButtonGeometry = new THREE.PlaneGeometry( 70, 70 );
+    const pauseButtonMaterial = new THREE.MeshBasicMaterial( { map: pauseButtonTexture} );
+    const pauseButton = new THREE.Mesh( pauseButtonGeometry, pauseButtonMaterial );
+    pauseButton.traverse(child => {
+        child.name = 'pauseButton';
+    } );
+    pauseButton.position.set(-1550, 400, -3900);
+
+    videos["pauseButton"] = pauseButton;
+    scene.add(pauseButton);
 
     // Boxes
     const posBox1 = new THREE.Vector3(-1500, -80, -3400);

@@ -24,7 +24,7 @@ export function initRoom1(scene){
     room.createRoom(posRoom, texturesRoom);
 
     // Arrow
-    const arrowUrl = 'models/commun/arrow.fbx';
+    const arrowUrl = 'models/common/arrow.fbx';
     const arrowPos = new THREE.Vector3(1100, 400, -1500);
     const arrowRot = new THREE.Vector3(0, Math.PI, 0);
     const arrowScale = 120;
