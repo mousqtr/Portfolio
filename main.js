@@ -46,7 +46,7 @@ window.addEventListener( 'click', onClick, false );
 let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene);
 let [room0Objects, room0Materials] = initRoom0(scene);
 let [room1Objects, room1Materials] = initRoom1(scene);
-let [room2Objects, room2Materials] = initRoom2(scene);
+let [room2Objects, room2Materials, room2Videos] = initRoom2(scene);
 let [room3Objects, room3Materials] = initRoom3(scene);
 
 // List of objects
@@ -324,6 +324,12 @@ function closeBox(intersects, paperName, buttonCloseName, nbRoom){
                     room2Objects[paperName].position.set(-1400, -5000, -3300);
                     room2Objects[buttonCloseName].position.set(-1650, -5000, -3290);
                 }
+
+                if (room2Videos["video"] != undefined){
+                    room2Videos["video"].load();
+                    room2Videos["video"].play();
+                }
+
                 break;
             case 3:
                 camera.position.set(1400, 100, -2400);
@@ -414,6 +420,13 @@ function animate() {
     room3Objects["boxVba"].rotation.y += 0.01
 
     requestAnimationFrame(animate);
+
+    if ( room2Videos["video"].readyState === room2Videos["video"].HAVE_ENOUGH_DATA ) 
+	{
+		room2Videos["videoImageContext"].drawImage( room2Videos["video"], 0, 0 );
+		if ( room2Videos["videoTexture"] ) 
+        room2Videos["videoTexture"].needsUpdate = true;
+	}
 
     renderer.render(scene,camera);
     

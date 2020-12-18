@@ -6,6 +6,7 @@ export function initRoom2(scene){
     // Initialization of the room
     let objects = {};
     let materials = {};
+    let videos = {}
     let room = new Room(scene, objects, materials);
 
     // Room
@@ -69,17 +70,36 @@ export function initRoom2(scene){
     const tvUrl = 'models/room2/tv/tv.fbx';
     const tvPos = new THREE.Vector3(-1400, 140, -3900);
     const tvRot = new THREE.Vector3(0, 0, 0);
-    const tvScale = 0.01;
+    const tvScale = 0.012;
     const tvMaterial = new THREE.MeshPhongMaterial( { color:  0x000000 } );
     const tvName = 'tv'
     room.loadFBXModel(tvUrl, tvPos, tvRot, tvScale, tvMaterial, tvName);
 
     // Screen
-    let screenGeo = new THREE.BoxGeometry(495, 290, 5);
-    let screenTexture = new THREE.TextureLoader().load( 'img/room2/dashboard.jpg' );
-    let screenMat = new THREE.MeshPhongMaterial( { map: screenTexture } );
-    let screen = new THREE.Mesh( screenGeo, screenMat );
-    screen.position.set(-1400, 160, -3920);
+    var video = document.createElement( 'video' );
+    video.src = "./video/office.mp4";
+
+    var videoImage = document.createElement( 'canvas' );
+	videoImage.width = 1280;
+    videoImage.height = 720; // 720p : 1280x720 pixels
+
+    var videoImageContext = videoImage.getContext( '2d' );
+	videoImageContext.fillStyle = '#ff0000';// background color if no video present
+    videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height );
+    
+    var videoTexture = new THREE.Texture( videoImage );
+	videoTexture.minFilter = THREE.LinearFilter;
+    videoTexture.magFilter = THREE.LinearFilter;
+
+    videos["video"] = video;
+    videos["videoImageContext"] = videoImageContext;
+    videos["videoTexture"] = videoTexture;
+    
+    var movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
+
+    let screenGeo = new THREE.PlaneGeometry( 600, 340, 4, 4 );
+    let screen = new THREE.Mesh( screenGeo, movieMaterial );
+    screen.position.set(-1400, 170, -3920);
     scene.add(screen);
     objects["screen"] = screen; 
 
@@ -108,5 +128,5 @@ export function initRoom2(scene){
     room.createButtonClose(posButtonClose, 'buttonCloseSncf2');
     room.createButtonClose(posButtonClose, 'buttonCloseCompletude');
 
-    return [objects, materials];
+    return [objects, materials, videos];
 }
