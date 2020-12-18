@@ -84,6 +84,7 @@ function onWindowResize(){
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
 
+    // TODO : Replace the condition by the end of loading
     if (Object.keys(corridorObjects).length > 0){
         let posZ;
         
@@ -125,16 +126,16 @@ function onWindowResize(){
 
         // Plants corridor
         for (let i = 0; i < corridorObjects["plants"].length; i++) {
-            posZ = 0.67 * window.innerWidth - 4600;
+            posZ = 0.67 * window.innerWidth - 5400;
             corridorObjects["plants"][i].position.set(corridorObjects["plants"][i].position.x, corridorObjects["plants"][i].position.y, posZ);
         }
 
         // Table
-        posZ = 0.67 * window.innerWidth - 3100;
+        posZ = 0.67 * window.innerWidth - 3300;
         corridorObjects["table"].position.set(corridorObjects["table"].position.x, corridorObjects["table"].position.y, posZ);
 
         // Lamp
-        posZ = 0.67 * window.innerWidth - 3020;
+        posZ = 0.67 * window.innerWidth - 3220;
         corridorObjects["lamp"].position.set(corridorObjects["lamp"].position.x, corridorObjects["lamp"].position.y, posZ);
     
         // Wall Lamp
@@ -155,6 +156,18 @@ function onWindowResize(){
             }
             corridorObjects["wallLamps"][i].position.set(corridorObjects["wallLamps"][i].position.x, corridorObjects["wallLamps"][i].position.y, posZ);
         }
+
+        // Shoes
+        posZ = 0.67 * window.innerWidth - 2600;
+        corridorObjects["shoes"][0].position.set(corridorObjects["shoes"][0].position.x, corridorObjects["shoes"][0].position.y, posZ);
+        posZ = 0.67 * window.innerWidth - 2700;
+        corridorObjects["shoes"][1].position.set(corridorObjects["shoes"][1].position.x, corridorObjects["shoes"][1].position.y, posZ);
+       
+        // Lamp
+        posZ = 0.67 * window.innerWidth - 3300;
+        corridorObjects["bench"].position.set(corridorObjects["bench"].position.x, corridorObjects["bench"].position.y, posZ);
+   
+        
 
 
     }          
@@ -251,7 +264,7 @@ function goToRoom(intersects, doorName, doorId){
                     camera.position.set(1400, 100, 0);
                     break;
                 case 2:
-                    camera.position.set(-1400, 100, -2000);
+                    camera.position.set(-1400, 100, -2400);
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);

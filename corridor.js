@@ -1,5 +1,7 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import {OBJLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/OBJLoader.js';
+import {MTLLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/MTLLoader.js';
 import { createTitle, loadFBXModel } from './utils.js';
 
 export function initCorridor(scene){
@@ -84,8 +86,8 @@ export function initCorridor(scene){
         paladin.position.set(0, -500, -600)
         paladin.rotation.set(0, Math.PI, 0)
         paladin.traverse(child => {
-        child.castShadow = true;
-        child.receiveShadow = true;
+            child.castShadow = true;
+            child.receiveShadow = true;
         });
         objects["paladin"] = paladin;
 
@@ -267,7 +269,7 @@ export function initCorridor(scene){
     
     for ( let i = 0; i < 2; i ++ ) {
         const plantName = 'plant'.concat(i.toString());
-        const plantPosZ = 0.67 * window.innerWidth - 4600;
+        const plantPosZ = 0.67 * window.innerWidth - 5400;
         const plantPos = new THREE.Vector3(plantXPositions[i], -480, plantPosZ);
         const plantRot = new THREE.Vector3(0, plantRotations[i], 0);
         createPlant(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
@@ -303,24 +305,24 @@ export function initCorridor(scene){
 
     // Table
     const tableUrl = 'models/corridor/table/table.fbx';
-    const tablePosZ = 0.67 * window.innerWidth - 3100
+    const tablePosZ = 0.67 * window.innerWidth - 3300
     const tablePos = new THREE.Vector3(370, -480, tablePosZ);
     const tableRot = new THREE.Vector3(0, 0, 0);
-    const tableScale = 0.18;
+    const tableScale = 0.19;
     const tableName = 'table';
     loadFBXModel(scene, objects, tableUrl, tablePos, tableRot, tableScale, tableName);
 
     // Lamp
     const lampUrl = 'models/corridor/lamp/lamp.fbx';
-    const lampPosZ = 0.67 * window.innerWidth - 3020
-    const lampPos = new THREE.Vector3(355, -200, lampPosZ);
+    const lampPosZ = 0.67 * window.innerWidth - 3220
+    const lampPos = new THREE.Vector3(355, -190, lampPosZ);
     const lampRot = new THREE.Vector3(0, 0, 0);
     const lampScale = 0.03;
     const lampName = 'lamp';
     loadFBXModel(scene, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
 
     // Wall Lamp
-    const wallLampUrl = 'models/lamp_wall.fbx';
+    const wallLampUrl = 'models/corridor/lampwall/lamp_wall.fbx';
     const wallLampXPositions = [-400, 400, -400, 400];
     const wallLampZPositions = [2440, 2800, 4440, 4800];
     const wallLampRotations = [0, Math.PI, 0, Math.PI];
@@ -332,6 +334,67 @@ export function initCorridor(scene){
         const wallLampRot = new THREE.Vector3(0, wallLampRotations[i], 0);
         createWallLamps(scene, objects, wallLampUrl, wallLampPos, wallLampRot, wallLampScale, wallLampName);
     }
+
+    // Shoes
+    const shoes = [];
+    let shoesPosZ; 
+    var mtlLoader = new MTLLoader();
+    mtlLoader.load( 'models/corridor/shoes/all_star.mtl', function( materials ) {
+    
+        materials.preload();
+    
+        var objLoader = new OBJLoader();
+        objLoader.setMaterials( materials );
+        objLoader.load( 'models/corridor/shoes/all_star.obj', function ( object ) {
+    
+            object.scale.setScalar(45);
+            shoesPosZ = 0.67 * window.innerWidth - 2600;
+            object.position.set(-370, -500, shoesPosZ);
+            object.rotation.set(0, Math.PI/2, 0);
+            scene.add(object);
+            shoes.push(object)
+    
+            let object2 = object.clone();
+            shoesPosZ = 0.67 * window.innerWidth - 2700;
+            object2.position.set(-370, -500, shoesPosZ);
+            scene.add(object2);
+            shoes.push(object2)
+        });
+    
+    });
+    objects["shoes"] = shoes;
+
+    // Bench
+    let benchPosZ;
+    var benchLoader = new MTLLoader();
+    benchLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.mtl', function( materials ) {
+    
+        materials.preload();
+    
+        var objLoader = new OBJLoader();
+        objLoader.setMaterials( materials );
+        objLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.obj', function ( bench ) {
+    
+            bench.scale.setScalar(4);
+            benchPosZ = 0.67 * window.innerWidth - 3300;
+            bench.position.set(-370, -500, benchPosZ);
+            bench.rotation.set(-Math.PI/2, 0, Math.PI/2);
+            scene.add( bench );
+            objects["bench"] = bench;
+        });
+    
+    });
+
+    // Painting
+    const paintingGeo = new THREE.BoxGeometry(10, 400, 700);
+    const paintingTexture = new THREE.TextureLoader().load( 'img/corridor/air.jpg' );
+    const paintingMat = new THREE.MeshPhongMaterial( { map: paintingTexture } );
+    const painting = new THREE.Mesh( paintingGeo, paintingMat );
+    painting.position.set(-450, 100, -2350);
+    objects["painting"] = painting;
+    scene.add(painting);
+
+
 
     return [objects, materials, mixers, actions, lights];
 
