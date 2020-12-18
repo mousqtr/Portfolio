@@ -137,6 +137,26 @@ function onWindowResize(){
         posZ = 0.67 * window.innerWidth - 3020;
         corridorObjects["lamp"].position.set(corridorObjects["lamp"].position.x, corridorObjects["lamp"].position.y, posZ);
     
+        // Wall Lamp
+        for (let i = 0; i < corridorObjects["wallLamps"].length; i++) {
+            switch(i){
+                case 0:
+                    posZ = 0.67 * window.innerWidth - 2440;
+                    break;
+                case 1:
+                    posZ = 0.67 * window.innerWidth - 2800;
+                    break;
+                case 2:
+                    posZ = 0.67 * window.innerWidth - 4440;
+                    break;
+                case 3:
+                    posZ = 0.67 * window.innerWidth - 4800;
+                    break;
+            }
+            corridorObjects["wallLamps"][i].position.set(corridorObjects["wallLamps"][i].position.x, corridorObjects["wallLamps"][i].position.y, posZ);
+        }
+
+
     }          
 }
 

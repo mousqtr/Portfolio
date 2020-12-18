@@ -292,7 +292,6 @@ export function initCorridor(scene){
     const doormatXPositions = [-360, 360, -360, 360];
     const doormatZPositions = [2300, 2300, 4300, 4300];
     const doormatRotations = [0, Math.PI, 0, Math.PI]
-
     for ( let i = 0; i < 4; i ++ ) {
         const doormatName = 'doormat'.concat(i.toString());
         const doormatUrl = doormatUrls[i]
@@ -319,6 +318,20 @@ export function initCorridor(scene){
     const lampScale = 0.03;
     const lampName = 'lamp';
     loadFBXModel(scene, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
+
+    // Wall Lamp
+    const wallLampUrl = 'models/lamp_wall.fbx';
+    const wallLampXPositions = [-400, 400, -400, 400];
+    const wallLampZPositions = [2440, 2800, 4440, 4800];
+    const wallLampRotations = [0, Math.PI, 0, Math.PI];
+    const wallLampScale = 0.2;
+    for ( let i = 0; i < 4; i ++ ) {
+        const wallLampName = 'wallLamp'.concat(i.toString());
+        const wallLampPosZ = 0.67 * window.innerWidth - wallLampZPositions[i];
+        const wallLampPos = new THREE.Vector3(wallLampXPositions[i], 50, wallLampPosZ);
+        const wallLampRot = new THREE.Vector3(0, wallLampRotations[i], 0);
+        createWallLamps(scene, objects, wallLampUrl, wallLampPos, wallLampRot, wallLampScale, wallLampName);
+    }
 
     return [objects, materials, mixers, actions, lights];
 
@@ -363,5 +376,26 @@ function createDoorMat(scene, objects, textureUrl, position, rotation, name){
     scene.add(doormat);
 }
 
+function createWallLamps(scene, objects, url, position, rotation, scale, name){
+
+    const wallLampLoader = new FBXLoader();
+    wallLampLoader.load(url, (wallLamp) => {
+        wallLamp.traverse(child => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            child.name = name
+        });       
+        wallLamp.scale.setScalar(scale);
+        wallLamp.position.set(position.x, position.y, position.z);
+        wallLamp.rotation.set(rotation.x, rotation.y, rotation.z);
+        if (objects["wallLamps"] == undefined){
+            objects["wallLamps"] = [wallLamp];
+        }else{
+            objects["wallLamps"].push(wallLamp);
+        }
+        scene.add(wallLamp);
+    });
+
+}
 
 
