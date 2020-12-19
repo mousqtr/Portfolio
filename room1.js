@@ -2,12 +2,12 @@ import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threej
 import {TGALoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/TGALoader.js';
 import { Room } from './room.js';
 
-export function initRoom1(scene){
+export function initRoom1(scene, manager){
 
     // Initialization of the room
     let objects = {};
     let materials = {};
-    let room = new Room(scene, objects, materials);
+    let room = new Room(scene, manager, objects, materials);
 
     // Light
     const posLight = new THREE.Vector3(1400, 0, 0);

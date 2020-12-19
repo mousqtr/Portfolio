@@ -42,12 +42,37 @@ window.addEventListener( 'resize', onWindowResize, false );
 window.addEventListener( 'mousemove', onMouseMove, false );
 window.addEventListener( 'click', onClick, false );
 
+// Loading manager
+const manager = new THREE.LoadingManager();
+manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+    console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+};
+
+manager.onLoad = function ( ) {
+    console.log( 'Loading complete!');
+};
+
+manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+    // const progress = itemsLoaded / itemsTotal;
+    // console.log('itemLoaded ' + itemsLoaded + ' / itemsTotal ' + itemsTotal + '/ progress ' + progress);
+
+    const tempItemsTotal = 150
+    const progress = itemsLoaded / tempItemsTotal;
+    console.log(progress)
+
+
+};
+
+manager.onError = function ( url ) {
+    console.log( 'There was an error loading ' + url );
+};
+
 // Models initialization
-let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene);
-let [room0Objects, room0Materials] = initRoom0(scene);
-let [room1Objects, room1Materials] = initRoom1(scene);
-let [room2Objects, room2Materials, room2Videos] = initRoom2(scene);
-let [room3Objects, room3Materials] = initRoom3(scene);
+let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene, manager);
+let [room0Objects, room0Materials] = initRoom0(scene, manager);
+let [room1Objects, room1Materials] = initRoom1(scene, manager);
+let [room2Objects, room2Materials, room2Videos] = initRoom2(scene, manager);
+let [room3Objects, room3Materials] = initRoom3(scene, manager);
 
 // List of objects
 let objects = {}

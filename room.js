@@ -4,10 +4,11 @@ import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm
 
 export class Room {
 
-    constructor(scene, objects, materials) {
+    constructor(scene, manager, objects, materials) {
         this.scene = scene;
         this.objects = objects;
         this.materials = materials;
+        this.manager = manager;
     }
 
     createRoom(position, textures){
@@ -19,12 +20,12 @@ export class Room {
         let ceiling =  textures[3];
         let floor = textures[4];
     
-        let roomTexture_ft = new THREE.TextureLoader().load( leftWall );
-        let roomTexture_bk = new THREE.TextureLoader().load( rightWall );
-        let roomTexture_up = new THREE.TextureLoader().load( ceiling );
-        let roomTexture_dn = new THREE.TextureLoader().load( floor );
-        let roomTexture_rt = new THREE.TextureLoader().load( backWall );
-        let roomTexture_lf = new THREE.TextureLoader().load( frontWall );
+        let roomTexture_ft = new THREE.TextureLoader(this.manager).load( leftWall );
+        let roomTexture_bk = new THREE.TextureLoader(this.manager).load( rightWall );
+        let roomTexture_up = new THREE.TextureLoader(this.manager).load( ceiling );
+        let roomTexture_dn = new THREE.TextureLoader(this.manager).load( floor );
+        let roomTexture_rt = new THREE.TextureLoader(this.manager).load( backWall );
+        let roomTexture_lf = new THREE.TextureLoader(this.manager).load( frontWall );
     
         let roomMaterialArray = [];
         roomMaterialArray.push(new THREE.MeshBasicMaterial( { map: roomTexture_ft }));
@@ -68,7 +69,7 @@ export class Room {
 
     loadFBXModel(url, position, rotation, scale, material, name){
 
-        const modelLoader = new FBXLoader();
+        const modelLoader = new FBXLoader(this.manager);
         modelLoader.load(url, (model) => {
             model.traverse(child => {
                 child.castShadow = true;
@@ -89,7 +90,7 @@ export class Room {
 
     createBox(position, size, textureImg, objectName){
         let boxGeo = new THREE.BoxGeometry( size.x, size.y, size.z);
-        let texture = new THREE.TextureLoader().load( textureImg );
+        let texture = new THREE.TextureLoader(this.manager).load( textureImg );
         let boxMat = new THREE.MeshPhongMaterial( { map: texture } );
         let box = new THREE.Mesh( boxGeo, boxMat );
         box.traverse(child => {
@@ -114,7 +115,7 @@ export class Room {
     }
 
     createPaper(position, paperImg, paperName){
-        const textureBox1 = new THREE.TextureLoader().load(paperImg);
+        const textureBox1 = new THREE.TextureLoader(this.manager).load(paperImg);
         const geometry = new THREE.PlaneGeometry( 600, 900 );
         const material = new THREE.MeshBasicMaterial( {map: textureBox1} );
         const plane = new THREE.Mesh( geometry, material );
@@ -125,7 +126,7 @@ export class Room {
     }
     
     createButtonClose(position, buttonName){
-        const textureClose = new THREE.TextureLoader().load('img/common/cross.png');
+        const textureClose = new THREE.TextureLoader(this.manager).load('img/common/cross.png');
         const geometryClose = new THREE.PlaneGeometry( 50, 50 );
         const materialClose = new THREE.MeshBasicMaterial( { map: textureClose} );
         const buttonClose = new THREE.Mesh( geometryClose, materialClose );

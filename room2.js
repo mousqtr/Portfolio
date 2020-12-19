@@ -1,13 +1,13 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import { Room } from './room.js';
 
-export function initRoom2(scene){
+export function initRoom2(scene, manager){
 
     // Initialization of the room
     let objects = {};
     let materials = {};
     let videos = {}
-    let room = new Room(scene, objects, materials);
+    let room = new Room(scene, manager, objects, materials);
 
     // Room
     const posRoom = new THREE.Vector3(-1400, 0, -3000);
