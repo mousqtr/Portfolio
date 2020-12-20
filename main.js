@@ -43,12 +43,16 @@ window.addEventListener( 'mousemove', onMouseMove, false );
 window.addEventListener( 'click', onClick, false );
 
 // Loading manager
+const loadingElem = document.querySelector('#loading');
+const progressBarElem = loadingElem.querySelector('.progressbar');
+
 const manager = new THREE.LoadingManager();
 manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
     console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
 };
 
 manager.onLoad = function ( ) {
+    loadingElem.style.display = 'none';
     console.log( 'Loading complete!');
 };
 
@@ -59,8 +63,8 @@ manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
     const tempItemsTotal = 150
     const progress = itemsLoaded / tempItemsTotal;
     console.log(progress)
-
-
+    
+    progressBarElem.style.transform = `scaleX(${progress})`;
 };
 
 manager.onError = function ( url ) {
