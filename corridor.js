@@ -34,10 +34,7 @@ export function initCorridor(scene, manager){
     scene.add( dirLight );
     lights["dirLight"] = dirLight;
 
-    /*************************************************************/
-    /*                       CORRIDOR                            */
-    /*************************************************************/
-
+    // Corridor
     let corridorMaterialArray = [];
     let texture_ft = new THREE.TextureLoader(manager).load( 'img/corridor/wall.png');
     let texture_bk = new THREE.TextureLoader(manager).load( 'img/corridor/wall.png');
@@ -74,30 +71,24 @@ export function initCorridor(scene, manager){
     objects["corridor"] = corridor;
 
 
-    /*************************************************************/
-    /*                       PALADIN                             */
-    /*************************************************************/
-
-
-
-
-    const loaderPaladin = new FBXLoader(manager);
-    loaderPaladin.load('models/corridor/malcolm/malcolm.fbx', (paladin) => {
+    // Character
+    const loaderCharacter = new FBXLoader(manager);
+    loaderCharacter.load('models/corridor/malcolm/malcolm.fbx', (character) => {
 
         // Load the model
-        paladin.scale.setScalar(1.5);
-        paladin.position.set(0, -500, -600)
-        paladin.rotation.set(0, Math.PI, 0)
-        paladin.traverse(child => {
+        character.scale.setScalar(1.5);
+        character.position.set(0, -500, -600)
+        character.rotation.set(0, Math.PI, 0)
+        character.traverse(child => {
             child.castShadow = true;
             child.receiveShadow = true;
         });
-        objects["paladin"] = paladin;
+        
 
         // Load the walk animation
         const animWalk = new FBXLoader(manager);
         animWalk.load('models/corridor/malcolm/malcolm_walk.fbx', (animWalk) => {
-            const mixer = new THREE.AnimationMixer(paladin);     
+            const mixer = new THREE.AnimationMixer(character);     
             const action = mixer.clipAction( animWalk.animations[0] );
             mixers["mixerWalk"] = mixer
             actions["walk"] = action;
@@ -106,7 +97,7 @@ export function initCorridor(scene, manager){
         // Load the stand animation
         const animStand = new FBXLoader(manager);
         animStand.load('models/corridor/malcolm/malcolm_stand.fbx', (animStand) => {
-            const mixer = new THREE.AnimationMixer(paladin);
+            const mixer = new THREE.AnimationMixer(character);
             const action = mixer.clipAction(animStand.animations[0]);
             mixers["mixerStand"] = mixer
             actions["stand"] = action;
@@ -116,7 +107,7 @@ export function initCorridor(scene, manager){
         // Load the stand animation
         const animRightTurn = new FBXLoader(manager);
         animRightTurn.load('models/corridor/paladin/right_turn.fbx', (animRightTurn) => {
-            const mixer = new THREE.AnimationMixer(paladin);
+            const mixer = new THREE.AnimationMixer(character);
             const action = mixer.clipAction(animRightTurn.animations[0]);
             action.loop = THREE.LoopOnce;
             action.clampWhenFinished = true;
@@ -126,7 +117,17 @@ export function initCorridor(scene, manager){
             actions["rightTurn"] = action;
         });
 
-        scene.add(paladin);
+        // Load the jog backwards
+        const jogBackwards = new FBXLoader(manager);
+        jogBackwards.load('models/corridor/paladin/jog_backwards.fbx', (animJogBackwards) => {
+            const mixer = new THREE.AnimationMixer(character);     
+            const action = mixer.clipAction( animJogBackwards.animations[0] );
+            mixers["mixerJogBackwards"] = mixer
+            actions["jogBackwards"] = action;
+        });
+
+        objects["character"] = character;
+        scene.add(character);
 
     });
 
@@ -138,10 +139,7 @@ export function initCorridor(scene, manager){
     }
 
 
-    /*************************************************************/
-    /*                          DOORS                            */
-    /*************************************************************/
-
+    // Doors
     let doors = [];
     let doorPosX, doorPosZ;
     for ( let i = 0; i < 4; i ++ ) {
@@ -180,11 +178,7 @@ export function initCorridor(scene, manager){
     }
     objects["doors"] = doors;
 
-
-    /*************************************************************/
-    /*                         TITLES                            */
-    /*************************************************************/
-
+    // Titles
     let posX_left = -475;
     let posX_right = 190;
     let posZ_1 = 0.67 * window.innerWidth - 2033;
@@ -198,13 +192,7 @@ export function initCorridor(scene, manager){
     createTitle(scene, objects, posTextExperiences, 'Experiences');
     createTitle(scene, objects, posTextProjets, 'Projets');
 
-
-
-    /*************************************************************/
-    /*                         ARROW                             */
-    /*************************************************************/
-
-    // Load the top arrow 
+    // Top arrow
     const arrowLoader = new FBXLoader(manager);
     arrowLoader.load('models/common/arrow.fbx', (arrow) => {
         arrow.traverse(child => {
@@ -224,10 +212,7 @@ export function initCorridor(scene, manager){
         scene.add(arrow);
     });
 
-    /*************************************************************/
-    /*                         TEXT                              */
-    /*************************************************************/
-
+    // Texts in arrow
     let texts = ['Suivant', 'Precedent']
     for ( let i = 0; i < 2; i ++ ) {
         const loaderText = new THREE.FontLoader();
@@ -272,7 +257,6 @@ export function initCorridor(scene, manager){
     const plantName = 'plant'
     loadFBXModel(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
 
-
     // Shelf
     const bookShelfUrl = 'models/corridor/bookshelf/bookshelf.fbx';
     const bookShelfPos = new THREE.Vector3(-800, -480, -6000);
@@ -280,7 +264,6 @@ export function initCorridor(scene, manager){
     const bookShelfScale = 6;
     const bookShelfName = 'bookshelf';
     loadFBXModel(scene, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
-
 
    // Doormats
     const doormatUrl1 = 'img/corridor/doormat.jpg';
@@ -387,10 +370,10 @@ export function initCorridor(scene, manager){
     const paintingTexture = new THREE.TextureLoader(manager).load( 'img/corridor/air.jpg' );
     const paintingMat = new THREE.MeshPhongMaterial( { map: paintingTexture } );
     const painting = new THREE.Mesh( paintingGeo, paintingMat );
-    painting.position.set(-450, 100, -2350);
+    let paintingPosZ = 0.67 * window.innerWidth - 3300;
+    painting.position.set(-450, 100, paintingPosZ);
     objects["painting"] = painting;
     scene.add(painting);
-
 
 
     return [objects, materials, mixers, actions, lights];

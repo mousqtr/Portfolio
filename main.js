@@ -117,11 +117,11 @@ function onWindowResize(){
     if (Object.keys(corridorObjects).length > 0){
         let posZ;
         
-        // Paladin
+        // Character
         posZ = 0.375 * window.innerWidth - 1150;
         posZ = Math.min(-600, posZ);
         posZ = Math.max(-1000, posZ);
-        corridorObjects["paladin"].position.set(corridorObjects["paladin"].position.x, corridorObjects["paladin"].position.y, posZ);
+        corridorObjects["character"].position.set(corridorObjects["character"].position.x, corridorObjects["character"].position.y, posZ);
         
         // Door
         for (let i = 0; i < corridorObjects["doors"].length; i++) {
@@ -194,8 +194,10 @@ function onWindowResize(){
         posZ = 0.67 * window.innerWidth - 3300;
         corridorObjects["bench"].position.set(corridorObjects["bench"].position.x, corridorObjects["bench"].position.y, posZ);
    
+        // Painting
+        posZ = 0.67 * window.innerWidth - 3300;
+        corridorObjects["painting"].position.set(corridorObjects["painting"].position.x, corridorObjects["painting"].position.y, posZ);
         
-
 
     }          
 }
@@ -285,7 +287,7 @@ function goToCorridor(intersects){
         corridorLights["hemiLight"].position.set(0, 200, 200);
         corridorLights["dirLight"].position.set(0, 300, 300);
 
-        camera.position.set(0, 0, corridorObjects["paladin"].position.z + 600);          
+        camera.position.set(0, 0, corridorObjects["character"].position.z + 600);          
     }
 }
 
@@ -399,14 +401,14 @@ function animate() {
     }
 
     // Stop walking at the second position
-    if ((arrowClicked == true) && (corridorObjects["paladin"].position.z < -2500) && (positionState == 0)){
+    if ((arrowClicked == true) && (corridorObjects["character"].position.z < -2500) && (positionState == 0)){
         stopWalk(positionState, corridorObjects, corridorActions);
         arrowClicked = false;
         positionState = 1;
     } 
 
     // Stop walking at first position
-    if ((arrowClicked == true) && (positionState == 1) && (corridorObjects["paladin"].position.z > -600)){
+    if ((arrowClicked == true) && (positionState == 1) && (corridorObjects["character"].position.z > -600)){
         stopWalk(positionState, corridorObjects, corridorActions);
         arrowClicked = false;
         positionState = 0;
@@ -416,6 +418,7 @@ function animate() {
     const delta = clock.getDelta();
     if ( corridorMixers["mixerWalk"] ) corridorMixers["mixerWalk"].update( delta );
     if ( corridorMixers["mixerStand"] ) corridorMixers["mixerStand"].update( delta );
+    if ( corridorMixers["mixerJogBackwards"] ) corridorMixers["mixerJogBackwards"].update( delta );
     if ( corridorMixers["mixerRightTurn"] ) corridorMixers["mixerRightTurn"].update( delta );
 
     // Rotates cubes of room 0
@@ -460,6 +463,7 @@ function animate() {
 
     requestAnimationFrame(animate);
 
+    // Run the video in room2
     if ( room2Videos["video"].readyState === room2Videos["video"].HAVE_ENOUGH_DATA ) 
 	{
 		room2Videos["videoImageContext"].drawImage( room2Videos["video"], 0, 0 );
