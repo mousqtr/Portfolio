@@ -12,11 +12,6 @@ export function initCorridor(scene, manager){
     let actions = {};
     let lights = {};
 
-
-    /*************************************************************/
-    /*                          LIGHTS                           */
-    /*************************************************************/
-
     // Hemisphere Light
     const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x555555 );
     hemiLight.position.set(0, 100, 0);
@@ -90,7 +85,7 @@ export function initCorridor(scene, manager){
         animWalk.load('models/corridor/malcolm/malcolm_walk.fbx', (animWalk) => {
             const mixer = new THREE.AnimationMixer(character);     
             const action = mixer.clipAction( animWalk.animations[0] );
-            mixers["mixerWalk"] = mixer
+            mixers["walk"] = mixer
             actions["walk"] = action;
         });
         
@@ -99,7 +94,7 @@ export function initCorridor(scene, manager){
         animStand.load('models/corridor/malcolm/malcolm_stand.fbx', (animStand) => {
             const mixer = new THREE.AnimationMixer(character);
             const action = mixer.clipAction(animStand.animations[0]);
-            mixers["mixerStand"] = mixer
+            mixers["stand"] = mixer
             actions["stand"] = action;
             action.play();
         });
@@ -111,7 +106,7 @@ export function initCorridor(scene, manager){
             const action = mixer.clipAction(animRightTurn.animations[0]);
             action.loop = THREE.LoopOnce;
             action.clampWhenFinished = true;
-            mixers["mixerRightTurn"] = mixer
+            mixers["rightTurn"] = mixer
             mixer.timeScale = 0.4;
             mixer.addEventListener( 'finished', finishRightTurn );
             actions["rightTurn"] = action;
@@ -119,11 +114,20 @@ export function initCorridor(scene, manager){
 
         // Load the jog backwards
         const jogBackwards = new FBXLoader(manager);
-        jogBackwards.load('models/corridor/paladin/jog_backwards.fbx', (animJogBackwards) => {
+        jogBackwards.load('models/corridor/malcolm/jog_backwards.fbx', (animJogBackwards) => {
             const mixer = new THREE.AnimationMixer(character);     
             const action = mixer.clipAction( animJogBackwards.animations[0] );
-            mixers["mixerJogBackwards"] = mixer
+            mixers["jogBackwards"] = mixer
             actions["jogBackwards"] = action;
+        });
+
+        // Load the jog backwards
+        const sittingIdle = new FBXLoader(manager);
+        sittingIdle.load('models/corridor/malcolm/sitting_idle.fbx', (animSittingIdle) => {
+            const mixer = new THREE.AnimationMixer(character);     
+            const action = mixer.clipAction( animSittingIdle.animations[0] );
+            mixers["sittingIdle"] = mixer
+            actions["sittingIdle"] = action;
         });
 
         objects["character"] = character;

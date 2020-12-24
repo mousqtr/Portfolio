@@ -53,10 +53,10 @@ export function initRoom2(scene, manager){
     const chairTexture = new THREE.TextureLoader().load( 'models/room2/chair/black.jpg');
     const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
     const chairName = 'chair';
-    const chair0Pos = new THREE.Vector3(-1600, -450, -3700);
-    const chair1Pos = new THREE.Vector3(-1200, -450, -3700);
-    const chair2Pos = new THREE.Vector3(-1600, -450, -3400);
-    const chair3Pos = new THREE.Vector3(-1200, -450, -3400);
+    const chair0Pos = new THREE.Vector3(-1600, -500, -3700);
+    const chair1Pos = new THREE.Vector3(-1200, -500, -3700);
+    const chair2Pos = new THREE.Vector3(-1600, -500, -3400);
+    const chair3Pos = new THREE.Vector3(-1100, -500, -3400); // Character seat
     const chair0Rot = new THREE.Vector3(0, Math.PI/2, 0);
     const chair1Rot = new THREE.Vector3(0, -Math.PI/2, 0);
     const chair2Rot = new THREE.Vector3(0, Math.PI/2, 0);

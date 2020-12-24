@@ -4,7 +4,7 @@ export function walkTo(positionState, objects, actions, camera){
     switch(positionState){
         case 0:
             // objects["character"].rotation.set(0, Math.PI, 0);
-            objects["character"].position.z -= 10;
+            objects["character"].position.z -= 15;
             if(actions["stand"].isRunning()){
                 actions["stand"].stop();
             }
@@ -12,7 +12,7 @@ export function walkTo(positionState, objects, actions, camera){
             break;
         case 1:
             // objects["character"].rotation.set(0, 0, 0);
-            objects["character"].position.z += 10;
+            objects["character"].position.z += 15;
             if(actions["stand"].isRunning()){
                 actions["stand"].stop();
             }

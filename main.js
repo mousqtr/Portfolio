@@ -48,7 +48,8 @@ const progressBarElem = loadingElem.querySelector('.progressbar');
 
 const manager = new THREE.LoadingManager();
 manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
-    console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+    console.log( 'Start loading' );
+    // console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
 };
 
 manager.onLoad = function ( ) {
@@ -62,7 +63,7 @@ manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
 
     const tempItemsTotal = 150
     const progress = itemsLoaded / tempItemsTotal;
-    console.log(progress)
+    // console.log(progress)
     
     progressBarElem.style.transform = `scaleX(${progress})`;
 };
@@ -287,7 +288,15 @@ function goToCorridor(intersects){
         corridorLights["hemiLight"].position.set(0, 200, 200);
         corridorLights["dirLight"].position.set(0, 300, 300);
 
-        camera.position.set(0, 0, corridorObjects["character"].position.z + 600);          
+        // Reset the camera
+        camera.position.set(0, 0, 0);
+
+        // Reset the character
+        corridorObjects["character"].position.set(0, -500, -600);   
+        corridorObjects["character"].rotation.set(0, Math.PI, 0)
+        if(corridorActions["sittingIdle"].isRunning()){ corridorActions["sittingIdle"].stop();}
+        corridorActions["stand"].play();
+              
     }
 }
 
@@ -311,6 +320,12 @@ function goToRoom(intersects, doorName, doorId){
                     if (room2Videos["video"] != undefined){
                         room2Videos["video"].play();
                     }
+                    corridorObjects["character"].position.set(-1100, -400, -3300);
+                    corridorObjects["character"].rotation.set(0, -Math.PI/2, 0)
+                    if(corridorActions["stand"].isRunning()){
+                        corridorActions["stand"].stop();
+                    }
+                    corridorActions["sittingIdle"].play();
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);
@@ -416,10 +431,11 @@ function animate() {
 
     // Update mixers
     const delta = clock.getDelta();
-    if ( corridorMixers["mixerWalk"] ) corridorMixers["mixerWalk"].update( delta );
-    if ( corridorMixers["mixerStand"] ) corridorMixers["mixerStand"].update( delta );
-    if ( corridorMixers["mixerJogBackwards"] ) corridorMixers["mixerJogBackwards"].update( delta );
-    if ( corridorMixers["mixerRightTurn"] ) corridorMixers["mixerRightTurn"].update( delta );
+    if ( corridorMixers["walk"] ) corridorMixers["walk"].update( delta );
+    if ( corridorMixers["stand"] ) corridorMixers["stand"].update( delta );
+    if ( corridorMixers["jogBackwards"] ) corridorMixers["jogBackwards"].update( delta );
+    if ( corridorMixers["rightTurn"] ) corridorMixers["rightTurn"].update( delta );
+    if ( corridorMixers["sittingIdle"] ) corridorMixers["sittingIdle"].update( delta );
 
     // Rotates cubes of room 0
     room0Objects["boxComputing"].rotation.y += 0.01
