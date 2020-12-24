@@ -49,7 +49,7 @@ export function initRoom0(scene, manager){
 
     // Chair
     const chairUrl = 'models/room0/chair/chair.fbx'
-    const chairPos = new THREE.Vector3(-1100, -550, -1200);
+    const chairPos = new THREE.Vector3(-1100, -500, -1100);
     const chairRot = new THREE.Vector3(-Math.PI/2, 0, Math.PI);
     const chairScale = 4;
     const chairTexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg');
@@ -59,7 +59,7 @@ export function initRoom0(scene, manager){
 
     // Top shelf
     const topShelfGeo = new THREE.BoxGeometry(500, 30, 300);
-    const topShelftexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg' );
+    const topShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
     const topShelfMat = new THREE.MeshPhongMaterial( { map: topShelftexture } );
     const topShelf = new THREE.Mesh( topShelfGeo, topShelfMat );
     topShelf.position.set(-1600, 300, -1430);
@@ -67,7 +67,7 @@ export function initRoom0(scene, manager){
 
     // Bottom shelf
     const bottomShelfGeo = new THREE.BoxGeometry(500, 30, 300);
-    const bottomShelftexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg' );
+    const bottomShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
     const bottomShelfMat = new THREE.MeshPhongMaterial( { map: bottomShelftexture } );
     const bottomShelf = new THREE.Mesh( bottomShelfGeo, bottomShelfMat );
     bottomShelf.position.set(-1600, 70, -1430);
@@ -83,14 +83,14 @@ export function initRoom0(scene, manager){
     room.loadFBXModel(deskUrl, deskPos, deskRot, deskScale, deskMaterial, deskName);
 
     // Boxes
-    const posBox1 = new THREE.Vector3(-1100, -110, -1400);
+    const posBox1 = new THREE.Vector3(-1700, 165, -1400);
     const posBox2 = new THREE.Vector3(-1470, 165, -1400);
-    const posBox3 = new THREE.Vector3(-1700, 400, -1400);
+    const posBox3 = new THREE.Vector3(-1585, 400, -1400);
     const posBox4 = new THREE.Vector3(-1650, -170, -1350);
     const sizeBox = new THREE.Vector3(150, 150, 150);
-    room.createBox(posBox1, sizeBox, 'img/room0/computing.png', 'boxComputing');
+    room.createBox(posBox1, sizeBox, 'img/room0/bike.png', 'boxSport');
     room.createBox(posBox2, sizeBox, 'img/room0/group.png', 'boxAsso');
-    room.createBox(posBox3, sizeBox, 'img/room0/bike.png', 'boxSport');
+    room.createBox(posBox3, sizeBox, 'img/room0/computing.png', 'boxComputing');
     room.createBox(posBox4, sizeBox, 'img/room0/me.png', 'boxMe');
 
     return [objects, materials];

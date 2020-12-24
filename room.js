@@ -74,7 +74,8 @@ export class Room {
             model.traverse(child => {
                 child.castShadow = true;
                 child.receiveShadow = true;
-                child.material = material;
+                if (material != undefined)
+                    child.material = material;
                 child.name = name
             });       
             model.scale.setScalar(scale);

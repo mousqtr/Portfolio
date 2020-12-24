@@ -68,8 +68,7 @@ export function initRoom1(scene, manager){
     const deskPos = new THREE.Vector3(1400, -500, -1400);
     const deskRot = new THREE.Vector3(0, 0, 0);
     const deskScale = 4;
-    const deskTextureLoader = new TGALoader();
-    const deskTexture = deskTextureLoader.load('models/room1/desk/texture.tga');
+    const deskTexture = new THREE.TextureLoader(manager).load( 'models/room1/desk/wood.jpg' );
     const deskMaterial = new THREE.MeshPhongMaterial( { map: deskTexture } );
     const deskName = 'desk';
     room.loadFBXModel(deskUrl, deskPos, deskRot, deskScale, deskMaterial, deskName);

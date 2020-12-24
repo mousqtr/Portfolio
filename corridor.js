@@ -99,18 +99,18 @@ export function initCorridor(scene, manager){
             action.play();
         });
 
-        // Load the stand animation
-        const animRightTurn = new FBXLoader(manager);
-        animRightTurn.load('models/corridor/paladin/right_turn.fbx', (animRightTurn) => {
-            const mixer = new THREE.AnimationMixer(character);
-            const action = mixer.clipAction(animRightTurn.animations[0]);
-            action.loop = THREE.LoopOnce;
-            action.clampWhenFinished = true;
-            mixers["rightTurn"] = mixer
-            mixer.timeScale = 0.4;
-            mixer.addEventListener( 'finished', finishRightTurn );
-            actions["rightTurn"] = action;
-        });
+        // // Load the stand animation
+        // const animRightTurn = new FBXLoader(manager);
+        // animRightTurn.load('models/corridor/paladin/right_turn.fbx', (animRightTurn) => {
+        //     const mixer = new THREE.AnimationMixer(character);
+        //     const action = mixer.clipAction(animRightTurn.animations[0]);
+        //     action.loop = THREE.LoopOnce;
+        //     action.clampWhenFinished = true;
+        //     mixers["rightTurn"] = mixer
+        //     mixer.timeScale = 0.4;
+        //     mixer.addEventListener( 'finished', finishRightTurn );
+        //     actions["rightTurn"] = action;
+        // });
 
         // Load the jog backwards
         const jogBackwards = new FBXLoader(manager);
@@ -121,7 +121,7 @@ export function initCorridor(scene, manager){
             actions["jogBackwards"] = action;
         });
 
-        // Load the jog backwards
+        // Load the sitting idle
         const sittingIdle = new FBXLoader(manager);
         sittingIdle.load('models/corridor/malcolm/sitting_idle.fbx', (animSittingIdle) => {
             const mixer = new THREE.AnimationMixer(character);     
@@ -130,17 +130,26 @@ export function initCorridor(scene, manager){
             actions["sittingIdle"] = action;
         });
 
+        // Load the writing
+        const writing = new FBXLoader(manager);
+        writing.load('models/corridor/malcolm/writing.fbx', (animWriting) => {
+            const mixer = new THREE.AnimationMixer(character);     
+            const action = mixer.clipAction( animWriting.animations[0] );
+            mixers["writing"] = mixer
+            actions["writing"] = action;
+        });
+
         objects["character"] = character;
         scene.add(character);
 
     });
 
-    let rightTurnFinished = false;
+    // let rightTurnFinished = false;
 
-    function finishRightTurn(){
-        rightTurnFinished = true;
-        actions["rightTurn"].reset()
-    }
+    // function finishRightTurn(){
+    //     rightTurnFinished = true;
+    //     actions["rightTurn"].reset()
+    // }
 
 
     // Doors
