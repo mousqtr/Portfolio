@@ -100,10 +100,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-// let controls = new OrbitControls(camera, renderer.domElement );
-// controls.addEventListener('change', renderer);
-// controls.minDistance = 500;
-// controls.maxDistance = 4000;
+let controls = new OrbitControls(camera, renderer.domElement );
+controls.addEventListener('change', renderer);
+controls.minDistance = 500;
+controls.maxDistance = 4000;
 
 let theta = 0;
 let theta0 = 0;
@@ -312,6 +312,7 @@ function goToCorridor(intersects){
         if(corridorActions["sittingIdle"].isRunning()){ corridorActions["sittingIdle"].stop();}
         if(corridorActions["sittingPose"].isRunning()){ corridorActions["sittingPose"].stop();}
         if(corridorActions["writing"].isRunning()){ corridorActions["writing"].stop();}
+        if(corridorActions["laying"].isRunning()){ corridorActions["laying"].stop();}
         corridorActions["stand"].play();
               
     }
@@ -360,6 +361,12 @@ function goToRoom(intersects, doorName, doorId){
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);
+                    corridorObjects["character"].position.set(1550, 235, -3800);
+                    corridorObjects["character"].rotation.set(0, 0, 0)
+                    if(corridorActions["stand"].isRunning()){
+                        corridorActions["stand"].stop();
+                    }
+                    corridorActions["laying"].play();
                     break;
                 default:
                     break;
@@ -469,6 +476,7 @@ function animate() {
     if ( corridorMixers["sittingIdle"] ) corridorMixers["sittingIdle"].update( delta );
     if ( corridorMixers["writing"] ) corridorMixers["writing"].update( delta );
     if ( corridorMixers["sittingPose"] ) corridorMixers["sittingPose"].update( delta );
+    if ( corridorMixers["laying"] ) corridorMixers["laying"].update( delta );
 
     // Rotates cubes of room 0
     room0Objects["boxComputing"].rotation.y += 0.01

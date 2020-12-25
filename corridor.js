@@ -148,6 +148,15 @@ export function initCorridor(scene, manager){
             actions["sittingPose"] = action;
         });
 
+        // Load the laying pose
+        const laying = new FBXLoader(manager);
+        laying.load('models/corridor/malcolm/laying.fbx', (animLaying) => {
+            const mixer = new THREE.AnimationMixer(character);     
+            const action = mixer.clipAction( animLaying.animations[0] );
+            mixers["laying"] = mixer;
+            actions["laying"] = action;
+        });
+
         objects["character"] = character;
         scene.add(character);
 
