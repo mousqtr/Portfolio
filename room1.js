@@ -44,7 +44,7 @@ export function initRoom1(scene, manager){
 
     // Boxes
     const posBox1 = new THREE.Vector3(1150, -110, -1400);
-    const posBox2 = new THREE.Vector3(1400, -110, -1400);
+    const posBox2 = new THREE.Vector3(1400, 110, -1400);
     const posBox3 = new THREE.Vector3(1650, -110, -1400);
     const sizeBox = new THREE.Vector3(150, 150, 150);
     room.createBox(posBox1, sizeBox, 'img/room1/cpe.jpg', 'boxCpe');
@@ -73,6 +73,15 @@ export function initRoom1(scene, manager){
     const deskName = 'desk';
     room.loadFBXModel(deskUrl, deskPos, deskRot, deskScale, deskMaterial, deskName);
     
+    // Chair
+    const chairUrl = 'models/room0/chair/chair.fbx'
+    const chairPos = new THREE.Vector3(1420, -500, -1100);
+    const chairRot = new THREE.Vector3(-Math.PI/2, 0, Math.PI);
+    const chairScale = 3.8;
+    const chairTexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg');
+    const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
+    const chairName = 'chair';
+    room.loadFBXModel(chairUrl, chairPos, chairRot, chairScale, chairMaterial, chairName);
 
     return [objects, materials];
 }

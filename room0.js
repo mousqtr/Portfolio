@@ -47,16 +47,6 @@ export function initRoom0(scene, manager){
     const sofaName = 'sofa'
     room.loadFBXModel(sofaUrl, sofaPos, sofaRot, sofaScale, sofaMaterial, sofaName);
 
-    // Chair
-    const chairUrl = 'models/room0/chair/chair.fbx'
-    const chairPos = new THREE.Vector3(-1100, -500, -1100);
-    const chairRot = new THREE.Vector3(-Math.PI/2, 0, Math.PI);
-    const chairScale = 4;
-    const chairTexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg');
-    const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
-    const chairName = 'chair'
-    room.loadFBXModel(chairUrl, chairPos, chairRot, chairScale, chairMaterial, chairName);
-
     // Top shelf
     const topShelfGeo = new THREE.BoxGeometry(500, 30, 300);
     const topShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
@@ -86,12 +76,12 @@ export function initRoom0(scene, manager){
     const posBox1 = new THREE.Vector3(-1700, 165, -1400);
     const posBox2 = new THREE.Vector3(-1470, 165, -1400);
     const posBox3 = new THREE.Vector3(-1585, 400, -1400);
-    const posBox4 = new THREE.Vector3(-1650, -170, -1350);
+    const posBox4 = new THREE.Vector3(-1110, -100, -1350);
     const sizeBox = new THREE.Vector3(150, 150, 150);
     room.createBox(posBox1, sizeBox, 'img/room0/bike.png', 'boxSport');
     room.createBox(posBox2, sizeBox, 'img/room0/group.png', 'boxAsso');
-    room.createBox(posBox3, sizeBox, 'img/room0/computing.png', 'boxComputing');
-    room.createBox(posBox4, sizeBox, 'img/room0/me.png', 'boxMe');
+    room.createBox(posBox3, sizeBox, 'img/room0/me.png', 'boxMe');
+    room.createBox(posBox4, sizeBox, 'img/room0/computing.png', 'boxComputing');
 
     return [objects, materials];
 }

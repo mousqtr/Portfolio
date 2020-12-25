@@ -139,6 +139,15 @@ export function initCorridor(scene, manager){
             actions["writing"] = action;
         });
 
+        // Load the sitting pose
+        const sittingPose = new FBXLoader(manager);
+        sittingPose.load('models/corridor/malcolm/sitting_pose.fbx', (animSittingPose) => {
+            const mixer = new THREE.AnimationMixer(character);     
+            const action = mixer.clipAction( animSittingPose.animations[0] );
+            mixers["sittingPose"] = mixer;
+            actions["sittingPose"] = action;
+        });
+
         objects["character"] = character;
         scene.add(character);
 

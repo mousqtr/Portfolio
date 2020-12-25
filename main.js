@@ -100,12 +100,13 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// let controls = new OrbitControls(camera, renderer.domElement );
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
 let theta = 0;
+let theta0 = 0;
 animate();
 
 // When the window is resized
@@ -119,10 +120,12 @@ function onWindowResize(){
         let posZ;
         
         // Character
-        posZ = 0.375 * window.innerWidth - 1150;
-        posZ = Math.min(-600, posZ);
-        posZ = Math.max(-1000, posZ);
-        corridorObjects["character"].position.set(corridorObjects["character"].position.x, corridorObjects["character"].position.y, posZ);
+        if (corridorObjects["character"].position.x == 0){
+            posZ = 0.375 * window.innerWidth - 1150;
+            posZ = Math.min(-600, posZ);
+            posZ = Math.max(-1000, posZ);
+            corridorObjects["character"].position.set(corridorObjects["character"].position.x, corridorObjects["character"].position.y, posZ);
+        }
         
         // Door
         for (let i = 0; i < corridorObjects["doors"].length; i++) {
@@ -307,6 +310,7 @@ function goToCorridor(intersects){
         // Reset the animation
         corridorObjects["character"].rotation.set(0, Math.PI, 0)
         if(corridorActions["sittingIdle"].isRunning()){ corridorActions["sittingIdle"].stop();}
+        if(corridorActions["sittingPose"].isRunning()){ corridorActions["sittingPose"].stop();}
         if(corridorActions["writing"].isRunning()){ corridorActions["writing"].stop();}
         corridorActions["stand"].play();
               
@@ -325,14 +329,21 @@ function goToRoom(intersects, doorName, doorId){
                 case 0:
                     camera.position.set(-1400, 100, 100);
                     corridorObjects["character"].scale.setScalar(1.7);
-                    corridorObjects["character"].position.set(-1100, -460, -1050);
+                    corridorObjects["character"].position.set(-1750, -300, -1450);
+                    corridorObjects["character"].rotation.set(0, 0, 0);
+                    if(corridorActions["stand"].isRunning()){
+                        corridorActions["stand"].stop();
+                    }
+                    corridorActions["sittingPose"].play();
+                    break;
+                case 1:
+                    corridorObjects["character"].scale.setScalar(1.7);
+                    corridorObjects["character"].position.set(1430, -460, -1050);
                     corridorObjects["character"].rotation.set(0, Math.PI, 0)
                     if(corridorActions["stand"].isRunning()){
                         corridorActions["stand"].stop();
                     }
                     corridorActions["writing"].play();
-                    break;
-                case 1:
                     camera.position.set(1400, 100, 0);
                     break;
                 case 2:
@@ -457,6 +468,7 @@ function animate() {
     if ( corridorMixers["rightTurn"] ) corridorMixers["rightTurn"].update( delta );
     if ( corridorMixers["sittingIdle"] ) corridorMixers["sittingIdle"].update( delta );
     if ( corridorMixers["writing"] ) corridorMixers["writing"].update( delta );
+    if ( corridorMixers["sittingPose"] ) corridorMixers["sittingPose"].update( delta );
 
     // Rotates cubes of room 0
     room0Objects["boxComputing"].rotation.y += 0.01
@@ -468,6 +480,14 @@ function animate() {
     room1Objects["boxCpe"].rotation.y += 0.01;
     room1Objects["boxCharlemagne"].rotation.y += 0.01
     room1Objects["boxHenri"].rotation.y += 0.01
+
+    theta0 += 0.01
+    room1Objects["boxCpe"].position.x = 1600 + 150 * Math.cos(theta0);
+    room1Objects["boxCpe"].position.y = 200 + 150 * Math.sin(theta0);
+    room1Objects["boxCharlemagne"].position.x = 1600 + 150 * Math.cos(theta0 + 2*Math.PI/3);
+    room1Objects["boxCharlemagne"].position.y = 200 + 150 * Math.sin(theta0 + 2*Math.PI/3);
+    room1Objects["boxHenri"].position.x = 1600 + 150 * Math.cos(theta0 + 4*Math.PI/3);
+    room1Objects["boxHenri"].position.y = 200 + 150 * Math.sin(theta0 + 4*Math.PI/3);    
 
     // Rotates cubes of room 2
     room2Objects["boxBarco"].rotation.y += 0.01;
