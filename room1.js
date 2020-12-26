@@ -43,9 +43,9 @@ export function initRoom1(scene, manager){
     room.loadFont(scene, objects, arrowTextUrl, arrowTextText, arrowTextPos, arrowTextSize, arrowTextHeight, arrowTextMaterial, arrowTextName);
 
     // Boxes
-    const posBox1 = new THREE.Vector3(1700, 320, -1400);
-    const posBox2 = new THREE.Vector3(1600, 120, -1400);
-    const posBox3 = new THREE.Vector3(1800, 120, -1400);
+    const posBox1 = new THREE.Vector3(1700, 310, -1400);
+    const posBox2 = new THREE.Vector3(1600, 110, -1400);
+    const posBox3 = new THREE.Vector3(1800, 110, -1400);
     const sizeBox = new THREE.Vector3(130, 130, 130);
     room.createBox(posBox1, sizeBox, 'img/room1/cpe.jpg', 'boxCpe');
     room.createBox(posBox2, sizeBox, 'img/room1/charlemagne.jpg', 'boxCharlemagne');
@@ -85,7 +85,7 @@ export function initRoom1(scene, manager){
 
     // Top shelf
     const topShelfGeo = new THREE.BoxGeometry(400, 20, 300);
-    const topShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
+    const topShelftexture = new THREE.TextureLoader().load( 'models/room1/desk/wood.jpg' );
     const topShelfMat = new THREE.MeshPhongMaterial( { map: topShelftexture } );
     const topShelf = new THREE.Mesh( topShelfGeo, topShelfMat );
     topShelf.position.set(1700, 220, -1430);
@@ -93,7 +93,7 @@ export function initRoom1(scene, manager){
 
     // Bottom shelf
     const bottomShelfGeo = new THREE.BoxGeometry(400, 20, 300);
-    const bottomShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
+    const bottomShelftexture = new THREE.TextureLoader().load( 'models/room1/desk/wood.jpg' );
     const bottomShelfMat = new THREE.MeshPhongMaterial( { map: bottomShelftexture } );
     const bottomShelf = new THREE.Mesh( bottomShelfGeo, bottomShelfMat );
     bottomShelf.position.set(1700, 20, -1430);

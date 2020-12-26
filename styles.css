@@ -29,3 +29,61 @@ html, body {
    transform-origin: top left;
    transform: scaleX(0);
 }
+
+.menu{
+   position: absolute;
+   width: 30%;
+   height: 4.5vw;
+   background-color: rgba(0, 0, 0, .5);
+   overflow:hidden;
+}
+
+.title{
+   font-size: 2vw;
+   margin-top: 1vw; margin-bottom: 0.5vw;
+   color:white;
+   background: none;
+   font-family: sans-serif;
+   font-weight: bold;
+   text-align: center;
+}
+
+.vertical-center {
+   margin: 0;
+   position: absolute;
+   left: 50%;
+   -ms-transform: translateX(-50%);
+   transform: translateX(-50%);
+   width:100%;
+ }
+
+[class*="button-"] {float: left; width:90%; margin-left:5%; margin-right:5%; margin-top:1vw;
+                     font-size: 2vw;
+                     text-decoration: none; background-color: #FFFFFF; color: black; padding: 1vw 2vw;
+                     transition-duration: 0.4s;
+}
+
+[class*="button-"]:hover {
+   background-color: #4CAF50;
+   color: white;
+ }
+
+/* .button1{
+   float: left;
+   margin-top: 2px;
+   margin-left: 2px;
+}
+
+.button2{
+   float: left;
+   margin-top: 10px;
+   margin-left: 2px;
+}
+
+.button3{
+   float: left;
+   margin-top: 15px;
+   margin-left: 2px;
+} */
+
+
