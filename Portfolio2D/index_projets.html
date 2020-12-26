@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/style_desktop.css">
+<link rel="stylesheet" type="text/css" href="css/style_mobile.css">
+<title>Mustapha BENBRIKHO</title>
+<meta name="description" content="Bonjour à tous et bienvenue sur mon site internet. Celui-ci a pour objectif de partager mon parcours scolaire et professionnel." />
+<link rel="icon" type="image/png" href="img/logo.png" />
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<!-- Management of the header -->
+<div class="navigation">
+
+  <div id="menu">
+    <ul>
+      <li><a href="index2D.html">Accueil</a></li>
+      <li><a href="index_formation.html">Formation</a></li>
+      <li><a href="#">Expériences</a>
+        <ul>
+          <li><a href="index_experiences_pro.html">Expériences professionnelles</a></li>
+          <li><a href="index_associations.html">Expériences associatives</a></li>
+        </ul>
+      </li>    
+      <li><a href="index_projets.html" class="active">Projets</a></li>        
+      <li><a href="index_cv.html">CV</a></li>
+    </ul>
+  </div>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars" id="down"></i>
+    <i class="fa fa-angle-double-up" id="up" style="display:none"></i>
+  </a>
+
+  <a href="../index.html" class="icon-2">
+    <i class="fa fa-home" id="contact-icon"></i>
+  </a>
+
+</div>
+
+
+
+<!-- Image en-tête -->
+<div class="wallpaper">
+  <img src="img/projets/wp4.png" alt="bannière du site" width=100% />
+</div>
+
+
+<div class="row-1-project">
+
+  <div class="col-0"></div>
+
+
+  <div class="col-1">
+
+    <a onclick="open_project(0)">
+      <div class="title-progress">
+        <p>Projets personnels en cours</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-progress"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-progress"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="progress" style="display:none">
+      <div class="sb-3">
+        <img src="img/projets/ia.jpg" width=100% height=100% alt="" class="image"/>
+        <div class="overlay-progress">
+          <div class="text">Contenu confidentiel</div>
+        </div>
+      </div>
+      
+      <div class="sb-3">
+        <img src="img/projets/stock.jpg" alt="" class="image" width=100% height=100%/>
+        <div class="overlay-progress">
+          <div class="text">Contenu confidentiel</div>
+        </div>
+      </div>
+    </div>
+
+    <a onclick="open_project(1)">
+      <div class="title-games">
+        <p>Jeux vidéos</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-games"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-games"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="games" style="display:none">
+      <div class="sb-3">
+        <img src="img/projets/mobile.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-games">
+          <div class="text">
+            Je travaille actuellement sur l'élaboration d'un jeu mobile en collaboration avec 3 trois camarades d'école d'ingénieur. Il est encore en développement et ne verra pas le jour avant quelques mois. Il sera ensuite disponible sur toutes les plateformes de téléchargement Android et iOS.
+          </div>
+        </div>
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/irr.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-games">
+          <div class="text">
+            Le cursus de majeure Image de mon école d’ingénieur avait la particularité d’avoir un module Jeux vidéo. Ce module se déroulait sous forme de projet et avait pour objectif d’avoir sur un jeu fonctionnel. Ainsi, j’ai pu développer un FPS sous à partir de la librairie Irrlicht et du langage C++. .
+          </div>
+        </div>       
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/opengl.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-games">
+          <div class="text">
+            Après avoir travaillé sur plusieurs TP d’OpenGL, l’objectif était d’élaborer un jeu fonctionnel en utilisant les connaissances assimilées. J’ai pu ainsi codée un jeu en 3D où un vaisseau spatial devait éviter des obstacles au sein d’une grotte. Plusieurs fonctionnalités ont été implémentées (missiles, boost …). 
+          </div>
+        </div>
+      </div>  
+      <div class="sb-3">
+        <img src="img/projets/gta.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-games">
+          <div class="text">
+            Durant mon temps libre, j’ai eu l’occasion de participer à la conception et à la personnalisation d'un serveur de jeu GTA RP. En s'inspirant des serveurs existants, nous avons ainsi pu codés les fichiers nécessaires à son bon fonctionnement. Une fois achevé, nous avons pu le mettre en ligne afin qu'il soit accessible par des milliers de joueurs. 
+          </div>
+        </div>
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/space.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-games">
+          <div class="text">
+            Le module d’apprentissage du langage Python a abouti sur la programmation d’un Space Invaders. Celui-ci repose sur les mêmes principes de jeu que l’original, c’est-à-dire détruire les ennemis sans se faire toucher par leurs projectiles. La bibliothèque Tkinter a notamment été utilisée afin de gérer l’interface graphique. 
+          </div>
+        </div>       
+      </div>
+    </div>
+
+    <a onclick="open_project(2)">
+      <div class="title-image">
+        <p>Traitement d'image</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-image"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-image"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="image" style="display:none">
+      <div class="sb-3">
+        <img src="img/projets/app.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-image">
+          <div class="text">
+            Durant le projet de majeure Image de 5ème année, j'ai travaillé d'une part sur le traitement d'un flux vidéo afin de permettre la détection et l'identification d'une carte. D'autre part, j'ai calibré une caméra afin de récupérer la position et l'orientation de la carte. Enfin l'application mobile a été implémenté en utilisant la librairie Qt. 
+          </div>
+        </div>
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/detect.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-image">
+          <div class="text">
+            Afin de valider ma 4ème année d'école d'ingénieur, j'ai eu l'opportunité de réaliser un projet portant sur ma majeur (traitement d'image). J'ai ainsi implémenté un programme permettant de détecter la valeur d'une résistance à partir d'une photo de celle-ci (débruitage, rotation, segmentation, détection des couleurs). 
+          </div>
+        </div>       
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/resis.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-image">
+          <div class="text">
+            Dans le cadre du projet de robot connecté de 4e année, j'étais en charge de coder le programme de détection d'obstacles. Celui-ci devait permettre de détecter la forme et la couleur d'un obstacle à partir d'une photographie. Notions utilisées : algorithmes de segmentation, morphologie mathématique, colorimétrie …
+          </div>
+        </div>
+      </div>
+    </div>  
+
+    <a onclick="open_project(3)">
+      <div class="title-transmission">
+        <p>Transmission de données</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-transmission"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-transmission"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="transmission" style="display:none">
+      <div class="sb-3">
+        <img src="img/projets/ech_file.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-transmission">
+          <div class="text">
+            Le projet transversal de l’année 4 m’a permis de mettre en pratique mes connaissances en Java afin d’établir un échange de fichiers entre deux PC (un serveur et un client). Ainsi, le programmé implémentée permet d’assurer une communication automatique tout en suivant un protocole prédéfini. 
+          </div>
+        </div>
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/mod.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-transmission">
+          <div class="text">
+            À la suite du module de traitement du signal d’année 3, j'ai participé à la conception d'un programme de modulation et de démodulation d'un message vocal ainsi l'objectif était de dissimuler une information puis de pouvoir la retrouver. 
+          </div>
+        </div>       
+      </div>
+    </div>
+
+    <a onclick="open_project(4)">
+      <div class="title-electronic">
+        <p>Programmation électonique</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-electronic"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-electronic"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="electronic" style="display:none">
+      <div class="sb-3">
+        <img src="img/projets/spi.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-electronic">
+          <div class="text">
+            Dans le cadre du projet transversal de 4ème année, l’une de mes missions était de faire transiter des données de manière synchrone entre deux cartes 8051 (un master et une slave). Il a donc fallu pour cela mettre en place une liaison SPI programmé grâce au langage C ainsi qu’à la datasheet de carte. 
+          </div>
+        </div>
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/labview.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-electronic">
+          <div class="text">
+            Dans le cadre du module de capteur intelligent, il était question d'élaborer une interface permettant de contrôler les différents capteurs (température, volume …) et d’afficher l’évolution de chaque variable. L’interface Labview ainsi implémentée permet ainsi de remplir ces fonctions et de sauvegarder les données sur les fichiers.  
+          </div>
+        </div>       
+      </div>
+      <div class="sb-3">
+        <img src="img/projets/vhdl.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-electronic">
+          <div class="text">
+            L'apprentissage du langage de programmation VHDL a abouti sur l'implémentation d'un chrono score celui-ci éteindre fragmenter en plusieurs étapes successives (implémentation du score, du chronomètre, de l’affichage …). 
+          </div>
+        </div>
+      </div>
+    </div>  
+
+    <a onclick="open_project(5)">
+      <div class="title-internship">
+        <p>Projets de stage</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-internship"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-internship"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="internship" style="display:none">
+
+      <div class="sb-3">
+        <img src="img/projets/adc.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-internship">
+          <div class="text">
+            Avant l'élaboration de ce programme, aucune étude ne permettait de mettre en évidence le taux d’axe unique par roulement mais aussi par axe pur. Ainsi, ce projet a permis de fournir un puissant outil d'analyse la direction et aux différents pôles de l'entreprise. 
+          </div>
+        </div>
+      </div>
+
+      <div class="sb-3">
+        <img src="img/projets/fraude.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-internship">
+          <div class="text">
+            À partir des données répertoriant les résultats générés par la lutte antifraude, il fallait pouvoir élaborer un programme permettant de prévoir les gares et horaires les plus rentables tout en prenant compte des nombreux paramètres (adaptation, type de journée …). 
+          </div>
+        </div>       
+      </div>
+
+      <div class="sb-3">
+        <img src="img/projets/base.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-internship">
+          <div class="text">
+            Dans l'optique de permettre aux managers de chaque site de pouvoir étudier la ponctualité au départ de leurs train, il était question de concevoir un tableau de bord. Ce projet avait pour objectif de garantir la synchronisation entre les données relevées et les outils d'analyses en gare. 
+          </div>
+        </div>
+      </div>  
+
+      <div class="sb-3">
+        <img src="img/projets/bord.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-internship">
+          <div class="text">
+            Il était question dans ce projet d'élaborer un tableau de bord permettant à la Direction d'analyser des indices liés au bon fonctionnement de l'entreprise.  
+          </div>
+        </div>
+      </div>
+
+      <div class="sb-3">
+        <img src="img/projets/js.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-internship">
+          <div class="text">
+            Afin d’élaborer les plans de garage, je suis passé par l’outil Nuance Power Advanced PDF. Celui-ci permet d’ajouter des objets, des éléments de formulaire, mais aussi des codes en JavaScript afin de créer des interactions entre tous les éléments.
+          </div>
+        </div>       
+      </div>
+
+    </div>
+
+    <a onclick="open_project(6)">
+      <div class="title-website">
+        <p>Site internet</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-website"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-website"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="website" style="display:none">
+
+      <div class="sb-3">
+        <img src="img/projets/site.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-website">
+          <div class="text">
+            Le projet transversal de l’année 4 m’a permis de mettre en pratique mes connaissances en Java afin d’établir un échange de fichiers entre deux PC (un serveur et un client). Ainsi, le programmé implémentée permet d’assurer une communication automatique tout en suivant un protocole prédéfini. 
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <a onclick="open_project(7)">
+      <div class="title-others">
+        <p>Autres projets</p>
+        <div>
+          <i class="fa fa-angle-double-right" id="open-icon-others"></i>
+          <i class="fa fa-angle-double-down" id="close-icon-others"></i>
+        </div>
+      </div>
+    </a>
+
+    <div id="others" style="display:none">
+
+      <div class="sb-3">
+        <img src="img/projets/abeille.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-others">
+          <div class="text">
+            Au cours du module de programmation orientée objet, les différents travaux pratiques avaient pour objectif de concevoir à la conception d'une IHM présentant plusieurs espèces d'abeilles, leur environnement ainsi que les interactions entre chaque espèce. 
+          </div>
+        </div>
+      </div>
+
+      <div class="sb-3">
+        <img src="img/projets/vba.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-others">
+          <div class="text">
+            Afin de faciliter la gestion de stock d’une entreprise, j’ai travaillé à l’élaboration d’un fichier Excel à base de macros. Plus précisément, le langage VBA a été utilisé afin d’implémenter des formulaires permettant de gérer de renseigner les matériaux entrants et sortants tout en actualisant le contenu des tables impliquées. 
+          </div>
+        </div>       
+      </div>
+      
+      <div class="sb-3">
+        <img src="img/projets/montage.jpg" width=100% height=100% alt=""/>
+        <div class="overlay-others">
+          <div class="text">
+            Dans le cadre du module d'espagnol de 4e année, j'ai eu l'occasion de participer à l'écriture et à la réalisation d'un court métrage en espagnol. Par ailleurs, je me suis occupé de montage du film. J'ai notamment fait appel au logiciel Vegas pro. 
+          </div>
+        </div>
+      </div>  
+
+    </div>
+
+  </div><!-- end col-1 -->
+
+  <div class="col-2"></div>
+
+</div><!-- end row-1 -->
+
+
+
+
+<!-- Contact -->
+<div id="footer">
+
+  <p class="title-contact">Me contacter</p>
+
+  <div class="section-2">
+    <div class="sb-2">
+      <a href="mailto:mustapha.benbrikho@cpe.fr">
+        <img src="img/site/mail.jpg" alt="mail"/>
+      </a>
+    </div>
+    <div class="sb-2">
+      <a href="https://www.linkedin.com/in/mustapha-benbrikho-876606162/">
+        <img src="img/site/in.jpg" alt="linkedin"/>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+
+<script src="js/script1.js"></script> 
+
+</body>
+</html>

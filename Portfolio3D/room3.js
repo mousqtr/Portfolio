@@ -28,9 +28,9 @@ export function initRoom3(scene, manager){
     room.loadFBXModel(arrowUrl, arrowPos, arrowRot, arrowScale, arrowMaterial, arrowName);
 
     // ArrowText
-    const arrowTextUrl = 'fonts/Bebas_Neue_Regular.json';
+    const arrowTextUrl = 'fonts/Bangers_Regular.json';
     const arrowTextText = 'Sortir'
-    const arrowTextPos = new THREE.Vector3(1050, 374, -3850);
+    const arrowTextPos = new THREE.Vector3(1030, 374, -3850);
     const arrowTextSize = 38;
     const arrowTextHeight = 2;
     const arrowTextMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff });

@@ -25,7 +25,7 @@ export function createBox(scene, objects, position, size, textureImg, objectName
 
 export function createTitle(scene, objects, position, text){
     const loaderTitles = new THREE.FontLoader();
-    loaderTitles.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+    loaderTitles.load( 'fonts/Bangers_Regular.json', function ( font ) {
 
         const textGeometry = new THREE.TextGeometry( text, {
             font: font, size: 60, height: 2

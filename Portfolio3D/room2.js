@@ -29,7 +29,7 @@ export function initRoom2(scene, manager){
     room.loadFBXModel(arrowUrl, arrowPos, arrowRot, arrowScale, arrowMaterial, arrowName);
 
     // ArrowText
-    const arrowTextUrl = 'fonts/Bebas_Neue_Regular.json';
+    const arrowTextUrl = 'fonts/Bangers_Regular.json';
     const arrowTextText = 'Sortir'
     const arrowTextPos = new THREE.Vector3(-1150, 374, -3850);
     const arrowTextSize = 38;

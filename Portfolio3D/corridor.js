@@ -211,7 +211,7 @@ export function initCorridor(scene, manager){
 
     // Titles
     let posX_left = -475;
-    let posX_right = 190;
+    let posX_right = 170;
     let posZ_1 = 0.67 * window.innerWidth - 2033;
     let posZ_2 = 0.67 * window.innerWidth - 4033;
     let posTextProfil = new THREE.Vector3(posX_left, 150, posZ_1);
@@ -247,7 +247,7 @@ export function initCorridor(scene, manager){
     let texts = ['Suivant', 'Precedent']
     for ( let i = 0; i < 2; i ++ ) {
         const loaderText = new THREE.FontLoader();
-        loaderText.load( 'fonts/Bebas_Neue_Regular.json', function ( font ) {
+        loaderText.load( 'fonts/Bangers_Regular.json', function ( font ) {
 
             const textGeometry = new THREE.TextGeometry( texts[i], {
                 font: font, size: 17, height: 2,

@@ -33,9 +33,9 @@ export function initRoom1(scene, manager){
     room.loadFBXModel(arrowUrl, arrowPos, arrowRot, arrowScale, arrowMaterial, arrowName);
 
     // ArrowText
-    const arrowTextUrl = 'fonts/Bebas_Neue_Regular.json';
+    const arrowTextUrl = 'fonts/Bangers_Regular.json';
     const arrowTextText = 'Sortir'
-    const arrowTextPos = new THREE.Vector3(1050, 374, -1450);
+    const arrowTextPos = new THREE.Vector3(1030, 374, -1450);
     const arrowTextSize = 38;
     const arrowTextHeight = 2;
     const arrowTextMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff });
@@ -43,9 +43,9 @@ export function initRoom1(scene, manager){
     room.loadFont(scene, objects, arrowTextUrl, arrowTextText, arrowTextPos, arrowTextSize, arrowTextHeight, arrowTextMaterial, arrowTextName);
 
     // Boxes
-    const posBox1 = new THREE.Vector3(1700, 310, -1400);
-    const posBox2 = new THREE.Vector3(1600, 110, -1400);
-    const posBox3 = new THREE.Vector3(1800, 110, -1400);
+    const posBox1 = new THREE.Vector3(1600, 310, -1400);
+    const posBox2 = new THREE.Vector3(1500, 110, -1400);
+    const posBox3 = new THREE.Vector3(1700, 110, -1400);
     const sizeBox = new THREE.Vector3(130, 130, 130);
     room.createBox(posBox1, sizeBox, 'img/room1/cpe.jpg', 'boxCpe');
     room.createBox(posBox2, sizeBox, 'img/room1/charlemagne.jpg', 'boxCharlemagne');
@@ -88,7 +88,7 @@ export function initRoom1(scene, manager){
     const topShelftexture = new THREE.TextureLoader().load( 'models/room1/desk/wood.jpg' );
     const topShelfMat = new THREE.MeshPhongMaterial( { map: topShelftexture } );
     const topShelf = new THREE.Mesh( topShelfGeo, topShelfMat );
-    topShelf.position.set(1700, 220, -1430);
+    topShelf.position.set(1600, 220, -1430);
     scene.add(topShelf);
 
     // Bottom shelf
@@ -96,7 +96,7 @@ export function initRoom1(scene, manager){
     const bottomShelftexture = new THREE.TextureLoader().load( 'models/room1/desk/wood.jpg' );
     const bottomShelfMat = new THREE.MeshPhongMaterial( { map: bottomShelftexture } );
     const bottomShelf = new THREE.Mesh( bottomShelfGeo, bottomShelfMat );
-    bottomShelf.position.set(1700, 20, -1430);
+    bottomShelf.position.set(1600, 20, -1430);
     scene.add(bottomShelf);
 
     return [objects, materials];
