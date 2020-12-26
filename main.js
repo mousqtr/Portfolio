@@ -61,7 +61,8 @@ manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
     // const progress = itemsLoaded / itemsTotal;
     // console.log('itemLoaded ' + itemsLoaded + ' / itemsTotal ' + itemsTotal + '/ progress ' + progress);
 
-    const tempItemsTotal = 150
+    console.log(itemsLoaded)
+    const tempItemsTotal = 155
     const progress = itemsLoaded / tempItemsTotal;
     // console.log(progress)
     
@@ -100,13 +101,12 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// let controls = new OrbitControls(camera, renderer.domElement );
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
 let theta = 0;
-let theta0 = 0;
 animate();
 
 // When the window is resized
@@ -487,15 +487,7 @@ function animate() {
     // Rotates cubes of room 1
     room1Objects["boxCpe"].rotation.y += 0.01;
     room1Objects["boxCharlemagne"].rotation.y += 0.01
-    room1Objects["boxHenri"].rotation.y += 0.01
-
-    theta0 += 0.01
-    room1Objects["boxCpe"].position.x = 1600 + 150 * Math.cos(theta0);
-    room1Objects["boxCpe"].position.y = 200 + 150 * Math.sin(theta0);
-    room1Objects["boxCharlemagne"].position.x = 1600 + 150 * Math.cos(theta0 + 2*Math.PI/3);
-    room1Objects["boxCharlemagne"].position.y = 200 + 150 * Math.sin(theta0 + 2*Math.PI/3);
-    room1Objects["boxHenri"].position.x = 1600 + 150 * Math.cos(theta0 + 4*Math.PI/3);
-    room1Objects["boxHenri"].position.y = 200 + 150 * Math.sin(theta0 + 4*Math.PI/3);    
+    room1Objects["boxHenri"].rotation.y += 0.01    
 
     // Rotates cubes of room 2
     room2Objects["boxBarco"].rotation.y += 0.01;
