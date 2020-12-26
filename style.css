@@ -16,15 +16,30 @@ body {
     top: 30%;
 }
 
-.description, .link {
+.title, .link {
     font-family: 'Bangers', cursive;
     text-align: center;
     text-transform: uppercase;
 }
 
-.description {
+.title {
     font-size: 60px;
     color:white;
+}
+
+[class*="description-"] {
+    font-family: 'Bangers', cursive;
+    text-align: center;
+    color:white;
+    font-size: 20px;
+}
+
+.description-1 {
+    display: none;
+}
+
+.description-2 {
+    display: none;
 }
 
 .btn {
