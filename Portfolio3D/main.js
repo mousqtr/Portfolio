@@ -106,7 +106,8 @@ let arrowClicked = false;
 // controls.minDistance = 500;
 // controls.maxDistance = 4000;
 
-let theta = 0;
+var theta = 0;
+var room = -1;
 animate();
 
 // When the window is resized
@@ -314,6 +315,9 @@ function goToCorridor(intersects){
         if(corridorActions["writing"].isRunning()){ corridorActions["writing"].stop();}
         if(corridorActions["laying"].isRunning()){ corridorActions["laying"].stop();}
         corridorActions["stand"].play();
+
+        // Reset the room variable
+        room = -1;
               
     }
 }
@@ -325,6 +329,7 @@ function goToRoom(intersects, doorName, doorId){
         if (corridorObjects["doors"][doorId] != undefined){       
             corridorLights["hemiLight"].position.set(0, -10000, 0);
             corridorLights["dirLight"].position.set(0, -10000, 300);
+            room = doorId;
 
             switch(doorId){
                 case 0:
@@ -469,64 +474,91 @@ function animate() {
 
     // Update mixers
     const delta = clock.getDelta();
-    if ( corridorMixers["walk"] ) corridorMixers["walk"].update( delta );
-    if ( corridorMixers["stand"] ) corridorMixers["stand"].update( delta );
-    if ( corridorMixers["jogBackwards"] ) corridorMixers["jogBackwards"].update( delta );
-    if ( corridorMixers["rightTurn"] ) corridorMixers["rightTurn"].update( delta );
-    if ( corridorMixers["sittingIdle"] ) corridorMixers["sittingIdle"].update( delta );
-    if ( corridorMixers["writing"] ) corridorMixers["writing"].update( delta );
-    if ( corridorMixers["sittingPose"] ) corridorMixers["sittingPose"].update( delta );
-    if ( corridorMixers["laying"] ) corridorMixers["laying"].update( delta );
 
-    // Rotates cubes of room 0
-    room0Objects["boxComputing"].rotation.y += 0.01
-    room0Objects["boxAsso"].rotation.y += 0.01
-    room0Objects["boxSport"].rotation.y += 0.01
-    room0Objects["boxMe"].rotation.y += 0.01
+    // if ( corridorMixers["rightTurn"] ) corridorMixers["rightTurn"].update( delta );
+ 
 
-    // Rotates cubes of room 1
-    room1Objects["boxCpe"].rotation.y += 0.01;
-    room1Objects["boxCharlemagne"].rotation.y += 0.01
-    room1Objects["boxHenri"].rotation.y += 0.01    
+    switch(room){
+        case -1:
+            // Update animation
+            if ( corridorMixers["walk"] ) corridorMixers["walk"].update( delta );
+            if ( corridorMixers["stand"] ) corridorMixers["stand"].update( delta );
+            if ( corridorMixers["jogBackwards"] ) corridorMixers["jogBackwards"].update( delta );
+            break; 
 
-    // Rotates cubes of room 2
-    room2Objects["boxBarco"].rotation.y += 0.01;
-    room2Objects["boxSncf1"].rotation.y += 0.01
-    room2Objects["boxSncf2"].rotation.y += 0.01
-    room2Objects["boxCompletude"].rotation.y += 0.01;
+        case 0:
+            // Update animation
+            if ( corridorMixers["sittingPose"] ) corridorMixers["sittingPose"].update( delta );
+           
+            // Rotates cubes of room 0
+            room0Objects["boxComputing"].rotation.y += 0.01
+            room0Objects["boxAsso"].rotation.y += 0.01
+            room0Objects["boxSport"].rotation.y += 0.01
+            room0Objects["boxMe"].rotation.y += 0.01  
+            break;
 
-    theta += 0.01
-    room2Objects["boxBarco"].position.x = -1400 + 120 * Math.cos(theta);
-    room2Objects["boxBarco"].position.z = -3500 + 260 * Math.sin(theta);
-    room2Objects["boxSncf1"].position.x = -1400 + 120 * Math.cos(theta + Math.PI/2);
-    room2Objects["boxSncf1"].position.z = -3500 + 260 * Math.sin(theta + Math.PI/2);
-    room2Objects["boxSncf2"].position.x = -1400 + 120 * Math.cos(theta + Math.PI);
-    room2Objects["boxSncf2"].position.z = -3500 + 260 * Math.sin(theta + Math.PI);
-    room2Objects["boxCompletude"].position.x = -1400 + 120 * Math.cos(theta + 3*Math.PI/2);
-    room2Objects["boxCompletude"].position.z = -3500 + 260 * Math.sin(theta + 3*Math.PI/2);
+        case 1:
+            // Update animation
+            if ( corridorMixers["writing"] ) corridorMixers["writing"].update( delta );
 
-    // Rotates cubes of room 3
-    room3Objects["boxPython"].rotation.y += 0.01
-    room3Objects["boxMatlab"].rotation.y += 0.01
-    room3Objects["boxC++"].rotation.y += 0.01
-    room3Objects["boxC"].rotation.y += 0.01
-    room3Objects["boxC#"].rotation.y += 0.01
-    room3Objects["boxJava"].rotation.y += 0.01
-    room3Objects["boxPowerbi"].rotation.y += 0.01
-    room3Objects["boxVhdl"].rotation.y += 0.01
-    room3Objects["boxLabview"].rotation.y += 0.01
-    room3Objects["boxLua"].rotation.y += 0.01
-    room3Objects["boxVba"].rotation.y += 0.01
+            // Rotates cubes of room 1
+            room1Objects["boxCpe"].rotation.y += 0.01;
+            room1Objects["boxCharlemagne"].rotation.y += 0.01
+            room1Objects["boxHenri"].rotation.y += 0.01              
+            break;
+
+        case 2:
+            // Update animation
+            if ( corridorMixers["sittingIdle"] ) corridorMixers["sittingIdle"].update( delta );
+            
+            // Rotates cubes of room 2
+            room2Objects["boxBarco"].rotation.y += 0.01;
+            room2Objects["boxSncf1"].rotation.y += 0.01
+            room2Objects["boxSncf2"].rotation.y += 0.01
+            room2Objects["boxCompletude"].rotation.y += 0.01;
+
+            theta += 0.01
+            room2Objects["boxBarco"].position.x = -1400 + 120 * Math.cos(theta);
+            room2Objects["boxBarco"].position.z = -3500 + 260 * Math.sin(theta);
+            room2Objects["boxSncf1"].position.x = -1400 + 120 * Math.cos(theta + Math.PI/2);
+            room2Objects["boxSncf1"].position.z = -3500 + 260 * Math.sin(theta + Math.PI/2);
+            room2Objects["boxSncf2"].position.x = -1400 + 120 * Math.cos(theta + Math.PI);
+            room2Objects["boxSncf2"].position.z = -3500 + 260 * Math.sin(theta + Math.PI);
+            room2Objects["boxCompletude"].position.x = -1400 + 120 * Math.cos(theta + 3*Math.PI/2);
+            room2Objects["boxCompletude"].position.z = -3500 + 260 * Math.sin(theta + 3*Math.PI/2);
+
+            // Run the video in room2
+            if ( room2Videos["video"].readyState === room2Videos["video"].HAVE_ENOUGH_DATA ) 
+            {
+            	room2Videos["videoImageContext"].drawImage( room2Videos["video"], 0, 0 );
+            	if ( room2Videos["videoTexture"] ) 
+                    room2Videos["videoTexture"].needsUpdate = true;
+            }
+            break;
+
+        case 3:
+            // Update animation
+            if ( corridorMixers["laying"] ) corridorMixers["laying"].update( delta );
+
+            // Rotates cubes of room 3
+            room3Objects["boxPython"].rotation.y += 0.01
+            room3Objects["boxMatlab"].rotation.y += 0.01
+            room3Objects["boxC++"].rotation.y += 0.01
+            room3Objects["boxC"].rotation.y += 0.01
+            room3Objects["boxC#"].rotation.y += 0.01
+            room3Objects["boxJava"].rotation.y += 0.01
+            room3Objects["boxPowerbi"].rotation.y += 0.01
+            room3Objects["boxVhdl"].rotation.y += 0.01
+            room3Objects["boxLabview"].rotation.y += 0.01
+            room3Objects["boxLua"].rotation.y += 0.01
+            room3Objects["boxVba"].rotation.y += 0.01
+            break;
+    }
+
 
     requestAnimationFrame(animate);
 
-    // Run the video in room2
-    if ( room2Videos["video"].readyState === room2Videos["video"].HAVE_ENOUGH_DATA ) 
-	{
-		room2Videos["videoImageContext"].drawImage( room2Videos["video"], 0, 0 );
-		if ( room2Videos["videoTexture"] ) 
-        room2Videos["videoTexture"].needsUpdate = true;
-	}
+
 
     renderer.render(scene,camera);
     
