@@ -1,5 +1,7 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
+import Stats from 'https://threejs.org/examples/jsm/libs/stats.module.js';
+
 
 import { walkTo, stopWalk } from "./characterMovements.js";
 import { detectObjects } from "./detectObjects.js";
@@ -72,6 +74,16 @@ manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
 manager.onError = function ( url ) {
     console.log( 'There was an error loading ' + url );
 };
+
+// Stats
+var stats = new Stats();
+stats.setMode(0);
+// stats.showPanel( 1 );
+document.body.appendChild( stats.domElement );
+
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.right = '0';
+stats.domElement.style.top = '0';
 
 // Models initialization
 let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene, manager);
@@ -558,7 +570,7 @@ function animate() {
 
     requestAnimationFrame(animate);
 
-
+    stats.update();
 
     renderer.render(scene,camera);
     

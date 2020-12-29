@@ -3,10 +3,16 @@
 body {
     margin: 0;
     height: 100%;
-    background-image: linear-gradient(to top, #551A8B 0%, #97d9e1 100%);
-    background-repeat: no-repeat;
+}
+
+html {
+    background: url('../img/grad.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-attachment: fixed;
+    height: 100%;
+    overflow: hidden;
 }
 
 .button_container {
