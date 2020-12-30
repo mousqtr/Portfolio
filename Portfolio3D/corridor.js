@@ -297,10 +297,10 @@ export function initCorridor(scene, manager){
     loadFBXModel(scene, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
 
    // Doormats
-    const doormatUrl1 = 'img/corridor/doormat.jpg';
-    const doormatUrl2 = 'img/corridor/formation.jpg';
-    const doormatUrl3 = 'img/corridor/experiences.jpg';
-    const doormatUrl4 = 'img/corridor/projets.jpg';
+    const doormatUrl1 = 'img/corridor/profil.png';
+    const doormatUrl2 = 'img/corridor/formation.png';
+    const doormatUrl3 = 'img/corridor/experiences.png';
+    const doormatUrl4 = 'img/corridor/projets.png';
     const doormatUrls = [doormatUrl1, doormatUrl2, doormatUrl3, doormatUrl4]
     const doormatXPositions = [-360, 360, -360, 360];
     const doormatZPositions = [2300, 2300, 4300, 4300];
