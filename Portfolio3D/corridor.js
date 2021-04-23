@@ -66,101 +66,101 @@ export function initCorridor(scene, manager){
     objects["corridor"] = corridor;
 
 
-    // Character
-    const loaderCharacter = new FBXLoader(manager);
-    loaderCharacter.load('models/corridor/malcolm/malcolm.fbx', (character) => {
+    // // Character
+    // const loaderCharacter = new FBXLoader(manager);
+    // loaderCharacter.load('models/corridor/malcolm/malcolm.fbx', (character) => {
 
-        // Load the model
-        character.scale.setScalar(1.5);
-        character.position.set(0, -500, -600)
-        character.rotation.set(0, Math.PI, 0)
-        character.traverse(child => {
-            child.castShadow = true;
-            child.receiveShadow = true;
-        });
+    //     // Load the model
+    //     character.scale.setScalar(1.5);
+    //     character.position.set(0, -500, -600)
+    //     character.rotation.set(0, Math.PI, 0)
+    //     character.traverse(child => {
+    //         child.castShadow = true;
+    //         child.receiveShadow = true;
+    //     });
         
 
-        // Load the walk animation
-        const animWalk = new FBXLoader(manager);
-        animWalk.load('models/corridor/malcolm/malcolm_walk.fbx', (animWalk) => {
-            const mixer = new THREE.AnimationMixer(character);     
-            const action = mixer.clipAction( animWalk.animations[0] );
-            mixers["walk"] = mixer
-            actions["walk"] = action;
-        });
+    //     // Load the walk animation
+    //     const animWalk = new FBXLoader(manager);
+    //     animWalk.load('models/corridor/malcolm/malcolm_walk.fbx', (animWalk) => {
+    //         const mixer = new THREE.AnimationMixer(character);     
+    //         const action = mixer.clipAction( animWalk.animations[0] );
+    //         mixers["walk"] = mixer
+    //         actions["walk"] = action;
+    //     });
         
-        // Load the stand animation
-        const animStand = new FBXLoader(manager);
-        animStand.load('models/corridor/malcolm/malcolm_stand.fbx', (animStand) => {
-            const mixer = new THREE.AnimationMixer(character);
-            const action = mixer.clipAction(animStand.animations[0]);
-            mixers["stand"] = mixer
-            actions["stand"] = action;
-            action.play();
-        });
+    //     // Load the stand animation
+    //     const animStand = new FBXLoader(manager);
+    //     animStand.load('models/corridor/malcolm/malcolm_stand.fbx', (animStand) => {
+    //         const mixer = new THREE.AnimationMixer(character);
+    //         const action = mixer.clipAction(animStand.animations[0]);
+    //         mixers["stand"] = mixer
+    //         actions["stand"] = action;
+    //         action.play();
+    //     });
 
-        // // Load the stand animation
-        // const animRightTurn = new FBXLoader(manager);
-        // animRightTurn.load('models/corridor/paladin/right_turn.fbx', (animRightTurn) => {
-        //     const mixer = new THREE.AnimationMixer(character);
-        //     const action = mixer.clipAction(animRightTurn.animations[0]);
-        //     action.loop = THREE.LoopOnce;
-        //     action.clampWhenFinished = true;
-        //     mixers["rightTurn"] = mixer
-        //     mixer.timeScale = 0.4;
-        //     mixer.addEventListener( 'finished', finishRightTurn );
-        //     actions["rightTurn"] = action;
-        // });
+    //     // // Load the stand animation
+    //     // const animRightTurn = new FBXLoader(manager);
+    //     // animRightTurn.load('models/corridor/paladin/right_turn.fbx', (animRightTurn) => {
+    //     //     const mixer = new THREE.AnimationMixer(character);
+    //     //     const action = mixer.clipAction(animRightTurn.animations[0]);
+    //     //     action.loop = THREE.LoopOnce;
+    //     //     action.clampWhenFinished = true;
+    //     //     mixers["rightTurn"] = mixer
+    //     //     mixer.timeScale = 0.4;
+    //     //     mixer.addEventListener( 'finished', finishRightTurn );
+    //     //     actions["rightTurn"] = action;
+    //     // });
 
-        // Load the jog backwards
-        const jogBackwards = new FBXLoader(manager);
-        jogBackwards.load('models/corridor/malcolm/jog_backwards.fbx', (animJogBackwards) => {
-            const mixer = new THREE.AnimationMixer(character);     
-            const action = mixer.clipAction( animJogBackwards.animations[0] );
-            mixers["jogBackwards"] = mixer
-            actions["jogBackwards"] = action;
-        });
+    //     // Load the jog backwards
+    //     const jogBackwards = new FBXLoader(manager);
+    //     jogBackwards.load('models/corridor/malcolm/jog_backwards.fbx', (animJogBackwards) => {
+    //         const mixer = new THREE.AnimationMixer(character);     
+    //         const action = mixer.clipAction( animJogBackwards.animations[0] );
+    //         mixers["jogBackwards"] = mixer
+    //         actions["jogBackwards"] = action;
+    //     });
 
-        // Load the sitting idle
-        const sittingIdle = new FBXLoader(manager);
-        sittingIdle.load('models/corridor/malcolm/sitting_idle.fbx', (animSittingIdle) => {
-            const mixer = new THREE.AnimationMixer(character);     
-            const action = mixer.clipAction( animSittingIdle.animations[0] );
-            mixers["sittingIdle"] = mixer
-            actions["sittingIdle"] = action;
-        });
+    //     // Load the sitting idle
+    //     const sittingIdle = new FBXLoader(manager);
+    //     sittingIdle.load('models/corridor/malcolm/sitting_idle.fbx', (animSittingIdle) => {
+    //         const mixer = new THREE.AnimationMixer(character);     
+    //         const action = mixer.clipAction( animSittingIdle.animations[0] );
+    //         mixers["sittingIdle"] = mixer
+    //         actions["sittingIdle"] = action;
+    //     });
 
-        // Load the writing
-        const writing = new FBXLoader(manager);
-        writing.load('models/corridor/malcolm/writing.fbx', (animWriting) => {
-            const mixer = new THREE.AnimationMixer(character);     
-            const action = mixer.clipAction( animWriting.animations[0] );
-            mixers["writing"] = mixer
-            actions["writing"] = action;
-        });
+    //     // Load the writing
+    //     const writing = new FBXLoader(manager);
+    //     writing.load('models/corridor/malcolm/writing.fbx', (animWriting) => {
+    //         const mixer = new THREE.AnimationMixer(character);     
+    //         const action = mixer.clipAction( animWriting.animations[0] );
+    //         mixers["writing"] = mixer
+    //         actions["writing"] = action;
+    //     });
 
-        // Load the sitting pose
-        const sittingPose = new FBXLoader(manager);
-        sittingPose.load('models/corridor/malcolm/sitting_pose.fbx', (animSittingPose) => {
-            const mixer = new THREE.AnimationMixer(character);     
-            const action = mixer.clipAction( animSittingPose.animations[0] );
-            mixers["sittingPose"] = mixer;
-            actions["sittingPose"] = action;
-        });
+    //     // Load the sitting pose
+    //     const sittingPose = new FBXLoader(manager);
+    //     sittingPose.load('models/corridor/malcolm/sitting_pose.fbx', (animSittingPose) => {
+    //         const mixer = new THREE.AnimationMixer(character);     
+    //         const action = mixer.clipAction( animSittingPose.animations[0] );
+    //         mixers["sittingPose"] = mixer;
+    //         actions["sittingPose"] = action;
+    //     });
 
-        // Load the laying pose
-        const laying = new FBXLoader(manager);
-        laying.load('models/corridor/malcolm/laying.fbx', (animLaying) => {
-            const mixer = new THREE.AnimationMixer(character);     
-            const action = mixer.clipAction( animLaying.animations[0] );
-            mixers["laying"] = mixer;
-            actions["laying"] = action;
-        });
+    //     // Load the laying pose
+    //     const laying = new FBXLoader(manager);
+    //     laying.load('models/corridor/malcolm/laying.fbx', (animLaying) => {
+    //         const mixer = new THREE.AnimationMixer(character);     
+    //         const action = mixer.clipAction( animLaying.animations[0] );
+    //         mixers["laying"] = mixer;
+    //         actions["laying"] = action;
+    //     });
 
-        objects["character"] = character;
-        scene.add(character);
+    //     objects["character"] = character;
+    //     scene.add(character);
 
-    });
+    // });
 
     // let rightTurnFinished = false;
 

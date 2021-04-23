@@ -133,12 +133,12 @@ function onWindowResize(){
         let posZ;
         
         // Character
-        if (corridorObjects["character"].position.x == 0){
-            posZ = 0.375 * window.innerWidth - 1150;
-            posZ = Math.min(-600, posZ);
-            posZ = Math.max(-1000, posZ);
-            corridorObjects["character"].position.set(corridorObjects["character"].position.x, corridorObjects["character"].position.y, posZ);
-        }
+        // if (corridorObjects["character"].position.x == 0){
+        //     posZ = 0.375 * window.innerWidth - 1150;
+        //     posZ = Math.min(-600, posZ);
+        //     posZ = Math.max(-1000, posZ);
+        //     corridorObjects["character"].position.set(corridorObjects["character"].position.x, corridorObjects["character"].position.y, posZ);
+        // }
         
         // Door
         for (let i = 0; i < corridorObjects["doors"].length; i++) {
@@ -308,25 +308,25 @@ function goToCorridor(intersects){
         switch(positionState){
             case 0:
                 camera.position.set(0, 0, 0);
-                corridorObjects["character"].position.set(0, -500, -600); 
+                // corridorObjects["character"].position.set(0, -500, -600); 
                 break;
             case 1:
                 camera.position.set(0, 0, -1900);
-                corridorObjects["character"].position.set(0, -500, -2500); 
+                // corridorObjects["character"].position.set(0, -500, -2500); 
                 break;
                                 
         }
 
-        // Reset the character
-        corridorObjects["character"].scale.setScalar(1.5);
+        // // Reset the character
+        // corridorObjects["character"].scale.setScalar(1.5);
 
-        // Reset the animation
-        corridorObjects["character"].rotation.set(0, Math.PI, 0)
-        if(corridorActions["sittingIdle"].isRunning()){ corridorActions["sittingIdle"].stop();}
-        if(corridorActions["sittingPose"].isRunning()){ corridorActions["sittingPose"].stop();}
-        if(corridorActions["writing"].isRunning()){ corridorActions["writing"].stop();}
-        if(corridorActions["laying"].isRunning()){ corridorActions["laying"].stop();}
-        corridorActions["stand"].play();
+        // // Reset the animation
+        // corridorObjects["character"].rotation.set(0, Math.PI, 0)
+        // if(corridorActions["sittingIdle"].isRunning()){ corridorActions["sittingIdle"].stop();}
+        // if(corridorActions["sittingPose"].isRunning()){ corridorActions["sittingPose"].stop();}
+        // if(corridorActions["writing"].isRunning()){ corridorActions["writing"].stop();}
+        // if(corridorActions["laying"].isRunning()){ corridorActions["laying"].stop();}
+        // corridorActions["stand"].play();
 
         // Reset the room variable
         room = -1;
@@ -346,44 +346,44 @@ function goToRoom(intersects, doorName, doorId){
             switch(doorId){
                 case 0:
                     camera.position.set(-1400, 100, 100);
-                    corridorObjects["character"].scale.setScalar(1.7);
-                    corridorObjects["character"].position.set(-1750, -300, -1450);
-                    corridorObjects["character"].rotation.set(0, 0, 0);
-                    if(corridorActions["stand"].isRunning()){
-                        corridorActions["stand"].stop();
-                    }
-                    corridorActions["sittingPose"].play();
+                    // corridorObjects["character"].scale.setScalar(1.7);
+                    // corridorObjects["character"].position.set(-1750, -300, -1450);
+                    // corridorObjects["character"].rotation.set(0, 0, 0);
+                    // if(corridorActions["stand"].isRunning()){
+                    //     corridorActions["stand"].stop();
+                    // }
+                    // corridorActions["sittingPose"].play();
                     break;
                 case 1:
-                    corridorObjects["character"].scale.setScalar(1.7);
-                    corridorObjects["character"].position.set(1430, -460, -1050);
-                    corridorObjects["character"].rotation.set(0, Math.PI, 0)
-                    if(corridorActions["stand"].isRunning()){
-                        corridorActions["stand"].stop();
-                    }
-                    corridorActions["writing"].play();
+                    // corridorObjects["character"].scale.setScalar(1.7);
+                    // corridorObjects["character"].position.set(1430, -460, -1050);
+                    // corridorObjects["character"].rotation.set(0, Math.PI, 0)
+                    // if(corridorActions["stand"].isRunning()){
+                    //     corridorActions["stand"].stop();
+                    // }
+                    // corridorActions["writing"].play();
                     camera.position.set(1400, 100, 0);
                     break;
                 case 2:
                     camera.position.set(-1400, 100, -2400);
-                    if (room2Videos["video"] != undefined){ 
-                        room2Videos["video"].play();
-                    }
-                    corridorObjects["character"].position.set(-1100, -400, -3300);
-                    corridorObjects["character"].rotation.set(0, -Math.PI/2, 0)
-                    if(corridorActions["stand"].isRunning()){
-                        corridorActions["stand"].stop();
-                    }
-                    corridorActions["sittingIdle"].play();
+                    // if (room2Videos["video"] != undefined){ 
+                    //     room2Videos["video"].play();
+                    // }
+                    // corridorObjects["character"].position.set(-1100, -400, -3300);
+                    // corridorObjects["character"].rotation.set(0, -Math.PI/2, 0)
+                    // if(corridorActions["stand"].isRunning()){
+                    //     corridorActions["stand"].stop();
+                    // }
+                    // corridorActions["sittingIdle"].play();
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);
-                    corridorObjects["character"].position.set(1550, 235, -3800);
-                    corridorObjects["character"].rotation.set(0, 0, 0)
-                    if(corridorActions["stand"].isRunning()){
-                        corridorActions["stand"].stop();
-                    }
-                    corridorActions["laying"].play();
+                    // corridorObjects["character"].position.set(1550, 235, -3800);
+                    // corridorObjects["character"].rotation.set(0, 0, 0)
+                    // if(corridorActions["stand"].isRunning()){
+                    //     corridorActions["stand"].stop();
+                    // }
+                    // corridorActions["laying"].play();
                     break;
                 default:
                     break;
@@ -471,14 +471,16 @@ function animate() {
     }
 
     // Stop walking at the second position
-    if ((arrowClicked == true) && (corridorObjects["character"].position.z < -2500) && (positionState == 0)){
+    // if ((arrowClicked == true) && (corridorObjects["character"].position.z < -2500) && (positionState == 0)){
+    if ((arrowClicked == true) && (camera.position.z < -1900) && (positionState == 0)){
         stopWalk(positionState, corridorObjects, corridorActions);
         arrowClicked = false;
         positionState = 1;
     } 
 
     // Stop walking at first position
-    if ((arrowClicked == true) && (positionState == 1) && (corridorObjects["character"].position.z > -600)){
+    // if ((arrowClicked == true) && (positionState == 1) && (corridorObjects["character"].position.z > -600)){
+    if ((arrowClicked == true) && (positionState == 1) && (camera.position.z > 0)){
         stopWalk(positionState, corridorObjects, corridorActions);
         arrowClicked = false;
         positionState = 0;
@@ -493,14 +495,14 @@ function animate() {
     switch(room){
         case -1:
             // Update animation
-            if ( corridorMixers["walk"] ) corridorMixers["walk"].update( delta );
-            if ( corridorMixers["stand"] ) corridorMixers["stand"].update( delta );
-            if ( corridorMixers["jogBackwards"] ) corridorMixers["jogBackwards"].update( delta );
+            // if ( corridorMixers["walk"] ) corridorMixers["walk"].update( delta );
+            // if ( corridorMixers["stand"] ) corridorMixers["stand"].update( delta );
+            // if ( corridorMixers["jogBackwards"] ) corridorMixers["jogBackwards"].update( delta );
             break; 
 
         case 0:
             // Update animation
-            if ( corridorMixers["sittingPose"] ) corridorMixers["sittingPose"].update( delta );
+            // if ( corridorMixers["sittingPose"] ) corridorMixers["sittingPose"].update( delta );
            
             // Rotates cubes of room 0
             room0Objects["boxComputing"].rotation.y += 0.01
@@ -550,7 +552,7 @@ function animate() {
 
         case 3:
             // Update animation
-            if ( corridorMixers["laying"] ) corridorMixers["laying"].update( delta );
+            // if ( corridorMixers["laying"] ) corridorMixers["laying"].update( delta );
 
             // Rotates cubes of room 3
             room3Objects["boxPython"].rotation.y += 0.01

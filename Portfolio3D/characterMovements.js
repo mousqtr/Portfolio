@@ -1,43 +1,43 @@
 export function walkTo(positionState, objects, actions, camera){
-
+    console.log("ok")
     // Move the character and the camera
     switch(positionState){
         case 0:
-            // objects["character"].rotation.set(0, Math.PI, 0);
-            objects["character"].position.z -= 15;
-            if(actions["stand"].isRunning()){
-                actions["stand"].stop();
-            }
-            actions["walk"].play();
+            camera.position.z -= 15;
+            // objects["character"].position.z -= 15;
+            // if(actions["stand"].isRunning()){
+            //     actions["stand"].stop();
+            // }
+            // actions["walk"].play();
             break;
         case 1:
-            // objects["character"].rotation.set(0, 0, 0);
-            objects["character"].position.z += 15;
-            if(actions["stand"].isRunning()){
-                actions["stand"].stop();
-            }
-            actions["jogBackwards"].play();
+            camera.position.z += 15;
+            // objects["character"].position.z += 15;
+            // if(actions["stand"].isRunning()){
+            //     actions["stand"].stop();
+            // }
+            // actions["jogBackwards"].play();
             break;
         default:
             break;
     }
-    camera.position.z = objects["character"].position.z + 600
+    // camera.position.z = objects["character"].position.z + 600
 
 }
 
 export function stopWalk(positionState, objects, actions){
 
     // Stop the walk animation
-    if(actions["walk"].isRunning()){
-        actions["walk"].stop();
-        actions["stand"].play();
-    }
+    // if(actions["walk"].isRunning()){
+    //     actions["walk"].stop();
+    //     actions["stand"].play();
+    // }
 
     // Stop the jogBackwards animation
-    if(actions["jogBackwards"].isRunning()){
-        actions["jogBackwards"].stop();
-        actions["stand"].play();
-    }
+    // if(actions["jogBackwards"].isRunning()){
+    //     actions["jogBackwards"].stop();
+    //     actions["stand"].play();
+    // }
 
     // Move the arrow
     switch(positionState){
