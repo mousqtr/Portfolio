@@ -214,6 +214,9 @@ function onWindowResize(){
         posZ = 0.67 * window.innerWidth - 3300;
         corridorObjects["painting"].position.set(corridorObjects["painting"].position.x, corridorObjects["painting"].position.y, posZ);
         
+        // Painting 2
+        posZ = 0.67 * window.innerWidth - 3300;
+        corridorObjects["painting2"].position.set(corridorObjects["painting2"].position.x, corridorObjects["painting2"].position.y, posZ);
 
     }          
 }

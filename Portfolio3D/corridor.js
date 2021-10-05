@@ -415,6 +415,15 @@ export function initCorridor(scene, manager){
     objects["painting"] = painting;
     scene.add(painting);
 
+    // Painting 2
+    const painting2Geo = new THREE.BoxGeometry(10, 400, 700);
+    const painting2Texture = new THREE.TextureLoader(manager).load( 'img/corridor/city.jpg' );
+    const painting2Mat = new THREE.MeshPhongMaterial( { map: painting2Texture } );
+    const painting2 = new THREE.Mesh( painting2Geo, painting2Mat );
+    let painting2PosZ = 0.67 * window.innerWidth - 3300;
+    painting2.position.set(450, 100, painting2PosZ);
+    objects["painting2"] = painting2;
+    scene.add(painting2);
 
     return [objects, materials, mixers, actions, lights];
 
