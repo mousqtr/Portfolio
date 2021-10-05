@@ -54,8 +54,6 @@ export function initRoom0(scene, manager){
     scene.add(topShelf);
 
     // Bottom shelf
-    // const bottomShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
-    // const bottomShelfMat = new THREE.MeshPhongMaterial( { map: bottomShelftexture } );
     const bottomShelfGeo = new THREE.BoxGeometry(500, 30, 300);
     const bottomShelfMat = new THREE.MeshPhongMaterial( { color: 0x7b7b7b });
     const bottomShelf = new THREE.Mesh( bottomShelfGeo, bottomShelfMat );

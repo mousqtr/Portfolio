@@ -67,10 +67,8 @@ export function initRoom1(scene, manager){
     const deskPos = new THREE.Vector3(1400, -500, -1400);
     const deskRot = new THREE.Vector3(0, 0, 0);
     const deskScale = 4;
-    // const deskTexture = new THREE.TextureLoader(manager).load( 'models/room1/desk/wood.jpg' );
-    // const deskMaterial = new THREE.MeshPhongMaterial( { map: deskTexture } );
     const deskMaterial = new THREE.MeshPhongMaterial( { 
-        color: 0x7b7b7b
+        color: 0x5b3c11
     });
     const deskName = 'desk';
     room.loadFBXModel(deskUrl, deskPos, deskRot, deskScale, deskMaterial, deskName);
@@ -80,7 +78,7 @@ export function initRoom1(scene, manager){
     // const chairPos = new THREE.Vector3(1420, -500, -1100);
     // const chairRot = new THREE.Vector3(-Math.PI/2, 0, Math.PI);
     // const chairScale = 3.8;
-    // const chairTexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg');
+    // const chairTexture = new THREE.TextureLoader(manager).load( 'models/room0/chair/black.jpg');
     // const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
     // const chairName = 'chair';
     // room.loadFBXModel(chairUrl, chairPos, chairRot, chairScale, chairMaterial, chairName);

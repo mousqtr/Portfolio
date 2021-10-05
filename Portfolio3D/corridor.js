@@ -212,8 +212,8 @@ export function initCorridor(scene, manager){
     // Titles
     let posX_left = -475;
     let posX_right = 170;
-    let posZ_1 = 0.67 * window.innerWidth - 2033;
-    let posZ_2 = 0.67 * window.innerWidth - 4033;
+    let posZ_1 = 0.67 * window.innerWidth - 2233;
+    let posZ_2 = 0.67 * window.innerWidth - 4233;
     let posTextProfil = new THREE.Vector3(posX_left, 150, posZ_1);
     let posTextFormation = new THREE.Vector3(posX_right, 150, posZ_1);
     let posTextExperiences = new THREE.Vector3(posX_left, 150, posZ_2);
@@ -286,7 +286,7 @@ export function initCorridor(scene, manager){
     // const plantRot = new THREE.Vector3(0, Math.PI, 0);
     // const plantScale = 0.6;
     // const plantName = 'plant'
-    // loadFBXModel(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
+    // loadFBXModel(scene, manager, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
 
     // Shelf
     // const bookShelfUrl = 'models/corridor/bookshelf/bookshelf.fbx';
@@ -294,7 +294,7 @@ export function initCorridor(scene, manager){
     // const bookShelfRot = new THREE.Vector3(0, 0, 0);
     // const bookShelfScale = 6;
     // const bookShelfName = 'bookshelf';
-    // loadFBXModel(scene, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
+    // loadFBXModel(scene, manager, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
     
     // Shelf
     const bookShelfGeo = new THREE.BoxGeometry(650, 850, 50);
@@ -330,7 +330,7 @@ export function initCorridor(scene, manager){
     // const tableRot = new THREE.Vector3(0, 0, 0);
     // const tableScale = 0.19;
     // const tableName = 'table';
-    // loadFBXModel(scene, objects, tableUrl, tablePos, tableRot, tableScale, tableName);
+    // loadFBXModel(scene, manager, objects, tableUrl, tablePos, tableRot, tableScale, tableName);
 
     // Lamp
     // const lampUrl = 'models/corridor/lamp/lamp.fbx';
@@ -339,7 +339,7 @@ export function initCorridor(scene, manager){
     // const lampRot = new THREE.Vector3(0, 0, 0);
     // const lampScale = 0.03;
     // const lampName = 'lamp';
-    // loadFBXModel(scene, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
+    // loadFBXModel(scene, manager, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
 
     // Wall Lamp
     const wallLampUrl = 'models/corridor/lampwall/lamp_wall.fbx';

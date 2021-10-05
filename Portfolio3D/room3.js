@@ -95,8 +95,6 @@ export function initRoom3(scene, manager){
     const libraryUrl = 'models/room3/library/library.FBX';
     const libraryRot = new THREE.Vector3(0, 0, 0);
     const libraryScale = 4;
-    // const libraryTexture = new THREE.TextureLoader().load( 'models/room3/library/wood.jpg');
-    // const libraryMaterial = new THREE.MeshPhongMaterial( { map: libraryTexture } );
     const libraryMaterial1 = new THREE.MeshPhongMaterial( { color: 0x1770c9 });
     const libraryMaterial2 = new THREE.MeshPhongMaterial( { color: 0x1770c9 });
     const libraryName1 = 'leftLibrary';

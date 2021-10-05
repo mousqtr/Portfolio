@@ -3,26 +3,6 @@ import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm
 
 
 
-export function createBox(scene, objects, position, size, textureImg, objectName){
-    let boxGeo = new THREE.BoxGeometry( size.x, size.y, size.z);
-    let texture = new THREE.TextureLoader().load( textureImg );
-    let boxMat = new THREE.MeshPhongMaterial( { map: texture } );
-    let box = new THREE.Mesh( boxGeo, boxMat );
-    box.traverse(child => {
-        child.name = objectName
-    } );
-    box.position.set(position.x, position.y, position.z)
-    scene.add(box);
-    objects[objectName] = box
-
-    // var geo = new THREE.EdgesGeometry( box.geometry );
-    // var mat = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 1 } );
-    // var wireframe = new THREE.LineSegments( geo, mat );
-    // wireframe.renderOrder = 1;
-    // box.add( wireframe );
-}
-
-
 export function createTitle(scene, objects, position, text){
     const loaderTitles = new THREE.FontLoader();
     loaderTitles.load( 'fonts/Bangers_Regular.json', function ( font ) {
@@ -52,9 +32,9 @@ export function createTitle(scene, objects, position, text){
 }
 
 
-export function loadFBXModel(scene, objects, url, position, rotation, scale, name){
+export function loadFBXModel(scene, manager, objects, url, position, rotation, scale, name){
 
-    const modelLoader = new FBXLoader();
+    const modelLoader = new FBXLoader(manager);
     modelLoader.load(url, (model) => {
         model.traverse(child => {
             child.castShadow = true;

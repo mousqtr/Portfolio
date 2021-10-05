@@ -50,14 +50,12 @@ export function initRoom2(scene, manager){
     // Chairs
     const chairUrl = 'models/room2/chair/chair.fbx';
     const chairScale = 2.4;
-    // const chairTexture = new THREE.TextureLoader().load( 'models/room2/chair/black.jpg');
-    // const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
     const chairMaterial = new THREE.MeshPhongMaterial( { color:  0x960018 } );
     const chairName = 'chair';
     const chair0Pos = new THREE.Vector3(-1600, -500, -3700);
     const chair1Pos = new THREE.Vector3(-1200, -500, -3700);
     const chair2Pos = new THREE.Vector3(-1600, -500, -3400);
-    const chair3Pos = new THREE.Vector3(-1100, -500, -3400); // Character seat
+    const chair3Pos = new THREE.Vector3(-1200, -500, -3400);
     const chair0Rot = new THREE.Vector3(0, Math.PI/2, 0);
     const chair1Rot = new THREE.Vector3(0, -Math.PI/2, 0);
     const chair2Rot = new THREE.Vector3(0, Math.PI/2, 0);
@@ -107,7 +105,7 @@ export function initRoom2(scene, manager){
     objects["screen"] = screen; 
 
     // Play Button
-    const playButtonTexture = new THREE.TextureLoader().load('img/common/play.png');
+    const playButtonTexture = new THREE.TextureLoader(manager).load('img/common/play.png');
     const playButtonGeometry = new THREE.PlaneGeometry( 70, 70 );
     const playButtonMaterial = new THREE.MeshBasicMaterial( { map: playButtonTexture} );
     const playButton = new THREE.Mesh( playButtonGeometry, playButtonMaterial );
@@ -120,7 +118,7 @@ export function initRoom2(scene, manager){
     scene.add(playButton);
 
     // Pause Button
-    const pauseButtonTexture = new THREE.TextureLoader().load('img/common/pause.png');
+    const pauseButtonTexture = new THREE.TextureLoader(manager).load('img/common/pause.png');
     const pauseButtonGeometry = new THREE.PlaneGeometry( 70, 70 );
     const pauseButtonMaterial = new THREE.MeshBasicMaterial( { map: pauseButtonTexture} );
     const pauseButton = new THREE.Mesh( pauseButtonGeometry, pauseButtonMaterial );

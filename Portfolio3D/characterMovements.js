@@ -1,5 +1,4 @@
 export function walkTo(positionState, objects, actions, camera){
-    console.log("ok")
     // Move the character and the camera
     switch(positionState){
         case 0:
