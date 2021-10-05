@@ -43,15 +43,16 @@ export function initRoom2(scene, manager){
     const tablePos = new THREE.Vector3(-1400, -550, -3500);
     const tableRot = new THREE.Vector3(0, Math.PI/2, 0);
     const tableScale = 0.05;
-    const tableMaterial = new THREE.MeshPhongMaterial( { color: 0x2b1d0e } );
+    const tableMaterial = new THREE.MeshPhongMaterial( { color: 0x232058 } );
     const tableName = 'table';
     room.loadFBXModel(tableUrl, tablePos, tableRot, tableScale, tableMaterial, tableName);
 
     // Chairs
     const chairUrl = 'models/room2/chair/chair.fbx';
     const chairScale = 2.4;
-    const chairTexture = new THREE.TextureLoader().load( 'models/room2/chair/black.jpg');
-    const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
+    // const chairTexture = new THREE.TextureLoader().load( 'models/room2/chair/black.jpg');
+    // const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
+    const chairMaterial = new THREE.MeshPhongMaterial( { color:  0x960018 } );
     const chairName = 'chair';
     const chair0Pos = new THREE.Vector3(-1600, -500, -3700);
     const chair1Pos = new THREE.Vector3(-1200, -500, -3700);

@@ -39,20 +39,20 @@ export function initRoom3(scene, manager){
 
     // Boxes
     let rows = [140, 0, -140, -280, -397];
-    let columns = [1110, 1300, 1500, 1700]
-    const sizeBox = new THREE.Vector3(110, 110, 110);
-    const sizeBox2 = new THREE.Vector3(110, 100, 110);
-    const posBox1 = new THREE.Vector3(columns[0], rows[0], -3800);
-    const posBox2 = new THREE.Vector3(columns[0], rows[1], -3800);
-    const posBox3 = new THREE.Vector3(columns[0], rows[3], -3800);
-    const posBox4 = new THREE.Vector3(columns[1], rows[2], -3800);
-    const posBox5 = new THREE.Vector3(columns[1], rows[4], -3800);
-    const posBox6 = new THREE.Vector3(columns[2], rows[0], -3800);
-    const posBox7 = new THREE.Vector3(columns[2], rows[2], -3800);
-    const posBox8 = new THREE.Vector3(columns[2], rows[3], -3800);
-    const posBox9 = new THREE.Vector3(columns[3], rows[1], -3800);
-    const posBox10 = new THREE.Vector3(columns[3], rows[2], -3800);
-    const posBox11 = new THREE.Vector3(columns[3], rows[4], -3800);
+    let columns = [1060, 1250, 1550, 1750]
+    const sizeBox   = new THREE.Vector3(110, 110, 110);
+    const sizeBox2  = new THREE.Vector3(110, 100, 110);
+    const posBox1   = new THREE.Vector3(columns[0], rows[0], -3800);
+    const posBox2   = new THREE.Vector3(columns[0], rows[1], -3800);
+    const posBox3   = new THREE.Vector3(columns[0], rows[3], -3800);
+    const posBox4   = new THREE.Vector3(columns[1], rows[2], -3800);
+    const posBox5   = new THREE.Vector3(columns[1], rows[4], -3800);
+    const posBox6   = new THREE.Vector3(columns[2], rows[0], -3800);
+    const posBox7   = new THREE.Vector3(columns[2], rows[2], -3800);
+    const posBox8   = new THREE.Vector3(columns[2], rows[3], -3800);
+    const posBox9   = new THREE.Vector3(columns[3], rows[1], -3800);
+    const posBox10  = new THREE.Vector3(columns[3], rows[2], -3800);
+    const posBox11  = new THREE.Vector3(columns[3], rows[4], -3800);
     room.createBox(posBox1, sizeBox, 'img/room3/python.png', 'boxPython');
     room.createBox(posBox2, sizeBox, 'img/room3/cplusplus.png', 'boxC++');
     room.createBox(posBox3, sizeBox, 'img/room3/csharp.png', 'boxC#');
@@ -95,14 +95,16 @@ export function initRoom3(scene, manager){
     const libraryUrl = 'models/room3/library/library.FBX';
     const libraryRot = new THREE.Vector3(0, 0, 0);
     const libraryScale = 4;
-    const libraryTexture = new THREE.TextureLoader().load( 'models/room3/library/wood.jpg');
-    const libraryMaterial = new THREE.MeshPhongMaterial( { map: libraryTexture } );
+    // const libraryTexture = new THREE.TextureLoader().load( 'models/room3/library/wood.jpg');
+    // const libraryMaterial = new THREE.MeshPhongMaterial( { map: libraryTexture } );
+    const libraryMaterial1 = new THREE.MeshPhongMaterial( { color: 0x1770c9 });
+    const libraryMaterial2 = new THREE.MeshPhongMaterial( { color: 0x1770c9 });
     const libraryName1 = 'leftLibrary';
     const libraryName2 = 'rightLibrary';
-    const libraryPos1 = new THREE.Vector3(1190, -500, -3800);
-    const libraryPos2 = new THREE.Vector3(1610, -500, -3800);
-    room.loadFBXModel(libraryUrl, libraryPos1, libraryRot, libraryScale, libraryMaterial, libraryName1);
-    room.loadFBXModel(libraryUrl, libraryPos2, libraryRot, libraryScale, libraryMaterial, libraryName2);
+    const libraryPos1 = new THREE.Vector3(1150, -500, -3800);
+    const libraryPos2 = new THREE.Vector3(1650, -500, -3800);
+    room.loadFBXModel(libraryUrl, libraryPos1, libraryRot, libraryScale, libraryMaterial1, libraryName1);
+    room.loadFBXModel(libraryUrl, libraryPos2, libraryRot, libraryScale, libraryMaterial2, libraryName2);
 
 
     return [objects, materials];

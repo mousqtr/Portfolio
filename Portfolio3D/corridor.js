@@ -12,13 +12,13 @@ export function initCorridor(scene, manager){
     let actions = {};
     let lights = {};
 
-    // Hemisphere Light
+    // // Hemisphere Light
     const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x555555 );
     hemiLight.position.set(0, 100, 0);
     scene.add( hemiLight );
     lights["hemiLight"] = hemiLight;
 
-    // Directional Light
+    // // Directional Light
     const dirLight = new THREE.DirectionalLight( 0xffffff );
     dirLight.position.set(0, 300, 300);
     dirLight.castShadow = true;
@@ -289,12 +289,21 @@ export function initCorridor(scene, manager){
     // loadFBXModel(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
 
     // Shelf
-    const bookShelfUrl = 'models/corridor/bookshelf/bookshelf.fbx';
-    const bookShelfPos = new THREE.Vector3(-800, -480, -6000);
-    const bookShelfRot = new THREE.Vector3(0, 0, 0);
-    const bookShelfScale = 6;
-    const bookShelfName = 'bookshelf';
-    loadFBXModel(scene, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
+    // const bookShelfUrl = 'models/corridor/bookshelf/bookshelf.fbx';
+    // const bookShelfPos = new THREE.Vector3(-800, -480, -6000);
+    // const bookShelfRot = new THREE.Vector3(0, 0, 0);
+    // const bookShelfScale = 6;
+    // const bookShelfName = 'bookshelf';
+    // loadFBXModel(scene, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
+    
+    // Shelf
+    const bookShelfGeo = new THREE.BoxGeometry(650, 850, 50);
+    const bookShelfTexture = new THREE.TextureLoader(manager).load( 'img/corridor/shelf.png' );
+    const bookShelfMat = new THREE.MeshPhongMaterial( { map: bookShelfTexture } );
+    const bookShelf = new THREE.Mesh( bookShelfGeo, bookShelfMat );
+    bookShelf.position.set(0, -100, -6400);
+    objects["bookShelf"] = bookShelf;
+    scene.add(bookShelf);
 
    // Doormats
     const doormatUrl1 = 'img/corridor/profil.png';

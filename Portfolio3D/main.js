@@ -112,10 +112,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-let controls = new OrbitControls(camera, renderer.domElement );
-controls.addEventListener('change', renderer);
-controls.minDistance = 500;
-controls.maxDistance = 4000;
+// let controls = new OrbitControls(camera, renderer.domElement );
+// controls.addEventListener('change', renderer);
+// controls.minDistance = 500;
+// controls.maxDistance = 4000;
 
 var theta = 0;
 var room = -1;
