@@ -280,13 +280,13 @@ export function initCorridor(scene, manager){
     }
 
     // Plant
-    const plantUrl = 'models/corridor/plant2/plant.fbx';
-    const plantPosZ = 0.67 * window.innerWidth - 5000;
-    const plantPos = new THREE.Vector3(370, -480, plantPosZ);
-    const plantRot = new THREE.Vector3(0, Math.PI, 0);
-    const plantScale = 0.6;
-    const plantName = 'plant'
-    loadFBXModel(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
+    // const plantUrl = 'models/corridor/plant2/plant.fbx';
+    // const plantPosZ = 0.67 * window.innerWidth - 5000;
+    // const plantPos = new THREE.Vector3(370, -480, plantPosZ);
+    // const plantRot = new THREE.Vector3(0, Math.PI, 0);
+    // const plantScale = 0.6;
+    // const plantName = 'plant'
+    // loadFBXModel(scene, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
 
     // Shelf
     const bookShelfUrl = 'models/corridor/bookshelf/bookshelf.fbx';
@@ -315,22 +315,22 @@ export function initCorridor(scene, manager){
     }
 
     // Table
-    const tableUrl = 'models/corridor/table/table.fbx';
-    const tablePosZ = 0.67 * window.innerWidth - 3300
-    const tablePos = new THREE.Vector3(370, -480, tablePosZ);
-    const tableRot = new THREE.Vector3(0, 0, 0);
-    const tableScale = 0.19;
-    const tableName = 'table';
-    loadFBXModel(scene, objects, tableUrl, tablePos, tableRot, tableScale, tableName);
+    // const tableUrl = 'models/corridor/table/table.fbx';
+    // const tablePosZ = 0.67 * window.innerWidth - 3300
+    // const tablePos = new THREE.Vector3(370, -480, tablePosZ);
+    // const tableRot = new THREE.Vector3(0, 0, 0);
+    // const tableScale = 0.19;
+    // const tableName = 'table';
+    // loadFBXModel(scene, objects, tableUrl, tablePos, tableRot, tableScale, tableName);
 
     // Lamp
-    const lampUrl = 'models/corridor/lamp/lamp.fbx';
-    const lampPosZ = 0.67 * window.innerWidth - 3220
-    const lampPos = new THREE.Vector3(355, -190, lampPosZ);
-    const lampRot = new THREE.Vector3(0, 0, 0);
-    const lampScale = 0.03;
-    const lampName = 'lamp';
-    loadFBXModel(scene, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
+    // const lampUrl = 'models/corridor/lamp/lamp.fbx';
+    // const lampPosZ = 0.67 * window.innerWidth - 3220
+    // const lampPos = new THREE.Vector3(355, -190, lampPosZ);
+    // const lampRot = new THREE.Vector3(0, 0, 0);
+    // const lampScale = 0.03;
+    // const lampName = 'lamp';
+    // loadFBXModel(scene, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
 
     // Wall Lamp
     const wallLampUrl = 'models/corridor/lampwall/lamp_wall.fbx';
@@ -347,54 +347,54 @@ export function initCorridor(scene, manager){
     }
 
     // Shoes
-    const shoes = [];
-    let shoesPosZ; 
-    var mtlLoader = new MTLLoader(manager);
-    mtlLoader.load( 'models/corridor/shoes/all_star.mtl', function( materials ) {
+    // const shoes = [];
+    // let shoesPosZ; 
+    // var mtlLoader = new MTLLoader(manager);
+    // mtlLoader.load( 'models/corridor/shoes/all_star.mtl', function( materials ) {
     
-        materials.preload();
+    //     materials.preload();
     
-        var objLoader = new OBJLoader(manager);
-        objLoader.setMaterials( materials );
-        objLoader.load( 'models/corridor/shoes/all_star.obj', function ( object ) {
+    //     var objLoader = new OBJLoader(manager);
+    //     objLoader.setMaterials( materials );
+    //     objLoader.load( 'models/corridor/shoes/all_star.obj', function ( object ) {
     
-            object.scale.setScalar(45);
-            shoesPosZ = 0.67 * window.innerWidth - 4700;
-            object.position.set(-370, -500, shoesPosZ);
-            object.rotation.set(0, Math.PI/2, 0);
-            scene.add(object);
-            shoes.push(object)
+    //         object.scale.setScalar(45);
+    //         shoesPosZ = 0.67 * window.innerWidth - 4700;
+    //         object.position.set(-370, -500, shoesPosZ);
+    //         object.rotation.set(0, Math.PI/2, 0);
+    //         scene.add(object);
+    //         shoes.push(object)
     
-            let object2 = object.clone();
-            shoesPosZ = 0.67 * window.innerWidth - 4800;
-            object2.position.set(-370, -500, shoesPosZ);
-            scene.add(object2);
-            shoes.push(object2)
-        });
+    //         let object2 = object.clone();
+    //         shoesPosZ = 0.67 * window.innerWidth - 4800;
+    //         object2.position.set(-370, -500, shoesPosZ);
+    //         scene.add(object2);
+    //         shoes.push(object2)
+    //     });
     
-    });
-    objects["shoes"] = shoes;
+    // });
+    // objects["shoes"] = shoes;
 
     // Bench
-    let benchPosZ;
-    var benchLoader = new MTLLoader(manager);
-    benchLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.mtl', function( materials ) {
+    // let benchPosZ;
+    // var benchLoader = new MTLLoader(manager);
+    // benchLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.mtl', function( materials ) {
     
-        materials.preload();
+    //     materials.preload();
     
-        var objLoader = new OBJLoader(manager);
-        objLoader.setMaterials( materials );
-        objLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.obj', function ( bench ) {
+    //     var objLoader = new OBJLoader(manager);
+    //     objLoader.setMaterials( materials );
+    //     objLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.obj', function ( bench ) {
     
-            bench.scale.setScalar(4);
-            benchPosZ = 0.67 * window.innerWidth - 3300;
-            bench.position.set(-370, -500, benchPosZ);
-            bench.rotation.set(-Math.PI/2, 0, Math.PI/2);
-            scene.add( bench );
-            objects["bench"] = bench;
-        });
+    //         bench.scale.setScalar(4);
+    //         benchPosZ = 0.67 * window.innerWidth - 3300;
+    //         bench.position.set(-370, -500, benchPosZ);
+    //         bench.rotation.set(-Math.PI/2, 0, Math.PI/2);
+    //         scene.add( bench );
+    //         objects["bench"] = bench;
+    //     });
     
-    });
+    // });
 
     // Painting
     const paintingGeo = new THREE.BoxGeometry(10, 400, 700);

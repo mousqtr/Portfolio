@@ -63,7 +63,6 @@ manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
     // const progress = itemsLoaded / itemsTotal;
     // console.log('itemLoaded ' + itemsLoaded + ' / itemsTotal ' + itemsTotal + '/ progress ' + progress);
 
-    console.log(itemsLoaded)
     const tempItemsTotal = 155
     const progress = itemsLoaded / tempItemsTotal;
     // console.log(progress)
@@ -113,10 +112,10 @@ let positionState = 0;
 let arrowClicked = false;
 
 // Control the camera manually
-// let controls = new OrbitControls(camera, renderer.domElement );
-// controls.addEventListener('change', renderer);
-// controls.minDistance = 500;
-// controls.maxDistance = 4000;
+let controls = new OrbitControls(camera, renderer.domElement );
+controls.addEventListener('change', renderer);
+controls.minDistance = 500;
+controls.maxDistance = 4000;
 
 var theta = 0;
 var room = -1;
@@ -171,16 +170,16 @@ function onWindowResize(){
         }
 
         // Plants corridor
-        posZ = 0.67 * window.innerWidth - 5400;
-        corridorObjects["plant"].position.set(corridorObjects["plant"].position.x, corridorObjects["plant"].position.y, posZ);
+        // posZ = 0.67 * window.innerWidth - 5400;
+        // corridorObjects["plant"].position.set(corridorObjects["plant"].position.x, corridorObjects["plant"].position.y, posZ);
 
         // Table
-        posZ = 0.67 * window.innerWidth - 3300;
-        corridorObjects["table"].position.set(corridorObjects["table"].position.x, corridorObjects["table"].position.y, posZ);
+        // posZ = 0.67 * window.innerWidth - 3300;
+        // corridorObjects["table"].position.set(corridorObjects["table"].position.x, corridorObjects["table"].position.y, posZ);
 
         // Lamp
-        posZ = 0.67 * window.innerWidth - 3220;
-        corridorObjects["lamp"].position.set(corridorObjects["lamp"].position.x, corridorObjects["lamp"].position.y, posZ);
+        // posZ = 0.67 * window.innerWidth - 3220;
+        // corridorObjects["lamp"].position.set(corridorObjects["lamp"].position.x, corridorObjects["lamp"].position.y, posZ);
     
         // Wall Lamp
         for (let i = 0; i < corridorObjects["wallLamps"].length; i++) {
@@ -202,14 +201,14 @@ function onWindowResize(){
         }
 
         // Shoes
-        posZ = 0.67 * window.innerWidth - 4700;
-        corridorObjects["shoes"][0].position.set(corridorObjects["shoes"][0].position.x, corridorObjects["shoes"][0].position.y, posZ);
-        posZ = 0.67 * window.innerWidth - 4800;
-        corridorObjects["shoes"][1].position.set(corridorObjects["shoes"][1].position.x, corridorObjects["shoes"][1].position.y, posZ);
+        // posZ = 0.67 * window.innerWidth - 4700;
+        // corridorObjects["shoes"][0].position.set(corridorObjects["shoes"][0].position.x, corridorObjects["shoes"][0].position.y, posZ);
+        // posZ = 0.67 * window.innerWidth - 4800;
+        // corridorObjects["shoes"][1].position.set(corridorObjects["shoes"][1].position.x, corridorObjects["shoes"][1].position.y, posZ);
        
-        // Lamp
-        posZ = 0.67 * window.innerWidth - 3300;
-        corridorObjects["bench"].position.set(corridorObjects["bench"].position.x, corridorObjects["bench"].position.y, posZ);
+        // Bench
+        // posZ = 0.67 * window.innerWidth - 3300;
+        // corridorObjects["bench"].position.set(corridorObjects["bench"].position.x, corridorObjects["bench"].position.y, posZ);
    
         // Painting
         posZ = 0.67 * window.innerWidth - 3300;

@@ -1,5 +1,4 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
-import {TGALoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/TGALoader.js';
 import { Room } from './room.js';
 
 export function initRoom1(scene, manager){
@@ -68,33 +67,38 @@ export function initRoom1(scene, manager){
     const deskPos = new THREE.Vector3(1400, -500, -1400);
     const deskRot = new THREE.Vector3(0, 0, 0);
     const deskScale = 4;
-    const deskTexture = new THREE.TextureLoader(manager).load( 'models/room1/desk/wood.jpg' );
-    const deskMaterial = new THREE.MeshPhongMaterial( { map: deskTexture } );
+    // const deskTexture = new THREE.TextureLoader(manager).load( 'models/room1/desk/wood.jpg' );
+    // const deskMaterial = new THREE.MeshPhongMaterial( { map: deskTexture } );
+    const deskMaterial = new THREE.MeshPhongMaterial( { 
+        color: 0x7b7b7b
+    });
     const deskName = 'desk';
     room.loadFBXModel(deskUrl, deskPos, deskRot, deskScale, deskMaterial, deskName);
     
     // Chair
-    const chairUrl = 'models/room0/chair/chair.fbx'
-    const chairPos = new THREE.Vector3(1420, -500, -1100);
-    const chairRot = new THREE.Vector3(-Math.PI/2, 0, Math.PI);
-    const chairScale = 3.8;
-    const chairTexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg');
-    const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
-    const chairName = 'chair';
-    room.loadFBXModel(chairUrl, chairPos, chairRot, chairScale, chairMaterial, chairName);
+    // const chairUrl = 'models/room1/chair/chair.fbx'
+    // const chairPos = new THREE.Vector3(1420, -500, -1100);
+    // const chairRot = new THREE.Vector3(-Math.PI/2, 0, Math.PI);
+    // const chairScale = 3.8;
+    // const chairTexture = new THREE.TextureLoader().load( 'models/room0/chair/black.jpg');
+    // const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
+    // const chairName = 'chair';
+    // room.loadFBXModel(chairUrl, chairPos, chairRot, chairScale, chairMaterial, chairName);
 
     // Top shelf
     const topShelfGeo = new THREE.BoxGeometry(400, 20, 300);
-    const topShelftexture = new THREE.TextureLoader().load( 'models/room1/desk/wood.jpg' );
-    const topShelfMat = new THREE.MeshPhongMaterial( { map: topShelftexture } );
+    const topShelfMat = new THREE.MeshPhongMaterial( { 
+        color: 0x4b371c
+    }); 
     const topShelf = new THREE.Mesh( topShelfGeo, topShelfMat );
     topShelf.position.set(1600, 220, -1430);
     scene.add(topShelf);
 
     // Bottom shelf
     const bottomShelfGeo = new THREE.BoxGeometry(400, 20, 300);
-    const bottomShelftexture = new THREE.TextureLoader().load( 'models/room1/desk/wood.jpg' );
-    const bottomShelfMat = new THREE.MeshPhongMaterial( { map: bottomShelftexture } );
+    const bottomShelfMat = new THREE.MeshPhongMaterial( { 
+        color: 0x76562c
+    });
     const bottomShelf = new THREE.Mesh( bottomShelfGeo, bottomShelfMat );
     bottomShelf.position.set(1600, 20, -1430);
     scene.add(bottomShelf);

@@ -49,16 +49,22 @@ export function initRoom0(scene, manager){
 
     // Top shelf
     const topShelfGeo = new THREE.BoxGeometry(500, 30, 300);
-    const topShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
-    const topShelfMat = new THREE.MeshPhongMaterial( { map: topShelftexture } );
+    // const topShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
+    // const topShelfMat = new THREE.MeshPhongMaterial( { map: topShelftexture } );
+    const topShelfMat = new THREE.MeshPhongMaterial( { 
+        color: 0x7b7b7b
+    });
     const topShelf = new THREE.Mesh( topShelfGeo, topShelfMat );
     topShelf.position.set(-1600, 300, -1430);
     scene.add(topShelf);
 
     // Bottom shelf
     const bottomShelfGeo = new THREE.BoxGeometry(500, 30, 300);
-    const bottomShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
-    const bottomShelfMat = new THREE.MeshPhongMaterial( { map: bottomShelftexture } );
+    // const bottomShelftexture = new THREE.TextureLoader().load( 'models/room0/shelf/black.jpg' );
+    // const bottomShelfMat = new THREE.MeshPhongMaterial( { map: bottomShelftexture } );
+    const bottomShelfMat = new THREE.MeshPhongMaterial( { 
+        color: 0x7b7b7b
+    });
     const bottomShelf = new THREE.Mesh( bottomShelfGeo, bottomShelfMat );
     bottomShelf.position.set(-1600, 70, -1430);
     scene.add(bottomShelf);
@@ -68,7 +74,7 @@ export function initRoom0(scene, manager){
     const deskPos = new THREE.Vector3(-1100, -500, -1900);
     const deskRot = new THREE.Vector3(Math.PI, Math.PI/2, Math.PI);
     const deskScale = 0.8;
-    const deskMaterial = new THREE.MeshPhongMaterial( { color: 0x7f7f7f } );
+    const deskMaterial = new THREE.MeshPhongMaterial( { color: 0x717686 } );
     const deskName = 'desk';
     room.loadFBXModel(deskUrl, deskPos, deskRot, deskScale, deskMaterial, deskName);
 

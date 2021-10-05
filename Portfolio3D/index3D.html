@@ -8,51 +8,11 @@
   </head>
   <body>
     <canvas id="c"></canvas>
-    <div class="menu" id="menu">
-      <div class="vertical-center">
-        <p class="title" id="title">MENU</p>
-        <button type="button" class="button-1"  id="button-1" onclick="location.href='../index.html'">Accueil</button>
-        <button type="button" class="button-2"  id="button-2">Aide</button>
-        <button type="button" class="button-3"  id="button-3">Personnalisation</button>
-      </div>
-    </div>
 
     <div id="loading">
       <div class="progress"><div class="progressbar"></div></div>
     </div>
     <script src="./main.js" type="module"></script>
-
-    <script>
-      var m_menu = document.getElementById("menu");
-      var m_button_1 = document.getElementById("button-1")
-      var m_button_2 = document.getElementById("button-2")
-      var m_button_3 = document.getElementById("button-3")
-
-      m_menu.addEventListener("click", menuClick);
-      m_button_1.addEventListener("click", button1Click);
-      
-      function menuClick() {
-        if (m_menu.style.height == "100%"){
-          document.getElementById("menu").style.height = "4.5vw";
-        }else{
-          document.getElementById("menu").style.height = "100%";
-        }
-        
-      }
-
-      function button1Click(){
-        
-      }
-
-      function button2Click(){
-        
-      }
-
-      function button3Click(){
-        
-      }
-
-      </script>
 
 
   </body>
