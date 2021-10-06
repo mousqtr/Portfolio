@@ -72,16 +72,6 @@ export function initRoom1(scene, manager){
     });
     const deskName = 'desk';
     room.loadFBXModel(deskUrl, deskPos, deskRot, deskScale, deskMaterial, deskName);
-    
-    // Chair
-    // const chairUrl = 'models/room1/chair/chair.fbx'
-    // const chairPos = new THREE.Vector3(1420, -500, -1100);
-    // const chairRot = new THREE.Vector3(-Math.PI/2, 0, Math.PI);
-    // const chairScale = 3.8;
-    // const chairTexture = new THREE.TextureLoader(manager).load( 'models/room0/chair/black.jpg');
-    // const chairMaterial = new THREE.MeshPhongMaterial( { map: chairTexture } );
-    // const chairName = 'chair';
-    // room.loadFBXModel(chairUrl, chairPos, chairRot, chairScale, chairMaterial, chairName);
 
     // Top shelf
     const topShelfGeo = new THREE.BoxGeometry(400, 20, 300);

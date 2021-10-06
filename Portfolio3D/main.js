@@ -3,8 +3,8 @@ import {OrbitControls} from "https://threejs.org/examples/jsm/controls/OrbitCont
 import Stats from 'https://threejs.org/examples/jsm/libs/stats.module.js';
 
 
-import { walkTo, stopWalk } from "./characterMovements.js";
-import { detectObjects } from "./detectObjects.js";
+import { startWalk, stopWalk } from "./movements.js";
+import { detectObjects } from "./detection.js";
 import { initRoom0 } from "./room0.js";
 import { initRoom1 } from "./room1.js";
 import { initRoom2 } from "./room2.js";
@@ -26,7 +26,8 @@ const aspect = window.innerWidth/window.innerHeight;
 const near = 45;
 const far = 30000;
 let camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(0, 0, 0);
+console.log(aspect)
+camera.position.set(0, 0, 200);
 
 // Renderer
 let renderer = new THREE.WebGLRenderer({antialias:true, canvas});
@@ -81,31 +82,31 @@ stats.setMode(0);
 document.body.appendChild( stats.domElement );
 
 stats.domElement.style.position = 'absolute';
-stats.domElement.style.right = '0';
-stats.domElement.style.top = '0';
+stats.domElement.style.right    = '0';
+stats.domElement.style.top      = '0';
 
 // Models initialization
-let [corridorObjects, corridorMaterials, corridorMixers, corridorActions, corridorLights] = initCorridor(scene, manager);
-let [room0Objects, room0Materials] = initRoom0(scene, manager);
-let [room1Objects, room1Materials] = initRoom1(scene, manager);
-let [room2Objects, room2Materials, room2Videos] = initRoom2(scene, manager);
-let [room3Objects, room3Materials] = initRoom3(scene, manager);
+let [corridorObjects, corridorMaterials, corridorLights]    = initCorridor(scene, manager);
+let [room0Objects, room0Materials]                          = initRoom0(scene, manager);
+let [room1Objects, room1Materials]                          = initRoom1(scene, manager);
+let [room2Objects, room2Materials, room2Videos]             = initRoom2(scene, manager);
+let [room3Objects, room3Materials]                          = initRoom3(scene, manager);
 
 // List of objects
 let objects = {}
-objects["corridorObjects"] = corridorObjects
-objects["room0Objects"] = room0Objects
-objects["room1Objects"] = room1Objects
-objects["room2Objects"] = room2Objects
-objects["room3Objects"] = room3Objects
+objects["corridorObjects"]  = corridorObjects;
+objects["room0Objects"]     = room0Objects;
+objects["room1Objects"]     = room1Objects;
+objects["room2Objects"]     = room2Objects;
+objects["room3Objects"]     = room3Objects;
 
 // List of materials
 let materials = {}
-materials["corridorMaterials"] = corridorMaterials
-materials["room0Materials"] = room0Materials
-materials["room1Materials"] = room1Materials
-materials["room2Materials"] = room2Materials
-materials["room3Materials"] = room3Materials
+materials["corridorMaterials"]  = corridorMaterials;
+materials["room0Materials"]     = room0Materials;
+materials["room1Materials"]     = room1Materials;
+materials["room2Materials"]     = room2Materials;
+materials["room3Materials"]     = room3Materials;
 
 // Global variables
 let positionState = 0;
@@ -130,14 +131,6 @@ function onWindowResize(){
     // TODO : Replace the condition by the end of loading
     if (Object.keys(corridorObjects).length > 0){
         let posZ;
-        
-        // Character
-        // if (corridorObjects["character"].position.x == 0){
-        //     posZ = 0.375 * window.innerWidth - 1150;
-        //     posZ = Math.min(-600, posZ);
-        //     posZ = Math.max(-1000, posZ);
-        //     corridorObjects["character"].position.set(corridorObjects["character"].position.x, corridorObjects["character"].position.y, posZ);
-        // }
         
         // Door
         for (let i = 0; i < corridorObjects["doors"].length; i++) {
@@ -168,18 +161,6 @@ function onWindowResize(){
             }
             corridorObjects["doormats"][i].position.set(corridorObjects["doormats"][i].position.x, corridorObjects["doormats"][i].position.y, posZ);
         }
-
-        // Plants corridor
-        // posZ = 0.67 * window.innerWidth - 5400;
-        // corridorObjects["plant"].position.set(corridorObjects["plant"].position.x, corridorObjects["plant"].position.y, posZ);
-
-        // Table
-        // posZ = 0.67 * window.innerWidth - 3300;
-        // corridorObjects["table"].position.set(corridorObjects["table"].position.x, corridorObjects["table"].position.y, posZ);
-
-        // Lamp
-        // posZ = 0.67 * window.innerWidth - 3220;
-        // corridorObjects["lamp"].position.set(corridorObjects["lamp"].position.x, corridorObjects["lamp"].position.y, posZ);
     
         // Wall Lamp
         for (let i = 0; i < corridorObjects["wallLamps"].length; i++) {
@@ -199,16 +180,6 @@ function onWindowResize(){
             }
             corridorObjects["wallLamps"][i].position.set(corridorObjects["wallLamps"][i].position.x, corridorObjects["wallLamps"][i].position.y, posZ);
         }
-
-        // Shoes
-        // posZ = 0.67 * window.innerWidth - 4700;
-        // corridorObjects["shoes"][0].position.set(corridorObjects["shoes"][0].position.x, corridorObjects["shoes"][0].position.y, posZ);
-        // posZ = 0.67 * window.innerWidth - 4800;
-        // corridorObjects["shoes"][1].position.set(corridorObjects["shoes"][1].position.x, corridorObjects["shoes"][1].position.y, posZ);
-       
-        // Bench
-        // posZ = 0.67 * window.innerWidth - 3300;
-        // corridorObjects["bench"].position.set(corridorObjects["bench"].position.x, corridorObjects["bench"].position.y, posZ);
    
         // Painting
         posZ = 0.67 * window.innerWidth - 3300;
@@ -310,25 +281,12 @@ function goToCorridor(intersects){
         switch(positionState){
             case 0:
                 camera.position.set(0, 0, 0);
-                // corridorObjects["character"].position.set(0, -500, -600); 
                 break;
             case 1:
                 camera.position.set(0, 0, -1900);
-                // corridorObjects["character"].position.set(0, -500, -2500); 
                 break;
                                 
         }
-
-        // // Reset the character
-        // corridorObjects["character"].scale.setScalar(1.5);
-
-        // // Reset the animation
-        // corridorObjects["character"].rotation.set(0, Math.PI, 0)
-        // if(corridorActions["sittingIdle"].isRunning()){ corridorActions["sittingIdle"].stop();}
-        // if(corridorActions["sittingPose"].isRunning()){ corridorActions["sittingPose"].stop();}
-        // if(corridorActions["writing"].isRunning()){ corridorActions["writing"].stop();}
-        // if(corridorActions["laying"].isRunning()){ corridorActions["laying"].stop();}
-        // corridorActions["stand"].play();
 
         // Reset the room variable
         room = -1;
@@ -348,44 +306,15 @@ function goToRoom(intersects, doorName, doorId){
             switch(doorId){
                 case 0:
                     camera.position.set(-1400, 100, 100);
-                    // corridorObjects["character"].scale.setScalar(1.7);
-                    // corridorObjects["character"].position.set(-1750, -300, -1450);
-                    // corridorObjects["character"].rotation.set(0, 0, 0);
-                    // if(corridorActions["stand"].isRunning()){
-                    //     corridorActions["stand"].stop();
-                    // }
-                    // corridorActions["sittingPose"].play();
                     break;
                 case 1:
-                    // corridorObjects["character"].scale.setScalar(1.7);
-                    // corridorObjects["character"].position.set(1430, -460, -1050);
-                    // corridorObjects["character"].rotation.set(0, Math.PI, 0)
-                    // if(corridorActions["stand"].isRunning()){
-                    //     corridorActions["stand"].stop();
-                    // }
-                    // corridorActions["writing"].play();
                     camera.position.set(1400, 100, 0);
                     break;
                 case 2:
                     camera.position.set(-1400, 100, -2400);
-                    // if (room2Videos["video"] != undefined){ 
-                    //     room2Videos["video"].play();
-                    // }
-                    // corridorObjects["character"].position.set(-1100, -400, -3300);
-                    // corridorObjects["character"].rotation.set(0, -Math.PI/2, 0)
-                    // if(corridorActions["stand"].isRunning()){
-                    //     corridorActions["stand"].stop();
-                    // }
-                    // corridorActions["sittingIdle"].play();
                     break;
                 case 3:
                     camera.position.set(1400, 100, -2400);
-                    // corridorObjects["character"].position.set(1550, 235, -3800);
-                    // corridorObjects["character"].rotation.set(0, 0, 0)
-                    // if(corridorActions["stand"].isRunning()){
-                    //     corridorActions["stand"].stop();
-                    // }
-                    // corridorActions["laying"].play();
                     break;
                 default:
                     break;
@@ -469,44 +398,31 @@ function animate() {
 
     // Walk
     if (arrowClicked == true){
-        walkTo(positionState, corridorObjects, corridorActions, camera);
+        startWalk(positionState, corridorObjects, camera);
     }
 
     // Stop walking at the second position
-    // if ((arrowClicked == true) && (corridorObjects["character"].position.z < -2500) && (positionState == 0)){
     if ((arrowClicked == true) && (camera.position.z < -1900) && (positionState == 0)){
-        stopWalk(positionState, corridorObjects, corridorActions);
+        stopWalk(positionState, corridorObjects);
         arrowClicked = false;
         positionState = 1;
     } 
 
     // Stop walking at first position
-    // if ((arrowClicked == true) && (positionState == 1) && (corridorObjects["character"].position.z > -600)){
     if ((arrowClicked == true) && (positionState == 1) && (camera.position.z > 0)){
-        stopWalk(positionState, corridorObjects, corridorActions);
+        stopWalk(positionState, corridorObjects);
         arrowClicked = false;
         positionState = 0;
     } 
 
     // Update mixers
     const delta = clock.getDelta();
-
-    // if ( corridorMixers["rightTurn"] ) corridorMixers["rightTurn"].update( delta );
  
 
     switch(room){
         case -1:
-            // Update animation
-            // if ( corridorMixers["walk"] ) corridorMixers["walk"].update( delta );
-            // if ( corridorMixers["stand"] ) corridorMixers["stand"].update( delta );
-            // if ( corridorMixers["jogBackwards"] ) corridorMixers["jogBackwards"].update( delta );
             break; 
-
         case 0:
-            // Update animation
-            // if ( corridorMixers["sittingPose"] ) corridorMixers["sittingPose"].update( delta );
-           
-            // Rotates cubes of room 0
             room0Objects["boxComputing"].rotation.y += 0.01
             room0Objects["boxAsso"].rotation.y += 0.01
             room0Objects["boxSport"].rotation.y += 0.01
@@ -514,20 +430,12 @@ function animate() {
             break;
 
         case 1:
-            // Update animation
-            if ( corridorMixers["writing"] ) corridorMixers["writing"].update( delta );
-
-            // Rotates cubes of room 1
             room1Objects["boxCpe"].rotation.y += 0.01;
             room1Objects["boxCharlemagne"].rotation.y += 0.01
             room1Objects["boxHenri"].rotation.y += 0.01              
             break;
 
         case 2:
-            // Update animation
-            if ( corridorMixers["sittingIdle"] ) corridorMixers["sittingIdle"].update( delta );
-            
-            // Rotates cubes of room 2
             room2Objects["boxBarco"].rotation.y += 0.01;
             room2Objects["boxSncf1"].rotation.y += 0.01
             room2Objects["boxSncf2"].rotation.y += 0.01
@@ -543,20 +451,16 @@ function animate() {
             room2Objects["boxCompletude"].position.x = -1400 + 120 * Math.cos(theta + 3*Math.PI/2);
             room2Objects["boxCompletude"].position.z = -3500 + 260 * Math.sin(theta + 3*Math.PI/2);
 
-            // Run the video in room2
             if ( room2Videos["video"].readyState === room2Videos["video"].HAVE_ENOUGH_DATA ) 
             {
             	room2Videos["videoImageContext"].drawImage( room2Videos["video"], 0, 0 );
             	if ( room2Videos["videoTexture"] ) 
                     room2Videos["videoTexture"].needsUpdate = true;
             }
+
             break;
 
         case 3:
-            // Update animation
-            // if ( corridorMixers["laying"] ) corridorMixers["laying"].update( delta );
-
-            // Rotates cubes of room 3
             room3Objects["boxPython"].rotation.y += 0.01
             room3Objects["boxMatlab"].rotation.y += 0.01
             room3Objects["boxC++"].rotation.y += 0.01

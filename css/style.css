@@ -3,6 +3,8 @@
 body {
     margin: 0;
     height: 100%;
+    width:100%;
+    position: relative;
 }
 
 html {
@@ -17,9 +19,10 @@ html {
 
 .button_container {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 30%;
+    top: 40%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 800px;
+    height: 500px;
 }
 
 .title, .link {
@@ -29,7 +32,7 @@ html {
 }
 
 .title {
-    font-size: 60px;
+    font-size: 100px;
     color:white;
 }
 
@@ -58,11 +61,11 @@ html {
     overflow: hidden;
     position: relative;
     color: #fff;
-    font-size: 20px;
+    font-size: 70px;
     background-color: #222;
-    padding: 17px 60px;
-    margin: 10px auto;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+    padding: 30px 100px;
+    margin: 30px auto;
+    box-shadow: 10px 15px 10px rgb(0 0 0 / 40%);
     font-family: 'Bangers', cursive;
 }
 

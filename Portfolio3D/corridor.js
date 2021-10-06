@@ -1,24 +1,20 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import {OBJLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/OBJLoader.js';
-import {MTLLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/MTLLoader.js';
-import { createTitle, loadFBXModel } from './utils.js';
+import { createTitle } from './utils.js';
 
 export function initCorridor(scene, manager){
 
     let objects = {};
-    let materials = {}
-    let mixers = {}
-    let actions = {};
+    let materials = {};
     let lights = {};
 
-    // // Hemisphere Light
+    // Hemisphere Light
     const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x555555 );
     hemiLight.position.set(0, 100, 0);
     scene.add( hemiLight );
     lights["hemiLight"] = hemiLight;
 
-    // // Directional Light
+    // Directional Light
     const dirLight = new THREE.DirectionalLight( 0xffffff );
     dirLight.position.set(0, 300, 300);
     dirLight.castShadow = true;
@@ -64,111 +60,6 @@ export function initCorridor(scene, manager){
     corridor.position.set(0, 0, -3000)
     scene.add( corridor );  
     objects["corridor"] = corridor;
-
-
-    // // Character
-    // const loaderCharacter = new FBXLoader(manager);
-    // loaderCharacter.load('models/corridor/malcolm/malcolm.fbx', (character) => {
-
-    //     // Load the model
-    //     character.scale.setScalar(1.5);
-    //     character.position.set(0, -500, -600)
-    //     character.rotation.set(0, Math.PI, 0)
-    //     character.traverse(child => {
-    //         child.castShadow = true;
-    //         child.receiveShadow = true;
-    //     });
-        
-
-    //     // Load the walk animation
-    //     const animWalk = new FBXLoader(manager);
-    //     animWalk.load('models/corridor/malcolm/malcolm_walk.fbx', (animWalk) => {
-    //         const mixer = new THREE.AnimationMixer(character);     
-    //         const action = mixer.clipAction( animWalk.animations[0] );
-    //         mixers["walk"] = mixer
-    //         actions["walk"] = action;
-    //     });
-        
-    //     // Load the stand animation
-    //     const animStand = new FBXLoader(manager);
-    //     animStand.load('models/corridor/malcolm/malcolm_stand.fbx', (animStand) => {
-    //         const mixer = new THREE.AnimationMixer(character);
-    //         const action = mixer.clipAction(animStand.animations[0]);
-    //         mixers["stand"] = mixer
-    //         actions["stand"] = action;
-    //         action.play();
-    //     });
-
-    //     // // Load the stand animation
-    //     // const animRightTurn = new FBXLoader(manager);
-    //     // animRightTurn.load('models/corridor/paladin/right_turn.fbx', (animRightTurn) => {
-    //     //     const mixer = new THREE.AnimationMixer(character);
-    //     //     const action = mixer.clipAction(animRightTurn.animations[0]);
-    //     //     action.loop = THREE.LoopOnce;
-    //     //     action.clampWhenFinished = true;
-    //     //     mixers["rightTurn"] = mixer
-    //     //     mixer.timeScale = 0.4;
-    //     //     mixer.addEventListener( 'finished', finishRightTurn );
-    //     //     actions["rightTurn"] = action;
-    //     // });
-
-    //     // Load the jog backwards
-    //     const jogBackwards = new FBXLoader(manager);
-    //     jogBackwards.load('models/corridor/malcolm/jog_backwards.fbx', (animJogBackwards) => {
-    //         const mixer = new THREE.AnimationMixer(character);     
-    //         const action = mixer.clipAction( animJogBackwards.animations[0] );
-    //         mixers["jogBackwards"] = mixer
-    //         actions["jogBackwards"] = action;
-    //     });
-
-    //     // Load the sitting idle
-    //     const sittingIdle = new FBXLoader(manager);
-    //     sittingIdle.load('models/corridor/malcolm/sitting_idle.fbx', (animSittingIdle) => {
-    //         const mixer = new THREE.AnimationMixer(character);     
-    //         const action = mixer.clipAction( animSittingIdle.animations[0] );
-    //         mixers["sittingIdle"] = mixer
-    //         actions["sittingIdle"] = action;
-    //     });
-
-    //     // Load the writing
-    //     const writing = new FBXLoader(manager);
-    //     writing.load('models/corridor/malcolm/writing.fbx', (animWriting) => {
-    //         const mixer = new THREE.AnimationMixer(character);     
-    //         const action = mixer.clipAction( animWriting.animations[0] );
-    //         mixers["writing"] = mixer
-    //         actions["writing"] = action;
-    //     });
-
-    //     // Load the sitting pose
-    //     const sittingPose = new FBXLoader(manager);
-    //     sittingPose.load('models/corridor/malcolm/sitting_pose.fbx', (animSittingPose) => {
-    //         const mixer = new THREE.AnimationMixer(character);     
-    //         const action = mixer.clipAction( animSittingPose.animations[0] );
-    //         mixers["sittingPose"] = mixer;
-    //         actions["sittingPose"] = action;
-    //     });
-
-    //     // Load the laying pose
-    //     const laying = new FBXLoader(manager);
-    //     laying.load('models/corridor/malcolm/laying.fbx', (animLaying) => {
-    //         const mixer = new THREE.AnimationMixer(character);     
-    //         const action = mixer.clipAction( animLaying.animations[0] );
-    //         mixers["laying"] = mixer;
-    //         actions["laying"] = action;
-    //     });
-
-    //     objects["character"] = character;
-    //     scene.add(character);
-
-    // });
-
-    // let rightTurnFinished = false;
-
-    // function finishRightTurn(){
-    //     rightTurnFinished = true;
-    //     actions["rightTurn"].reset()
-    // }
-
 
     // Doors
     let doors = [];
@@ -278,23 +169,6 @@ export function initCorridor(scene, manager){
             
         } );
     }
-
-    // Plant
-    // const plantUrl = 'models/corridor/plant2/plant.fbx';
-    // const plantPosZ = 0.67 * window.innerWidth - 5000;
-    // const plantPos = new THREE.Vector3(370, -480, plantPosZ);
-    // const plantRot = new THREE.Vector3(0, Math.PI, 0);
-    // const plantScale = 0.6;
-    // const plantName = 'plant'
-    // loadFBXModel(scene, manager, objects, plantUrl, plantPos, plantRot, plantScale, plantName);
-
-    // Shelf
-    // const bookShelfUrl = 'models/corridor/bookshelf/bookshelf.fbx';
-    // const bookShelfPos = new THREE.Vector3(-800, -480, -6000);
-    // const bookShelfRot = new THREE.Vector3(0, 0, 0);
-    // const bookShelfScale = 6;
-    // const bookShelfName = 'bookshelf';
-    // loadFBXModel(scene, manager, objects, bookShelfUrl, bookShelfPos, bookShelfRot, bookShelfScale, bookShelfName);
     
     // Shelf
     const bookShelfGeo = new THREE.BoxGeometry(650, 850, 50);
@@ -323,24 +197,6 @@ export function initCorridor(scene, manager){
         createDoorMat(scene, manager, objects, doormatUrl, doormatPos, doormatRot, doormatName);
     }
 
-    // Table
-    // const tableUrl = 'models/corridor/table/table.fbx';
-    // const tablePosZ = 0.67 * window.innerWidth - 3300
-    // const tablePos = new THREE.Vector3(370, -480, tablePosZ);
-    // const tableRot = new THREE.Vector3(0, 0, 0);
-    // const tableScale = 0.19;
-    // const tableName = 'table';
-    // loadFBXModel(scene, manager, objects, tableUrl, tablePos, tableRot, tableScale, tableName);
-
-    // Lamp
-    // const lampUrl = 'models/corridor/lamp/lamp.fbx';
-    // const lampPosZ = 0.67 * window.innerWidth - 3220
-    // const lampPos = new THREE.Vector3(355, -190, lampPosZ);
-    // const lampRot = new THREE.Vector3(0, 0, 0);
-    // const lampScale = 0.03;
-    // const lampName = 'lamp';
-    // loadFBXModel(scene, manager, objects, lampUrl, lampPos, lampRot, lampScale, lampName);
-
     // Wall Lamp
     const wallLampUrl = 'models/corridor/lampwall/lamp_wall.fbx';
     const wallLampXPositions = [-400, 400, -400, 400];
@@ -354,56 +210,6 @@ export function initCorridor(scene, manager){
         const wallLampRot = new THREE.Vector3(0, wallLampRotations[i], 0);
         createWallLamps(scene, manager, objects, wallLampUrl, wallLampPos, wallLampRot, wallLampScale, wallLampName);
     }
-
-    // Shoes
-    // const shoes = [];
-    // let shoesPosZ; 
-    // var mtlLoader = new MTLLoader(manager);
-    // mtlLoader.load( 'models/corridor/shoes/all_star.mtl', function( materials ) {
-    
-    //     materials.preload();
-    
-    //     var objLoader = new OBJLoader(manager);
-    //     objLoader.setMaterials( materials );
-    //     objLoader.load( 'models/corridor/shoes/all_star.obj', function ( object ) {
-    
-    //         object.scale.setScalar(45);
-    //         shoesPosZ = 0.67 * window.innerWidth - 4700;
-    //         object.position.set(-370, -500, shoesPosZ);
-    //         object.rotation.set(0, Math.PI/2, 0);
-    //         scene.add(object);
-    //         shoes.push(object)
-    
-    //         let object2 = object.clone();
-    //         shoesPosZ = 0.67 * window.innerWidth - 4800;
-    //         object2.position.set(-370, -500, shoesPosZ);
-    //         scene.add(object2);
-    //         shoes.push(object2)
-    //     });
-    
-    // });
-    // objects["shoes"] = shoes;
-
-    // Bench
-    // let benchPosZ;
-    // var benchLoader = new MTLLoader(manager);
-    // benchLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.mtl', function( materials ) {
-    
-    //     materials.preload();
-    
-    //     var objLoader = new OBJLoader(manager);
-    //     objLoader.setMaterials( materials );
-    //     objLoader.load( 'models/corridor/bench/LaylaGrayce_Cream_Double_Bench.obj', function ( bench ) {
-    
-    //         bench.scale.setScalar(4);
-    //         benchPosZ = 0.67 * window.innerWidth - 3300;
-    //         bench.position.set(-370, -500, benchPosZ);
-    //         bench.rotation.set(-Math.PI/2, 0, Math.PI/2);
-    //         scene.add( bench );
-    //         objects["bench"] = bench;
-    //     });
-    
-    // });
 
     // Painting
     const paintingGeo = new THREE.BoxGeometry(10, 400, 700);
@@ -425,7 +231,7 @@ export function initCorridor(scene, manager){
     objects["painting2"] = painting2;
     scene.add(painting2);
 
-    return [objects, materials, mixers, actions, lights];
+    return [objects, materials, lights];
 
 }
 
@@ -467,5 +273,4 @@ function createWallLamps(scene, manager, objects, url, position, rotation, scale
     });
 
 }
-
 
